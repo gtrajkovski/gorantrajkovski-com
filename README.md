@@ -32,15 +32,23 @@ python -m http.server 8000
 
 ## Deploy to Cloudflare Pages (free, recommended)
 
-1. Sign in at https://dash.cloudflare.com/ (free account)
-2. **Workers & Pages** → **Create** → **Pages** → **Upload assets**
-3. Project name: `gorantrajkovski-com`
-4. Drag the entire `gorantrajkovski-com/` folder into the upload box
-5. Click **Deploy site** — you'll get a `*.pages.dev` URL in ~30s
-6. **Custom domain** tab → add `gorantrajkovski.com` and `www.gorantrajkovski.com`
-7. Cloudflare will guide you through nameserver / CNAME setup at GoDaddy
+This repo lives at https://github.com/gtrajkovski/gorantrajkovski-com — connecting it to Cloudflare Pages gives you auto-deploys on every `git push`.
 
-**Optional but better:** Connect a GitHub repo instead of uploading — every `git push` auto-deploys.
+**Git-connected deploy (best):**
+1. Sign in at https://dash.cloudflare.com/ (free account)
+2. **Workers & Pages** → **Create** → **Pages** → **Connect to Git**
+3. Authorize Cloudflare to access your GitHub, pick `gtrajkovski/gorantrajkovski-com`
+4. Build settings:
+   - Framework preset: **None**
+   - Build command: *(leave blank)*
+   - Build output directory: `/`
+5. **Save and Deploy** — you'll get a `*.pages.dev` URL in ~30s
+6. **Custom domain** tab → add `gorantrajkovski.com` and `www.gorantrajkovski.com`
+7. Every `git push origin main` after this auto-deploys.
+
+**Manual upload deploy (no Git):**
+1. **Workers & Pages** → **Create** → **Pages** → **Upload assets**
+2. Drag the entire site folder into the upload box → **Deploy**
 
 ## Deploy to Netlify (alternative, also free)
 
