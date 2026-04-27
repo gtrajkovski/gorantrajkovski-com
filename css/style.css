@@ -171,17 +171,19 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
   font-weight: 600;
 }
 .nav__brand-mark {
-  display: inline-grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  background: var(--ink);
-  color: var(--accent);
-  font-family: var(--serif);
-  font-size: 22px;
-  font-weight: 700;
-  border-radius: 8px;
-  letter-spacing: -0.02em;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--paper-2);
+  border: 2px solid var(--line);
+  display: block;
+  flex-shrink: 0;
+  transition: border-color .25s var(--t), transform .25s var(--t);
+}
+.nav__brand:hover .nav__brand-mark {
+  border-color: var(--accent);
+  transform: scale(1.05);
 }
 .nav__brand-name {
   font-size: 15px;
@@ -1022,21 +1024,23 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
 .theme-toggle {
   display: inline-grid;
   place-items: center;
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  border: 1px solid var(--line);
-  background: transparent;
-  color: var(--ink-2);
+  border: 1.5px solid var(--line);
+  background: var(--paper-2);
+  color: var(--ink);
   cursor: pointer;
   transition: all .25s var(--t);
+  flex-shrink: 0;
 }
 .theme-toggle:hover {
   color: var(--accent);
   border-color: var(--accent);
+  background: var(--accent-bg);
   transform: rotate(15deg);
 }
-.theme-toggle svg { width: 18px; height: 18px; }
+.theme-toggle svg { width: 20px; height: 20px; }
 .theme-toggle .icon-moon { display: none; }
 :root[data-theme="dark"] .theme-toggle .icon-sun { display: none; }
 :root[data-theme="dark"] .theme-toggle .icon-moon { display: block; }
