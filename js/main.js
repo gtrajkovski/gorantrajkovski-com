@@ -93,6 +93,65 @@
   window.addEventListener('hashchange', update);
 })();
 
+// ===== Inquiry form (FormSubmit AJAX) =====
+(function () {
+  const init = () => {
+    const form = document.getElementById('inquiry-form');
+    if (!form || form.dataset.bound) return;
+    form.dataset.bound = '1';
+    const status = document.getElementById('inquiry-status');
+    const submitBtn = form.querySelector('.inquiry-form__submit');
+    const T = (k) => ({
+      en: { sending: 'Sending…', ok: 'Thanks — message received. I\'ll be in touch within a couple of business days.', err: 'Something went wrong. Please email goran@gorantrajkovski.com directly.' },
+      es: { sending: 'Enviando…', ok: 'Gracias — mensaje recibido. Te contactaré en un par de días laborables.', err: 'Algo salió mal. Por favor, escríbeme directamente a goran@gorantrajkovski.com.' },
+      mk: { sending: 'Се испраќа…', ok: 'Благодарам — пораката е примена. Ќе ве контактирам во рок од неколку работни дена.', err: 'Нешто не успеа. Ве молам, пишете директно на goran@gorantrajkovski.com.' },
+    })[document.documentElement.lang] ? ({
+      en: { sending: 'Sending…', ok: 'Thanks — message received. I\'ll be in touch within a couple of business days.', err: 'Something went wrong. Please email goran@gorantrajkovski.com directly.' },
+      es: { sending: 'Enviando…', ok: 'Gracias — mensaje recibido. Te contactaré en un par de días laborables.', err: 'Algo salió mal. Por favor, escríbeme directamente a goran@gorantrajkovski.com.' },
+      mk: { sending: 'Се испраќа…', ok: 'Благодарам — пораката е примена. Ќе ве контактирам во рок од неколку работни дена.', err: 'Нешто не успеа. Ве молам, пишете директно на goran@gorantrajkovski.com.' },
+    })[document.documentElement.lang][k] : ({
+      sending: 'Sending…', ok: 'Thanks — message received.', err: 'Something went wrong.'
+    })[k];
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      // Honeypot: if filled, silently "succeed" without sending
+      if (form.querySelector('.inquiry-form__honey')?.value) {
+        status.textContent = T('ok');
+        status.className = 'inquiry-form__status is-success';
+        form.reset();
+        return;
+      }
+      status.textContent = T('sending');
+      status.className = 'inquiry-form__status';
+      submitBtn.disabled = true;
+      try {
+        const data = new FormData(form);
+        const r = await fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: { Accept: 'application/json' },
+        });
+        if (r.ok) {
+          status.textContent = T('ok');
+          status.className = 'inquiry-form__status is-success';
+          form.reset();
+        } else {
+          throw new Error('non-ok');
+        }
+      } catch (_) {
+        status.textContent = T('err');
+        status.className = 'inquiry-form__status is-error';
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else { init(); }
+})();
+
 // ===== Scroll reveal =====
 (function () {
   if (!('IntersectionObserver' in window)) return;

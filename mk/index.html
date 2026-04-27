@@ -51,7 +51,7 @@
             <a href="/mk/" class="is-active" hreflang="mk">MK</a>
           </div>
         </li>
-        <li><button type="button" data-cal-link="goran-trajkovski/discovery" data-cal-namespace="discovery" data-cal-config='{"layout":"month_view"}' class="nav__cta">Закажи разговор</button></li>
+        <li><a href="/mk/#contact" class="nav__cta">Контакт</a></li>
       </ul>
       <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Темен/светол режим" title="Темен/светол режим">
             <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
@@ -75,7 +75,7 @@
         од некој што го прави ова од <strong>1995</strong> година.
       </p>
       <div class="hero__ctas">
-        <button type="button" data-cal-link="goran-trajkovski/discovery" data-cal-namespace="discovery" data-cal-config='{"layout":"month_view"}' class="btn btn--primary">Закажи воведен разговор →</button>
+        <a href="#contact" class="btn btn--primary">Кажи ми за проектот →</a>
         <a href="#services" class="btn btn--ghost">Како работам</a>
       </div>
     </div>
@@ -650,26 +650,70 @@
         </p>
       </div>
 
-      <div class="contact__cards">
-        <article class="contact-card">
-          <p class="contact-card__tag">Нов проект</p>
-          <h3 class="contact-card__title">Разговарај со Алан</h3>
-          <p class="contact-card__body">
-            Алан се грижи за првата комуникација и ве упатува до соодветниот разговор.
-            Најдобро за прв контакт и за дефинирање на обемот на ангажманот.
-          </p>
-          <a class="contact-card__link" href="mailto:alan@gorantrajkovski.com">alan@gorantrajkovski.com →</a>
-        </article>
+      <form class="inquiry-form" id="inquiry-form" action="https://formsubmit.co/ajax/goran@gorantrajkovski.com" method="POST">
+        <div class="inquiry-form__row">
+          <label class="inquiry-field">
+            <span>Вашето име *</span>
+            <input type="text" name="name" required autocomplete="name" />
+          </label>
+          <label class="inquiry-field">
+            <span>Е-пошта *</span>
+            <input type="email" name="email" required autocomplete="email" />
+          </label>
+        </div>
+        <div class="inquiry-form__row">
+          <label class="inquiry-field">
+            <span>Компанија / Улога</span>
+            <input type="text" name="company" autocomplete="organization" />
+          </label>
+          <label class="inquiry-field">
+            <span>Услуга од интерес</span>
+            <select name="service">
+              <option value="">— Изберете една —</option>
+              <option>Обука и оспособување за ВИ</option>
+              <option>Дизајн на курсеви и програми</option>
+              <option>Евалуација и акредитација</option>
+              <option>Стратегија за EdTech и ВИ</option>
+              <option>Извршни брифинзи и работилници</option>
+              <option>Поддршка во одлуки засновани на податоци</option>
+              <option>Говори / медиуми / советодавно</option>
+              <option>Друго</option>
+            </select>
+          </label>
+        </div>
+        <label class="inquiry-field">
+          <span>Што се обидувате да решите? *</span>
+          <textarea name="message" required rows="5" placeholder="Неколку реченици за контекстот, јазот и како изгледа целта."></textarea>
+        </label>
+        <div class="inquiry-form__row">
+          <label class="inquiry-field">
+            <span>Временска рамка</span>
+            <select name="timeline">
+              <option value="">— Незадолжително —</option>
+              <option>Веднаш</option>
+              <option>1–3 месеци</option>
+              <option>3–6 месеци</option>
+              <option>Само истражувам</option>
+            </select>
+          </label>
+          <label class="inquiry-field">
+            <span>Како дојдовте до мене?</span>
+            <input type="text" name="source" />
+          </label>
+        </div>
+        <input type="text" name="_honey" class="inquiry-form__honey" tabindex="-1" autocomplete="off" />
+        <input type="hidden" name="_subject" value="Ново барање од gorantrajkovski.com" />
+        <input type="hidden" name="_template" value="table" />
+        <input type="hidden" name="_captcha" value="false" />
 
-        <article class="contact-card contact-card--primary">
-          <p class="contact-card__tag">Директно</p>
-          <h3 class="contact-card__title">Контактирај ме директно</h3>
-          <p class="contact-card__body">
-            За постоечки клиенти, говори, медиуми и покани за советодавни улоги.
+        <div class="inquiry-form__footer">
+          <button type="submit" class="btn btn--primary inquiry-form__submit">Испрати →</button>
+          <p class="inquiry-form__note">
+            Или пишете директно на <a href="mailto:goran@gorantrajkovski.com">goran@gorantrajkovski.com</a>
           </p>
-          <a class="contact-card__link" href="mailto:goran@gorantrajkovski.com">goran@gorantrajkovski.com →</a>
-        </article>
-      </div>
+        </div>
+        <div class="inquiry-form__status" id="inquiry-status" aria-live="polite"></div>
+      </form>
 
       <div class="contact__elsewhere">
         <a href="https://linkedin.com/in/gorantrajkovski" target="_blank" rel="noopener">LinkedIn</a>
@@ -691,11 +735,5 @@
   </footer>
 
   <script src="/js/main.js"></script>
-
-  <script type="text/javascript">
-    (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ["initNamespace", namespace]); } else p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
-    Cal("init", "discovery", {origin:"https://cal.com"});
-    Cal.ns.discovery("ui", {"cssVarsPerTheme":{"light":{"cal-brand":"#C8521C"},"dark":{"cal-brand":"#C8521C"}},"hideEventTypeDetails":false,"layout":"month_view"});
-  </script>
 </body>
 </html>

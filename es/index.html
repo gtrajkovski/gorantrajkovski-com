@@ -51,7 +51,7 @@
             <a href="/mk/" hreflang="mk">MK</a>
           </div>
         </li>
-        <li><button type="button" data-cal-link="goran-trajkovski/discovery" data-cal-namespace="discovery" data-cal-config='{"layout":"month_view"}' class="nav__cta">Reservar llamada</button></li>
+        <li><a href="/es/#contact" class="nav__cta">Contacto</a></li>
       </ul>
       <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Alternar modo oscuro" title="Alternar modo oscuro">
             <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
@@ -75,7 +75,7 @@
         de la mano de alguien que lleva en esto desde <strong>1995</strong>.
       </p>
       <div class="hero__ctas">
-        <button type="button" data-cal-link="goran-trajkovski/discovery" data-cal-namespace="discovery" data-cal-config='{"layout":"month_view"}' class="btn btn--primary">Reservar una llamada inicial →</button>
+        <a href="#contact" class="btn btn--primary">Cuéntame sobre tu proyecto →</a>
         <a href="#services" class="btn btn--ghost">Cómo trabajo</a>
       </div>
     </div>
@@ -652,26 +652,70 @@
         </p>
       </div>
 
-      <div class="contact__cards">
-        <article class="contact-card">
-          <p class="contact-card__tag">Nuevo proyecto</p>
-          <h3 class="contact-card__title">Habla con Alan</h3>
-          <p class="contact-card__body">
-            Alan gestiona la primera toma de contacto y te conecta con la conversación correcta.
-            Ideal para presentaciones iniciales y para definir el alcance de un proyecto.
-          </p>
-          <a class="contact-card__link" href="mailto:alan@gorantrajkovski.com">alan@gorantrajkovski.com →</a>
-        </article>
+      <form class="inquiry-form" id="inquiry-form" action="https://formsubmit.co/ajax/goran@gorantrajkovski.com" method="POST">
+        <div class="inquiry-form__row">
+          <label class="inquiry-field">
+            <span>Tu nombre *</span>
+            <input type="text" name="name" required autocomplete="name" />
+          </label>
+          <label class="inquiry-field">
+            <span>Correo electrónico *</span>
+            <input type="email" name="email" required autocomplete="email" />
+          </label>
+        </div>
+        <div class="inquiry-form__row">
+          <label class="inquiry-field">
+            <span>Empresa / Cargo</span>
+            <input type="text" name="company" autocomplete="organization" />
+          </label>
+          <label class="inquiry-field">
+            <span>Servicio de interés</span>
+            <select name="service">
+              <option value="">— Elige uno —</option>
+              <option>Formación y Habilitación en IA</option>
+              <option>Diseño de Cursos y Programas</option>
+              <option>Evaluación y Acreditación</option>
+              <option>Estrategia EdTech y de IA</option>
+              <option>Sesiones Ejecutivas y Talleres</option>
+              <option>Decisiones Basadas en Datos</option>
+              <option>Conferencias / prensa / asesoría</option>
+              <option>Otro</option>
+            </select>
+          </label>
+        </div>
+        <label class="inquiry-field">
+          <span>¿Qué intentas resolver? *</span>
+          <textarea name="message" required rows="5" placeholder="Unas líneas sobre el contexto, la brecha y cómo se ve el resultado esperado."></textarea>
+        </label>
+        <div class="inquiry-form__row">
+          <label class="inquiry-field">
+            <span>Plazo</span>
+            <select name="timeline">
+              <option value="">— Opcional —</option>
+              <option>Inmediato</option>
+              <option>1–3 meses</option>
+              <option>3–6 meses</option>
+              <option>Solo explorando</option>
+            </select>
+          </label>
+          <label class="inquiry-field">
+            <span>¿Cómo me encontraste?</span>
+            <input type="text" name="source" />
+          </label>
+        </div>
+        <input type="text" name="_honey" class="inquiry-form__honey" tabindex="-1" autocomplete="off" />
+        <input type="hidden" name="_subject" value="Nueva consulta desde gorantrajkovski.com" />
+        <input type="hidden" name="_template" value="table" />
+        <input type="hidden" name="_captcha" value="false" />
 
-        <article class="contact-card contact-card--primary">
-          <p class="contact-card__tag">Directo</p>
-          <h3 class="contact-card__title">Contáctame directamente</h3>
-          <p class="contact-card__body">
-            Para clientes existentes, conferencias, prensa e invitaciones de asesoría.
+        <div class="inquiry-form__footer">
+          <button type="submit" class="btn btn--primary inquiry-form__submit">Enviar →</button>
+          <p class="inquiry-form__note">
+            O escríbeme directamente a <a href="mailto:goran@gorantrajkovski.com">goran@gorantrajkovski.com</a>
           </p>
-          <a class="contact-card__link" href="mailto:goran@gorantrajkovski.com">goran@gorantrajkovski.com →</a>
-        </article>
-      </div>
+        </div>
+        <div class="inquiry-form__status" id="inquiry-status" aria-live="polite"></div>
+      </form>
 
       <div class="contact__elsewhere">
         <a href="https://linkedin.com/in/gorantrajkovski" target="_blank" rel="noopener">LinkedIn</a>
@@ -693,11 +737,5 @@
   </footer>
 
   <script src="/js/main.js"></script>
-
-  <script type="text/javascript">
-    (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ["initNamespace", namespace]); } else p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
-    Cal("init", "discovery", {origin:"https://cal.com"});
-    Cal.ns.discovery("ui", {"cssVarsPerTheme":{"light":{"cal-brand":"#C8521C"},"dark":{"cal-brand":"#C8521C"}},"hideEventTypeDetails":false,"layout":"month_view"});
-  </script>
 </body>
 </html>
