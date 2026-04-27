@@ -82,9 +82,9 @@ BOOKS = [
     ('healthcare_data_analytics.jpg',
      'Principles of Healthcare Data Analytics',
      'Principles of Healthcare Data Analytics',
-     'A Conceptual and Practical Approach',
-     'Un enfoque conceptual y práctico',
-     'Концептуален и практичен пристап'),
+     'A Conceptual and Practical Approach · Cognella Textbook',
+     'Un enfoque conceptual y práctico · Libro de texto Cognella',
+     'Концептуален и практичен пристап · Учебник на Cognella'),
 
     ('intro_to_data_science.png',
      'Introduction to Data Science',
@@ -92,6 +92,13 @@ BOOKS = [
      'A Structured Methodology',
      'Una metodología estructurada',
      'Структурирана методологија'),
+
+    ('most_beautiful_place.jpg',
+     'The Most Beautiful Place',
+     'The Most Beautiful Place',
+     '',
+     '',
+     ''),
 
     ('handbook_computational_arts.jpg',
      'Handbook of Research on Computational Arts and Creative Informatics',
@@ -127,13 +134,6 @@ BOOKS = [
      'An Imitation-Based Approach',
      'Un enfoque basado en imitación',
      'Пристап заснован на имитација'),
-
-    ('most_beautiful_place.jpg',
-     'The Most Beautiful Place',
-     'The Most Beautiful Place',
-     'A short illustrated work',
-     'Una obra ilustrada breve',
-     'Кратко илустрирано дело'),
 ]
 
 def render_grid(lang: str) -> str:
