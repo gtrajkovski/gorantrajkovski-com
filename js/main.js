@@ -1,6 +1,8 @@
 // ===== Year =====
-const yr = document.getElementById('year');
-if (yr) yr.textContent = new Date().getFullYear();
+(function () {
+  const yr = document.getElementById('year');
+  if (yr) yr.textContent = new Date().getFullYear();
+})();
 
 // ===== Theme (light / dark) =====
 (function () {
@@ -11,15 +13,27 @@ if (yr) yr.textContent = new Date().getFullYear();
   const initial = stored || (prefersDark ? 'dark' : 'light');
   root.setAttribute('data-theme', initial);
 
-  document.addEventListener('DOMContentLoaded', () => {
+  function attachToggle() {
     const toggle = document.getElementById('theme-toggle');
-    if (!toggle) return;
-    toggle.addEventListener('click', () => {
+    if (!toggle || toggle.dataset.bound) return;
+    toggle.dataset.bound = '1';
+    toggle.addEventListener('click', (e) => {
+      e.preventDefault();
       const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
       root.setAttribute('data-theme', next);
-      localStorage.setItem(KEY, next);
+      try { localStorage.setItem(KEY, next); } catch (_) { /* private mode */ }
     });
-  });
+  }
+
+  // Cover all timing cases: handler may need to bind whether DOM is still
+  // loading or already complete by the time this script runs.
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', attachToggle);
+  } else {
+    attachToggle();
+  }
+  // Belt + suspenders: also try on window load
+  window.addEventListener('load', attachToggle);
 
   // Follow OS changes (only if user hasn't set a preference)
   if (window.matchMedia) {
@@ -32,17 +46,19 @@ if (yr) yr.textContent = new Date().getFullYear();
 })();
 
 // ===== Sticky nav scroll state =====
-const nav = document.getElementById('nav');
-if (nav) {
+(function () {
+  const nav = document.getElementById('nav');
+  if (!nav) return;
   const onScroll = () => nav.classList.toggle('is-scrolled', window.scrollY > 12);
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
-}
+})();
 
 // ===== Mobile menu =====
-const navToggle = document.querySelector('.nav__toggle');
-const navLinks = document.querySelector('.nav__links');
-if (navToggle && navLinks) {
+(function () {
+  const navToggle = document.querySelector('.nav__toggle');
+  const navLinks = document.querySelector('.nav__links');
+  if (!navToggle || !navLinks) return;
   navToggle.addEventListener('click', () => {
     const open = navLinks.classList.toggle('is-open');
     navToggle.classList.toggle('is-open', open);
@@ -55,10 +71,11 @@ if (navToggle && navLinks) {
       navToggle.setAttribute('aria-expanded', 'false');
     });
   });
-}
+})();
 
 // ===== Scroll reveal =====
-if ('IntersectionObserver' in window) {
+(function () {
+  if (!('IntersectionObserver' in window)) return;
   const targets = document.querySelectorAll(
     '.section__head, .service, .case, .step, .book, .speaking li, .contact-card, .portfolio-card, .artifact'
   );
@@ -72,4 +89,4 @@ if ('IntersectionObserver' in window) {
     });
   }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
   targets.forEach(el => io.observe(el));
-}
+})();
