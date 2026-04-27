@@ -93,13 +93,6 @@ BOOKS = [
      'Una metodología estructurada',
      'Структурирана методологија'),
 
-    ('most_beautiful_place.jpg',
-     'The Most Beautiful Place',
-     'The Most Beautiful Place',
-     '',
-     '',
-     ''),
-
     ('handbook_computational_arts.jpg',
      'Handbook of Research on Computational Arts and Creative Informatics',
      'Computational Arts &amp; Creative Informatics',
