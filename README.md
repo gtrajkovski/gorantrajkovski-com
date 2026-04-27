@@ -89,6 +89,34 @@ The buttons open an inline modal with the calendar — no redirect, no page relo
 
 **Alternative:** if you'd rather use Calendly, replace the button markup with `<a href="https://calendly.com/your-link">…</a>` and remove the Cal embed `<script>` blocks at the bottom of both HTML files.
 
+## Portfolio encryption (real protection)
+
+Artifact URLs in `portfolio.html` (and `es/`, `mk/`) are **encrypted with AES-GCM**, with the key derived from a passphrase via PBKDF2-SHA256 (600K iterations). The passphrase is **never** in source — only the visitor enters it on the lock screen.
+
+**Current passphrase:** `forest-glass-leather-1995`
+
+**Files involved:**
+- `portfolio.source.html`, `es/portfolio.source.html`, `mk/portfolio.source.html` — *plaintext source* (gitignored, kept locally only)
+- `portfolio.html`, `es/portfolio.html`, `mk/portfolio.html` — *committed/deployed*, encrypted hrefs + injected `window.__lockData`
+- `build_portfolio_lock.py` — encryption build script
+- `js/lock.js` — Web Crypto-based decryption flow
+
+**To add or update an artifact link:**
+1. Edit the relevant `portfolio.source.html` (plaintext URLs)
+2. Run: `PORTFOLIO_PASSWORD='forest-glass-leather-1995' python build_portfolio_lock.py`
+3. The committed `portfolio.html` files get re-encrypted with a fresh salt
+4. Commit + push
+
+**To rotate the passphrase:**
+1. Choose a new strong passphrase
+2. Run: `PORTFOLIO_PASSWORD='your new passphrase' python build_portfolio_lock.py`
+3. Commit + push
+4. Tell your prospects/clients the new code
+
+**If you lose the `.source.html` files:** restore them from a git commit *before* the encryption was applied (run `git log -- portfolio.html` to find the commit, then `git show <commit>:portfolio.html > portfolio.source.html`). Then re-run the build.
+
+**Lock card includes:** "Don't have an access code? **Request it →**" — opens a prefilled email to `alan@gorantrajkovski.com` so prospects can ask for the code without leaving the page.
+
 ## Editing content
 
 - **Hero copy / headline** → `index.html` lines ~38–55

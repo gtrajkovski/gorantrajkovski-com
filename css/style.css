@@ -1178,3 +1178,16 @@ body.is-locked .portfolio-body { display: none; }
   60% { transform: translateX(-5px); }
   80% { transform: translateX(5px); }
 }
+
+.lock-card__request {
+  margin-top: 20px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.lock-card__request a {
+  color: var(--accent);
+  font-weight: 600;
+  border-bottom: 1px dashed currentColor;
+  margin-left: 4px;
+}
+.lock-card__request a:hover { border-bottom-style: solid; }
