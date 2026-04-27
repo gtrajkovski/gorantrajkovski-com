@@ -2,6 +2,35 @@
 const yr = document.getElementById('year');
 if (yr) yr.textContent = new Date().getFullYear();
 
+// ===== Theme (light / dark) =====
+(function () {
+  const root = document.documentElement;
+  const KEY = 'gt-theme';
+  const stored = localStorage.getItem(KEY);
+  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const initial = stored || (prefersDark ? 'dark' : 'light');
+  root.setAttribute('data-theme', initial);
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggle = document.getElementById('theme-toggle');
+    if (!toggle) return;
+    toggle.addEventListener('click', () => {
+      const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem(KEY, next);
+    });
+  });
+
+  // Follow OS changes (only if user hasn't set a preference)
+  if (window.matchMedia) {
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+      if (!localStorage.getItem(KEY)) {
+        root.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+      }
+    });
+  }
+})();
+
 // ===== Sticky nav scroll state =====
 const nav = document.getElementById('nav');
 if (nav) {
@@ -19,7 +48,6 @@ if (navToggle && navLinks) {
     navToggle.classList.toggle('is-open', open);
     navToggle.setAttribute('aria-expanded', String(open));
   });
-  // Close on link click
   navLinks.querySelectorAll('a').forEach(a => {
     a.addEventListener('click', () => {
       navLinks.classList.remove('is-open');
@@ -45,6 +73,3 @@ if ('IntersectionObserver' in window) {
   }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
   targets.forEach(el => io.observe(el));
 }
-
-// ===== Smooth-scroll offset for sticky nav (already smooth via CSS) =====
-// Handled by CSS scroll-behavior: smooth + scroll-margin-top below if needed

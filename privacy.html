@@ -9,10 +9,20 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230A0A0A'/%3E%3Ctext x='50' y='66' font-family='Georgia,serif' font-size='56' font-weight='700' text-anchor='middle' fill='%23C8521C'%3EG%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="/css/style.css" />
+
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#0E0E0C" />
+
+  <script>
+    (function(){var t=localStorage.getItem('gt-theme')||(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);})();
+  </script>
 
   <style>
     .legal { max-width: 760px; margin: 0 auto; padding: 100px var(--gutter) 80px; }
@@ -31,17 +41,30 @@
 
   <nav class="nav" id="nav">
     <div class="nav__wrap">
-      <a href="index.html" class="nav__brand">
+      <a href="/" class="nav__brand">
         <span class="nav__brand-mark">G</span>
         <span class="nav__brand-name">Goran Trajkovski</span>
       </a>
       <ul class="nav__links">
-        <li><a href="index.html#services">Services</a></li>
-        <li><a href="index.html#work">Work</a></li>
-        <li><a href="portfolio.html">Portfolio</a></li>
-        <li><a href="index.html#about">About</a></li>
-        <li><a href="index.html#books">Books</a></li>
-        <li><a href="index.html#contact" class="nav__cta">Book a call</a></li>
+        <li><a href="/#services">Services</a></li>
+        <li><a href="/#work">Work</a></li>
+        <li><a href="/portfolio.html">Portfolio</a></li>
+        <li><a href="/#about">About</a></li>
+        <li><a href="/#books">Books</a></li>
+        <li>
+          <div class="lang-switch" role="group" aria-label="Language">
+            <a href="/privacy.html" class="is-active" hreflang="en">EN</a>
+            <a href="/es/privacy.html" hreflang="es">ES</a>
+            <a href="/mk/privacy.html" hreflang="mk">MK</a>
+          </div>
+        </li>
+        <li>
+          <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+            <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          </button>
+        </li>
+        <li><a href="/#contact" class="nav__cta">Book a call</a></li>
       </ul>
       <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -50,7 +73,7 @@
   </nav>
 
   <main class="legal">
-    <a href="index.html" class="legal__back">← Back to home</a>
+    <a href="/" class="legal__back">← Back to home</a>
     <h1>Privacy Policy</h1>
     <p class="legal__updated">Last updated: 26 April 2026</p>
 
@@ -163,11 +186,11 @@
 
   <footer class="footer">
     <div class="container footer__inner">
-      <p>© <span id="year">2026</span> The Art of Living Large LLC. All rights reserved. · <a href="privacy.html" style="color:inherit;">Privacy</a></p>
+      <p>© <span id="year">2026</span> The Art of Living Large LLC. All rights reserved. · <a href="/privacy.html" style="color:inherit;">Privacy</a></p>
       <p class="footer__quote"><em>"If it cannot be measured, it cannot be accomplished."</em></p>
     </div>
   </footer>
 
-  <script src="js/main.js"></script>
+  <script src="/js/main.js"></script>
 </body>
 </html>

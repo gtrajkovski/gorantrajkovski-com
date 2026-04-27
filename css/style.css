@@ -25,6 +25,7 @@ ul, ol { list-style: none; }
 em { font-style: italic; }
 
 :root {
+  /* LIGHT THEME (default) */
   --paper: #FAFAF5;
   --paper-2: #F2F1EA;
   --ink: #0E0E0C;
@@ -35,7 +36,18 @@ em { font-style: italic; }
   --accent-soft: #E89570;
   --accent-bg: #FBE9DD;
 
-  --serif: 'Fraunces', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+  /* Inverse surfaces (proof bar, contact, footer) — always feel "dark" in both themes */
+  --bg-invert: #0E0E0C;
+  --bg-invert-soft: rgba(255,255,255,.04);
+  --bg-invert-border: rgba(255,255,255,.10);
+  --text-invert: #FAFAF5;
+  --text-invert-muted: rgba(250,250,245,.7);
+  --text-invert-faint: rgba(250,250,245,.55);
+
+  --nav-bg: rgba(250, 250, 245, 0.85);
+  --nav-bg-scrolled: rgba(250, 250, 245, 0.95);
+
+  --serif: 'EB Garamond', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
   --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
   --container: 1200px;
@@ -48,6 +60,37 @@ em { font-style: italic; }
   --shadow-md: 0 8px 24px rgba(14,14,12,.08), 0 2px 6px rgba(14,14,12,.04);
 
   --t: cubic-bezier(.4,0,.2,1);
+}
+
+/* DARK THEME — applied via [data-theme="dark"] on <html> */
+:root[data-theme="dark"] {
+  --paper: #0E0E0C;
+  --paper-2: #1A1A18;
+  --ink: #FAFAF5;
+  --ink-2: #C8C8BE;
+  --muted: #777770;
+  --line: #2A2A26;
+  --accent: #E89570;
+  --accent-soft: #C8521C;
+  --accent-bg: #2D1810;
+
+  --bg-invert: #1A1A18;
+  --bg-invert-soft: rgba(255,255,255,.05);
+  --bg-invert-border: rgba(255,255,255,.10);
+  --text-invert: #FAFAF5;
+  --text-invert-muted: rgba(250,250,245,.7);
+  --text-invert-faint: rgba(250,250,245,.55);
+
+  --nav-bg: rgba(14, 14, 12, 0.78);
+  --nav-bg-scrolled: rgba(14, 14, 12, 0.92);
+
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.4), 0 4px 12px rgba(0,0,0,.3);
+  --shadow-md: 0 8px 24px rgba(0,0,0,.5), 0 2px 6px rgba(0,0,0,.3);
+}
+
+/* Smooth theme transitions */
+body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speaking li, .book img, .about__portrait img {
+  transition: background-color .25s var(--t), color .25s var(--t), border-color .25s var(--t), box-shadow .25s var(--t);
 }
 
 /* --- Layout --- */
@@ -102,7 +145,7 @@ em { font-style: italic; }
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(250, 250, 245, 0.85);
+  background: var(--nav-bg);
   backdrop-filter: saturate(180%) blur(14px);
   -webkit-backdrop-filter: saturate(180%) blur(14px);
   border-bottom: 1px solid transparent;
@@ -110,7 +153,7 @@ em { font-style: italic; }
 }
 .nav.is-scrolled {
   border-bottom-color: var(--line);
-  background: rgba(250, 250, 245, 0.95);
+  background: var(--nav-bg-scrolled);
 }
 .nav__wrap {
   max-width: var(--container);
@@ -314,8 +357,8 @@ em { font-style: italic; }
 
 /* --- Proof Bar --- */
 .proof {
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--bg-invert);
+  color: var(--text-invert);
   padding: 50px 0;
 }
 .proof__grid {
@@ -337,18 +380,18 @@ em { font-style: italic; }
   display: block;
   margin-top: 8px;
   font-size: 13px;
-  color: rgba(250,250,245,.6);
+  color: var(--text-invert-faint);
   letter-spacing: .02em;
 }
 .proof__exit {
   text-align: center;
   margin-top: 36px;
   padding-top: 32px;
-  border-top: 1px solid rgba(250,250,245,.1);
+  border-top: 1px solid var(--bg-invert-border);
   font-size: 15px;
-  color: rgba(250,250,245,.7);
+  color: var(--text-invert-muted);
 }
-.proof__exit strong { color: var(--paper); font-weight: 600; }
+.proof__exit strong { color: var(--text-invert); font-weight: 600; }
 
 /* --- Services --- */
 .services {
@@ -717,17 +760,17 @@ em { font-style: italic; }
 
 /* --- Contact --- */
 .section--contact {
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--bg-invert);
+  color: var(--text-invert);
 }
 .section--contact .section__eyebrow { color: var(--accent-soft); }
-.section--contact .section__title { color: var(--paper); }
+.section--contact .section__title { color: var(--text-invert); }
 .section--contact .section__title em { color: var(--accent-soft); }
 .contact__head { text-align: center; max-width: 720px; margin: 0 auto 60px; }
 .contact__lede {
   margin-top: 20px;
   font-size: 17px;
-  color: rgba(250,250,245,.7);
+  color: var(--text-invert-muted);
 }
 .contact__cards {
   display: grid;
@@ -737,8 +780,8 @@ em { font-style: italic; }
   margin: 0 auto;
 }
 .contact-card {
-  background: rgba(255,255,255,.04);
-  border: 1px solid rgba(255,255,255,.1);
+  background: var(--bg-invert-soft);
+  border: 1px solid var(--bg-invert-border);
   border-radius: var(--radius);
   padding: 36px 32px;
   transition: transform .3s var(--t), background .3s var(--t), border-color .3s var(--t);
@@ -779,7 +822,7 @@ em { font-style: italic; }
 .contact-card__link {
   font-size: 15px;
   font-weight: 600;
-  color: var(--paper);
+  color: var(--text-invert);
   display: inline-flex;
   align-items: center;
   border-bottom: 1px solid currentColor;
@@ -787,15 +830,15 @@ em { font-style: italic; }
   transition: gap .2s var(--t);
 }
 .contact-card__link:hover { color: var(--accent-soft); }
-.contact-card--primary .contact-card__link:hover { color: var(--ink); }
+.contact-card--primary .contact-card__link:hover { color: #0E0E0C; }
 .contact__elsewhere {
   text-align: center;
   margin-top: 60px;
   font-size: 14.5px;
-  color: rgba(250,250,245,.6);
+  color: var(--text-invert-faint);
 }
 .contact__elsewhere a {
-  color: var(--paper);
+  color: var(--text-invert);
   font-weight: 500;
   margin: 0 6px;
 }
@@ -804,10 +847,10 @@ em { font-style: italic; }
 /* --- Footer --- */
 .footer {
   padding: 50px 0 60px;
-  background: var(--ink);
-  color: rgba(250,250,245,.55);
+  background: var(--bg-invert);
+  color: var(--text-invert-faint);
   font-size: 13.5px;
-  border-top: 1px solid rgba(255,255,255,.08);
+  border-top: 1px solid var(--bg-invert-border);
 }
 .footer__inner {
   display: flex;
@@ -820,7 +863,7 @@ em { font-style: italic; }
   font-family: var(--serif);
   font-style: italic;
   font-size: 14px;
-  color: rgba(250,250,245,.7);
+  color: var(--text-invert-muted);
 }
 
 /* --- Animations / Scroll Reveal --- */
@@ -967,4 +1010,171 @@ em { font-style: italic; }
 @media print {
   .nav, .hero__scroll, .hero__ctas, .nav__cta, .footer { display: none; }
   .section { page-break-inside: avoid; padding: 30px 0; }
+}
+
+/* ============================================
+   Theme toggle button
+   ============================================ */
+.theme-toggle {
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: all .25s var(--t);
+}
+.theme-toggle:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  transform: rotate(15deg);
+}
+.theme-toggle svg { width: 18px; height: 18px; }
+.theme-toggle .icon-moon { display: none; }
+:root[data-theme="dark"] .theme-toggle .icon-sun { display: none; }
+:root[data-theme="dark"] .theme-toggle .icon-moon { display: block; }
+
+/* ============================================
+   Language switcher
+   ============================================ */
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px;
+  border-radius: 100px;
+  border: 1px solid var(--line);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .04em;
+}
+.lang-switch a {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 100px;
+  color: var(--muted);
+  transition: color .2s var(--t), background .2s var(--t);
+  text-decoration: none;
+}
+.lang-switch a:hover { color: var(--ink); }
+.lang-switch a.is-active {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* ============================================
+   Password lock overlay (portfolio)
+   ============================================ */
+.lock-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--paper);
+  padding: var(--gutter);
+  animation: lockFadeIn .3s var(--t);
+}
+@keyframes lockFadeIn { from { opacity: 0; } to { opacity: 1; } }
+.lock-card {
+  max-width: 440px;
+  width: 100%;
+  text-align: center;
+}
+.lock-card__mark {
+  display: inline-grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  background: var(--accent-bg);
+  color: var(--accent);
+  margin-bottom: 28px;
+  font-size: 22px;
+}
+.lock-card__title {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(28px, 4vw, 38px);
+  line-height: 1.1;
+  letter-spacing: -.02em;
+  margin-bottom: 14px;
+}
+.lock-card__title em { color: var(--accent); font-style: italic; }
+.lock-card__body {
+  color: var(--ink-2);
+  font-size: 16px;
+  line-height: 1.55;
+  margin-bottom: 28px;
+}
+.lock-card__form {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.lock-card__input {
+  flex: 1;
+  padding: 14px 18px;
+  font: 500 15px/1.4 var(--sans);
+  background: var(--paper-2);
+  color: var(--ink);
+  border: 1.5px solid var(--line);
+  border-radius: 100px;
+  outline: none;
+  transition: border-color .2s var(--t);
+}
+.lock-card__input:focus {
+  border-color: var(--accent);
+}
+.lock-card__submit {
+  padding: 14px 22px;
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: 100px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  border: 0;
+  transition: background .2s var(--t);
+}
+.lock-card__submit:hover { background: var(--accent); }
+.lock-card__error {
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 500;
+  height: 18px;
+  opacity: 0;
+  transition: opacity .2s var(--t);
+}
+.lock-card__error.is-visible { opacity: 1; }
+.lock-card__back {
+  display: inline-block;
+  margin-top: 24px;
+  font-size: 13px;
+  color: var(--muted);
+  border-bottom: 1px dashed currentColor;
+}
+.lock-card__back:hover { color: var(--accent); border-bottom-style: solid; }
+
+/* Hide the actual portfolio body until unlocked */
+body.is-locked .portfolio-body { display: none; }
+
+/* Mobile nav adjustments for the new controls */
+@media (max-width: 720px) {
+  .theme-toggle, .lang-switch {
+    margin: 0 auto;
+  }
+  .lang-switch { margin-top: 12px; }
+}
+
+@keyframes lockShake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-5px); }
+  80% { transform: translateX(5px); }
 }

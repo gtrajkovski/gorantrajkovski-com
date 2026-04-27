@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Goran Trajkovski — AI Strategy, Course Design & EdTech Transformation</title>
-  <meta name="description" content="Consulting at the intersection of AI, education, and assessment. Founded enlAIten AI (acquired by Pluralsight). 30 years of building programs that ship." />
+  <meta name="description" content="Consulting at the intersection of AI, education, and assessment. Founded enlAIten AI (successful exit). 30 years of building programs that ship." />
 
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Goran Trajkovski — AI Strategy & EdTech Transformation" />
@@ -14,10 +14,22 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%230A0A0A'/%3E%3Ctext x='50' y='66' font-family='Georgia,serif' font-size='56' font-weight='700' text-anchor='middle' fill='%23C8521C'%3EG%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="/css/style.css" />
+
+  <!-- Favicons (derived from headshot) -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#0E0E0C" />
+
+  <script>
+    // Apply theme before paint to avoid flash
+    (function(){var t=localStorage.getItem('gt-theme')||(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);})();
+  </script>
 </head>
 <body>
 
@@ -31,9 +43,22 @@
       <ul class="nav__links">
         <li><a href="#services">Services</a></li>
         <li><a href="#work">Work</a></li>
-        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="/portfolio.html">Portfolio</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#books">Books</a></li>
+        <li>
+          <div class="lang-switch" role="group" aria-label="Language">
+            <a href="/" class="is-active" hreflang="en">EN</a>
+            <a href="/es/" hreflang="es">ES</a>
+            <a href="/mk/" hreflang="mk">MK</a>
+          </div>
+        </li>
+        <li>
+          <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+            <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          </button>
+        </li>
         <li><button type="button" data-cal-link="goran-trajkovski/discovery" data-cal-namespace="discovery" data-cal-config='{"layout":"month_view"}' class="nav__cta">Book a call</button></li>
       </ul>
       <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false">
@@ -74,8 +99,7 @@
         <li><span class="proof__num">300+</span><span class="proof__label">Publications</span></li>
       </ul>
       <p class="proof__exit">
-        Founded <strong>enlAIten&nbsp;AI</strong> · acquired by
-        <strong>Pluralsight</strong>, 2025
+        Founded <strong>enlAIten&nbsp;AI</strong> · <strong>successful exit</strong>, 2025
       </p>
     </div>
   </section>
@@ -111,7 +135,7 @@
           <p class="service__body">
             From concept to launch. Competency models, assessment architecture, accreditation alignment,
             instructor enablement. The same playbook that built 35+ programs and 350+ courses
-            at WGU, Touro, Visa, UC Berkeley, and Pluralsight.
+            at WGU, Touro, Visa, and UC Berkeley.
           </p>
           <p class="service__for">For: Universities · EdTech · Corporate Academies</p>
         </article>
@@ -216,7 +240,7 @@
           <h3 class="case__title">enlAIten AI</h3>
           <p class="case__body">
             Founded an AI-powered EdTech SaaS startup. Built proprietary algorithms for content similarity
-            detection and institutional effectiveness measurement. <strong>Acquired by Pluralsight in 18 months.</strong>
+            detection and institutional effectiveness measurement. <strong>Successful acquisition in 18 months.</strong>
           </p>
         </article>
 
@@ -372,23 +396,23 @@
     <div class="container">
       <p class="section__eyebrow section__eyebrow--center">Selected clients &amp; collaborators</p>
       <div class="logos">
-        <img src="assets/img/logos/touro.jpg" alt="Touro University" loading="lazy" />
-        <img src="assets/img/logos/wgu.jpg" alt="Western Governors University" loading="lazy" />
-        <img src="assets/img/logos/snhu.jpg" alt="Southern New Hampshire University" loading="lazy" />
-        <img src="assets/img/logos/gcu.jpg" alt="Grand Canyon University" loading="lazy" />
-        <img src="assets/img/logos/umgc.jpg" alt="University of Maryland Global Campus" loading="lazy" />
-        <img src="assets/img/logos/uma.jpg" alt="UMA" loading="lazy" />
-        <img src="assets/img/logos/ucberkley.png" alt="UC Berkeley Extension" loading="lazy" />
-        <img src="assets/img/logos/coursera.png" alt="Coursera" loading="lazy" />
-        <img src="assets/img/logos/hurix.png" alt="Hurix" loading="lazy" />
-        <img src="assets/img/logos/ansrSource.jpg" alt="ANSR Source" loading="lazy" />
-        <img src="assets/img/logos/lumina.jpg" alt="Lumina" loading="lazy" />
-        <img src="assets/img/logos/ppg.jpg" alt="PPG" loading="lazy" />
-        <img src="assets/img/logos/exc.jpg" alt="EXC" loading="lazy" />
-        <img src="assets/img/logos/ivaem.jpg" alt="IVAEM" loading="lazy" />
-        <img src="assets/img/logos/febris.jpg" alt="FEBRIS" loading="lazy" />
-        <img src="assets/img/logos/cem.jpg" alt="CEM" loading="lazy" />
-        <img src="assets/img/logos/uni.jpg" alt="UNI" loading="lazy" />
+        <img src="/assets/img/logos/touro.jpg" alt="Touro University" loading="lazy" />
+        <img src="/assets/img/logos/wgu.jpg" alt="Western Governors University" loading="lazy" />
+        <img src="/assets/img/logos/snhu.jpg" alt="Southern New Hampshire University" loading="lazy" />
+        <img src="/assets/img/logos/gcu.jpg" alt="Grand Canyon University" loading="lazy" />
+        <img src="/assets/img/logos/umgc.jpg" alt="University of Maryland Global Campus" loading="lazy" />
+        <img src="/assets/img/logos/uma.jpg" alt="UMA" loading="lazy" />
+        <img src="/assets/img/logos/ucberkley.png" alt="UC Berkeley Extension" loading="lazy" />
+        <img src="/assets/img/logos/coursera.png" alt="Coursera" loading="lazy" />
+        <img src="/assets/img/logos/hurix.png" alt="Hurix" loading="lazy" />
+        <img src="/assets/img/logos/ansrSource.jpg" alt="ANSR Source" loading="lazy" />
+        <img src="/assets/img/logos/lumina.jpg" alt="Lumina" loading="lazy" />
+        <img src="/assets/img/logos/ppg.jpg" alt="PPG" loading="lazy" />
+        <img src="/assets/img/logos/exc.jpg" alt="EXC" loading="lazy" />
+        <img src="/assets/img/logos/ivaem.jpg" alt="IVAEM" loading="lazy" />
+        <img src="/assets/img/logos/febris.jpg" alt="FEBRIS" loading="lazy" />
+        <img src="/assets/img/logos/cem.jpg" alt="CEM" loading="lazy" />
+        <img src="/assets/img/logos/uni.jpg" alt="UNI" loading="lazy" />
       </div>
     </div>
   </section>
@@ -397,7 +421,7 @@
   <section class="section section--about" id="about">
     <div class="container about">
       <div class="about__portrait">
-        <img src="assets/img/portrait/headshot.jpg" alt="Goran Trajkovski" loading="lazy" />
+        <img src="/assets/img/portrait/headshot.jpg" alt="Goran Trajkovski" loading="lazy" />
       </div>
       <div class="about__copy">
         <p class="section__eyebrow">About</p>
@@ -454,32 +478,32 @@
 
       <div class="books">
         <a class="book" href="https://www.amazon.com/stores/Goran-Trajkovski/author/B0B4BMGMFW" target="_blank" rel="noopener">
-          <img src="assets/img/books/CoverGreen.png" alt="Nurturing Bloom's Garden" loading="lazy" />
+          <img src="/assets/img/books/CoverGreen.png" alt="Nurturing Bloom's Garden" loading="lazy" />
           <p class="book__title">Nurturing Bloom's Garden</p>
           <p class="book__sub">How AI Transforms the Educational Landscape · 2024</p>
         </a>
         <a class="book" href="https://www.amazon.com/stores/Goran-Trajkovski/author/B0B4BMGMFW" target="_blank" rel="noopener">
-          <img src="assets/img/books/BookCoverFinal.jpg" alt="Assessment Under Adversarial Pressure" loading="lazy" />
+          <img src="/assets/img/books/BookCoverFinal.jpg" alt="Assessment Under Adversarial Pressure" loading="lazy" />
           <p class="book__title">Assessment Under Adversarial Pressure</p>
           <p class="book__sub">Why AI Broke the Evidence Model in Higher Education</p>
         </a>
         <a class="book" href="https://www.amazon.com/stores/Goran-Trajkovski/author/B0B4BMGMFW" target="_blank" rel="noopener">
-          <img src="assets/img/books/cover.jpg" alt="AI-Assisted Assessment in Education" loading="lazy" />
+          <img src="/assets/img/books/cover.jpg" alt="AI-Assisted Assessment in Education" loading="lazy" />
           <p class="book__title">AI-Assisted Assessment in Education</p>
           <p class="book__sub">Transforming Assessment and Measuring Learning · Palgrave Macmillan · with Heather Hayes</p>
         </a>
         <a class="book" href="https://www.amazon.com/stores/Goran-Trajkovski/author/B0B4BMGMFW" target="_blank" rel="noopener">
-          <img src="assets/img/books/71jHeSN9tVL._SL1499_.jpg" alt="A More Beautiful Prompt" loading="lazy" />
+          <img src="/assets/img/books/71jHeSN9tVL._SL1499_.jpg" alt="A More Beautiful Prompt" loading="lazy" />
           <p class="book__title">A More Beautiful Prompt</p>
           <p class="book__sub">The Art of Human-Centered Prompt Engineering</p>
         </a>
         <a class="book" href="https://www.amazon.com/stores/Goran-Trajkovski/author/B0B4BMGMFW" target="_blank" rel="noopener">
-          <img src="assets/img/books/AIUnleashed.jpg" alt="AI Unleashed" loading="lazy" />
+          <img src="/assets/img/books/AIUnleashed.jpg" alt="AI Unleashed" loading="lazy" />
           <p class="book__title">AI Unleashed</p>
           <p class="book__sub">A College Student's Guide to Navigating and Mastering Generative AI</p>
         </a>
         <a class="book" href="https://www.amazon.com/stores/Goran-Trajkovski/author/B0B4BMGMFW" target="_blank" rel="noopener">
-          <img src="assets/img/books/AdversarialAI.png" alt="Adversarial AI Threat Response and Secure Model Design" loading="lazy" />
+          <img src="/assets/img/books/AdversarialAI.png" alt="Adversarial AI Threat Response and Secure Model Design" loading="lazy" />
           <p class="book__title">Adversarial AI Threat Response and Secure Model Design</p>
           <p class="book__sub">Practical Techniques for Detecting, Preventing, and Managing AI Vulnerabilities · Apress</p>
         </a>
@@ -553,14 +577,14 @@
   <!-- FOOTER -->
   <footer class="footer">
     <div class="container footer__inner">
-      <p>© <span id="year">2026</span> The Art of Living Large LLC. All rights reserved. · <a href="privacy.html" style="color:inherit;">Privacy</a></p>
+      <p>© <span id="year">2026</span> The Art of Living Large LLC. All rights reserved. · <a href="/privacy.html" style="color:inherit;">Privacy</a></p>
       <p class="footer__quote">
         <em>"The price of light is less than the cost of darkness."</em> — Arthur C. Nielsen
       </p>
     </div>
   </footer>
 
-  <script src="js/main.js"></script>
+  <script src="/js/main.js"></script>
 
   <!-- Cal.com inline popup embed.
        Replace `goran-trajkovski/discovery` below with your real Cal.com link
