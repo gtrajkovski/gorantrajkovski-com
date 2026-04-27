@@ -171,19 +171,25 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
   font-weight: 600;
 }
 .nav__brand-mark {
+  display: inline-grid;
+  place-items: center;
   width: 40px;
   height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
-  background: var(--paper-2);
-  border: 2px solid var(--line);
-  display: block;
+  border-radius: 8px;
+  background: var(--ink);
+  color: var(--accent);
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.04em;
   flex-shrink: 0;
-  transition: border-color .25s var(--t), transform .25s var(--t);
+  transition: background .25s var(--t), color .25s var(--t), transform .25s var(--t);
 }
 .nav__brand:hover .nav__brand-mark {
-  border-color: var(--accent);
-  transform: scale(1.05);
+  background: var(--accent);
+  color: var(--paper);
+  transform: scale(1.04);
 }
 .nav__brand-name {
   font-size: 15px;
