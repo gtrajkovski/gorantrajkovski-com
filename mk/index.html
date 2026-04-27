@@ -64,19 +64,25 @@
   </nav>
 
   <header class="hero" id="top">
-    <div class="container hero__inner">
-      <p class="hero__eyebrow"><span class="hero__dot"></span> Достапен за нови ангажмани · 2026</p>
-      <h1 class="hero__title">
-        Ги затворам јазовите помеѓу<br />
-        <em>тоа што е</em> и <em>тоа што треба да биде</em>.
-      </h1>
-      <p class="hero__sub">
-        Стратегија за вештачка интелигенција, дизајн на курсеви и образовна трансформација —
-        од некој што го прави ова од <strong>1995</strong> година.
-      </p>
-      <div class="hero__ctas">
-        <a href="#contact" class="btn btn--primary">Кажи ми за проектот →</a>
-        <a href="#services" class="btn btn--ghost">Како работам</a>
+    <div class="container hero__inner hero__inner--split">
+      <div class="hero__main">
+        <p class="hero__eyebrow"><span class="hero__dot"></span> Достапен за нови ангажмани · 2026</p>
+        <h1 class="hero__title">
+          Ги затворам јазовите помеѓу<br />
+          <em>тоа што е</em> и <em>тоа што треба да биде</em>.
+        </h1>
+        <p class="hero__sub">
+          Стратегија за вештачка интелигенција, дизајн на курсеви и образовна трансформација —
+          од некој што го прави ова од <strong>1995</strong> година.
+        </p>
+        <div class="hero__ctas">
+          <a href="#contact" class="btn btn--primary">Кажи ми за проектот →</a>
+          <a href="#services" class="btn btn--ghost">Како работам</a>
+        </div>
+      </div>
+      <div class="hero__counterweight" aria-hidden="true">
+        <span class="hero__megastat">30<span class="hero__plus">+</span></span>
+        <span class="hero__megalabel"><em>години</em> · ВИ и EdTech</span>
       </div>
     </div>
     <div class="hero__scroll" aria-hidden="true"></div>
@@ -84,14 +90,19 @@
 
   <section class="proof" aria-label="Резултати">
     <div class="container">
-      <ul class="proof__grid">
-        <li><span class="proof__num">30+</span><span class="proof__label">Години во ВИ и образ. технологии</span></li>
-        <li><span class="proof__num">500K+</span><span class="proof__label">Опфатени студенти</span></li>
-        <li><span class="proof__num">35+</span><span class="proof__label">Лансирани програми</span></li>
-        <li><span class="proof__num">350+</span><span class="proof__label">Развиени курсеви</span></li>
-        <li><span class="proof__num">20+</span><span class="proof__label">Авторски книги</span></li>
-        <li><span class="proof__num">300+</span><span class="proof__label">Публикации</span></li>
-      </ul>
+      <div class="proof__layout">
+        <div class="proof__anchor">
+          <span class="proof__anchor-num">500K<span class="hero__plus">+</span></span>
+          <span class="proof__anchor-label">Опфатени студенти низ кариерата</span>
+        </div>
+        <ul class="proof__list">
+          <li><span class="num">35+</span><span class="label">Лансирани академски програми</span></li>
+          <li><span class="num">350+</span><span class="label">Развиени курсеви</span></li>
+          <li><span class="num">20+</span><span class="label">Авторски книги</span></li>
+          <li><span class="num">300+</span><span class="label">Научни публикации</span></li>
+          <li><span class="num">5</span><span class="label">Земји со активни партнерства</span></li>
+        </ul>
+      </div>
       <p class="proof__exit">
         Основач на <strong>enlAIten&nbsp;AI</strong> · <strong>успешен излез</strong>, 2025
       </p>
@@ -110,71 +121,95 @@
         </p>
       </div>
 
-      <div class="services">
-        <article class="service">
-          <p class="service__num">01</p>
-          <h3 class="service__title">Обука и оспособување за ВИ</h3>
-          <p class="service__body">
-            Вашиот тим престанува да прашува <em>„што е промпт?"</em> и почнува да испорачува со ВИ
-            за 30 дена. Програми по мерка кои го претвораат шумот во оперативна вештина — низ сите
-            улоги, дисциплини и нивоа на толеранција на ризик.
+      <div class="services--list">
+        <article class="service-row">
+          <p class="service-row__num">01.</p>
+          <div class="service-row__main">
+            <h3 class="service-row__title">Обука и оспособување за ВИ</h3>
+            <p class="service-row__body">
+              Вашиот тим престанува да прашува <em>„што е промпт?"</em> и почнува да испорачува со ВИ за 30 дена. Програми по мерка кои го претвораат шумот во оперативна вештина — низ сите улоги, дисциплини и нивоа на толеранција на ризик.
+            </p>
+          </div>
+          <p class="service-row__for">За
+            <span class="service-row__for-line">L&amp;D лидери</span>
+            <span class="service-row__for-line">Професори</span>
+            <span class="service-row__for-line">Работници во знаење</span>
           </p>
-          <p class="service__for">За: лидери на L&amp;D · професори · работници во знаење</p>
         </article>
 
-        <article class="service">
-          <p class="service__num">02</p>
-          <h3 class="service__title">Дизајн на курсеви и програми</h3>
-          <p class="service__body">
-            Од концепт до лансирање. Модели на компетенции, архитектура на евалуација,
-            усогласување со акредитациски тела, оспособување на наставници. Истиот пристап со кој
-            се изградени 35+ програми и 350+ курсеви во WGU, Touro, Visa и UC Berkeley.
+        <article class="service-row">
+          <p class="service-row__num">02.</p>
+          <div class="service-row__main">
+            <h3 class="service-row__title">Дизајн на курсеви и програми</h3>
+            <p class="service-row__body">
+              Од концепт до лансирање. Модели на компетенции, архитектура на евалуација, усогласување со акредитациски тела, оспособување на наставници. Истиот пристап со кој се изградени 35+ програми и 350+ курсеви во WGU, Touro, Visa и UC Berkeley.
+            </p>
+          </div>
+          <p class="service-row__for">За
+            <span class="service-row__for-line">Универзитети</span>
+            <span class="service-row__for-line">EdTech</span>
+            <span class="service-row__for-line">Корпоративни академии</span>
           </p>
-          <p class="service__for">За: универзитети · EdTech · корпоративни академии</p>
         </article>
 
-        <article class="service">
-          <p class="service__num">03</p>
-          <h3 class="service__title">Евалуација и акредитација</h3>
-          <p class="service__body">
-            Документации подготвени за акредитација кои издржуваат секаква проверка.
-            Доброволен евалуатор во ACCSC, ACE, MSCHE и ABET — знам што бараат ревизорите бидејќи
-            сум бил од двете страни на масата.
+        <article class="service-row">
+          <p class="service-row__num">03.</p>
+          <div class="service-row__main">
+            <h3 class="service-row__title">Евалуација и акредитација</h3>
+            <p class="service-row__body">
+              Документации подготвени за акредитација кои издржуваат секаква проверка. Доброволен евалуатор во ACCSC, ACE, MSCHE и ABET — знам што бараат ревизорите бидејќи сум бил од двете страни на масата.
+            </p>
+          </div>
+          <p class="service-row__for">За
+            <span class="service-row__for-line">Проректори</span>
+            <span class="service-row__for-line">Декани</span>
+            <span class="service-row__for-line">Усогласеност</span>
           </p>
-          <p class="service__for">За: проректори · декани · службеници за усогласеност</p>
         </article>
 
-        <article class="service">
-          <p class="service__num">04</p>
-          <h3 class="service__title">Стратегија за EdTech и ВИ</h3>
-          <p class="service__body">
-            Престанете да купувате алатки кои собираат прашина. Им помагам на лидерските тимови
-            да изберат, секвенцираат и управуваат со технологиите што навистина прават разлика —
-            вклучувајќи и етички рамки за институционална употреба на ВИ.
+        <article class="service-row">
+          <p class="service-row__num">04.</p>
+          <div class="service-row__main">
+            <h3 class="service-row__title">Стратегија за EdTech и ВИ</h3>
+            <p class="service-row__body">
+              Престанете да купувате алатки кои собираат прашина. Им помагам на лидерските тимови да изберат, секвенцираат и управуваат со технологиите што навистина прават разлика — вклучувајќи и етички рамки за институционална употреба на ВИ.
+            </p>
+          </div>
+          <p class="service-row__for">За
+            <span class="service-row__for-line">CIO · CAO</span>
+            <span class="service-row__for-line">Одбори</span>
+            <span class="service-row__for-line">Совети за ВИ</span>
           </p>
-          <p class="service__for">За: CIO · CAO · одбори · совети за ВИ</p>
         </article>
 
-        <article class="service">
-          <p class="service__num">05</p>
-          <h3 class="service__title">Извршни брифинзи и работилници</h3>
-          <p class="service__body">
-            Сесии со висок интензитет за ВИ, етика на податоци и дигитална трансформација за
-            лидерски тимови. Неодамнешни настапи: <em>AI4 2025</em> (Лас Вегас), Grand Canyon
-            University, Cayuse Connect, Training Industry.
+        <article class="service-row">
+          <p class="service-row__num">05.</p>
+          <div class="service-row__main">
+            <h3 class="service-row__title">Извршни брифинзи и работилници</h3>
+            <p class="service-row__body">
+              Сесии со висок интензитет за ВИ, етика на податоци и дигитална трансформација за лидерски тимови. Неодамнешни настапи: <em>AI4 2025</em> (Лас Вегас), Grand Canyon University, Cayuse Connect, Training Industry.
+            </p>
+          </div>
+          <p class="service-row__for">За
+            <span class="service-row__for-line">Одбори</span>
+            <span class="service-row__for-line">C-suite</span>
+            <span class="service-row__for-line">Конференции</span>
           </p>
-          <p class="service__for">За: одбори · C-suite · конференции</p>
         </article>
 
-        <article class="service">
-          <p class="service__num">06</p>
-          <h3 class="service__title">Поддршка во одлуки засновани на податоци</h3>
-          <p class="service__body">
-            Аналитика и визуализации кои го прават стратешкото планирање читливо.
-            Носител на патент за статистичка модулација на излез. Носител на NSF грант.
-            Правам податоците да раскажат приказна по која може да се дејствува.
+        <article class="service-row">
+          <p class="service-row__num">06.</p>
+          <div class="service-row__main">
+            <h3 class="service-row__title">Поддршка во одлуки засновани на податоци</h3>
+            <p class="service-row__body">
+              Аналитика и визуализации кои го прават стратешкото планирање читливо. Носител на патент за статистичка модулација на излез. Носител на NSF грант. Правам податоците да раскажат приказна по која може да се дејствува.
+            </p>
+          </div>
+          <p class="service-row__for">За
+            <span class="service-row__for-line">Тимови за стратегија</span>
+            <span class="service-row__for-line">Одбори</span>
+            <span class="service-row__for-line">Фондации</span>
           </p>
-          <p class="service__for">За: тимови за стратегија · одбори · фондации</p>
         </article>
       </div>
     </div>
@@ -482,7 +517,7 @@
         <p class="about__lede">
           Градител. Учител. Творец. Архитект на работи кои претходно не постоеле.
         </p>
-        <p>
+        <p class="about__body--first">
           Дојдов до вештачката интелигенција во средината на 1990-тите, кога беше академска ниша
           која повеќето компјутерски научници ја сметаа за куриозитет. Не свртев кога пазарот
           ми кажа. Веќе бев таму, ја работев работата, кога никој не гледаше.
