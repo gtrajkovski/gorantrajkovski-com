@@ -161,9 +161,9 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
   padding: 18px var(--gutter);
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 24px;
+  gap: 16px;
 }
+.nav__links { margin-left: auto; }
 .nav__brand {
   display: flex;
   align-items: center;
@@ -562,6 +562,7 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
   filter: grayscale(0) opacity(1);
   transform: scale(1.05);
 }
+.logos a { display: contents; cursor: pointer; }
 
 /* --- About --- */
 .about {
@@ -981,7 +982,10 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
     padding: 24px var(--gutter);
     border-bottom: 1px solid var(--line);
     gap: 8px;
+    margin-left: 0;
   }
+  /* Push the theme toggle (and hamburger) to the right when nav-links is collapsed */
+  .theme-toggle { margin-left: auto; }
   .nav__links.is-open { display: flex; }
   .nav__links a {
     padding: 14px 0;
