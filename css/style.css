@@ -1089,16 +1089,28 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--paper);
+  background: rgba(10, 10, 10, 0.62);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
   padding: var(--gutter);
   animation: lockFadeIn .3s var(--t);
 }
 @keyframes lockFadeIn { from { opacity: 0; } to { opacity: 1; } }
 .lock-card {
-  max-width: 440px;
+  max-width: 460px;
   width: 100%;
   text-align: center;
+  background: var(--paper);
+  color: var(--ink);
+  border-radius: var(--radius);
+  padding: 44px 36px 32px;
+  box-shadow:
+    0 30px 80px rgba(0,0,0,.45),
+    0 8px 28px rgba(0,0,0,.25),
+    0 0 0 1px rgba(255,255,255,.04);
 }
+/* Lock body scroll while modal is up; portfolio body stays visible underneath */
+body.is-locked { overflow: hidden; }
 .lock-card__mark {
   display: inline-grid;
   place-items: center;
@@ -1175,7 +1187,9 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
 .lock-card__back:hover { color: var(--accent); border-bottom-style: solid; }
 
 /* Hide the actual portfolio body until unlocked */
-body.is-locked .portfolio-body { display: none; }
+/* Portfolio body stays visible behind the modal so visitors see what's gated.
+   Slight fade keeps the modal as the focal point. */
+body.is-locked .portfolio-body { opacity: .55; pointer-events: none; user-select: none; filter: saturate(.7); }
 
 /* Mobile nav adjustments for the new controls */
 @media (max-width: 720px) {
