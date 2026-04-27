@@ -1100,14 +1100,19 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
   max-width: 460px;
   width: 100%;
   text-align: center;
-  background: var(--paper);
+  background: var(--lock-card-bg, #FFFFFF);
   color: var(--ink);
   border-radius: var(--radius);
   padding: 44px 36px 32px;
+  border: 1px solid var(--lock-card-border, rgba(0,0,0,.06));
   box-shadow:
-    0 30px 80px rgba(0,0,0,.45),
-    0 8px 28px rgba(0,0,0,.25),
-    0 0 0 1px rgba(255,255,255,.04);
+    0 40px 90px rgba(0,0,0,.55),
+    0 12px 32px rgba(0,0,0,.35),
+    0 2px 6px rgba(0,0,0,.2);
+}
+:root[data-theme="dark"] {
+  --lock-card-bg: #26262A;          /* clearly elevated above the dark overlay */
+  --lock-card-border: rgba(255,255,255,.08);
 }
 /* Lock body scroll while modal is up; portfolio body stays visible underneath */
 body.is-locked { overflow: hidden; }

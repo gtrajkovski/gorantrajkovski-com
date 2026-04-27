@@ -5,11 +5,18 @@
   Permissions-Policy: camera=(), microphone=(), geolocation=()
   Strict-Transport-Security: max-age=31536000; includeSubDomains
 
+# CSS/JS: short TTL + must-revalidate so updates reach visitors within minutes,
+# not after they manually clear cache.
 /css/*
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=300, must-revalidate
 
 /js/*
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=300, must-revalidate
 
+# Static binary assets (images, fonts, favicons, manifest) rarely change —
+# safe to cache aggressively. If we replace one, we change its filename.
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
+
+/favicon.ico
+  Cache-Control: public, max-age=86400

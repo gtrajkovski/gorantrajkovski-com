@@ -73,6 +73,26 @@
   });
 })();
 
+// ===== Language switcher: preserve URL hash so #section anchors carry over =====
+(function () {
+  const update = () => {
+    const hash = location.hash || '';
+    document.querySelectorAll('.lang-switch a').forEach(a => {
+      try {
+        const u = new URL(a.href);
+        u.hash = hash;
+        a.href = u.toString();
+      } catch (_) { /* skip malformed */ }
+    });
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', update);
+  } else {
+    update();
+  }
+  window.addEventListener('hashchange', update);
+})();
+
 // ===== Scroll reveal =====
 (function () {
   if (!('IntersectionObserver' in window)) return;
