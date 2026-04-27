@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Who Teaches AI Outside the University? · Goran Trajkovski</title>
+<meta name="description" content="34 non-academic AI education providers mapped by credential strength and hands-on depth.">
+<meta property="og:title" content="Who Teaches AI Outside the University? · Goran Trajkovski">
+<meta property="og:description" content="34 non-academic AI education providers mapped on two axes with geographic map.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
+<style>
+*{box-sizing:border-box;margin:0}body{background:#faf9f6}
+.site-back{position:fixed;top:14px;right:14px;z-index:9999;font:600 12px/1 -apple-system,sans-serif;color:#fff;background:rgba(0,0,0,.5);padding:7px 12px;border-radius:7px;text-decoration:none;backdrop-filter:blur(10px);transition:background .2s}
+.site-back:hover{background:rgba(200,82,28,.9)}
+</style>
+</head>
+<body>
+<a href="/" class="site-back">← gorantrajkovski.com</a>
+<div id="root"></div>
+<script type="text/babel">
+const { useState, useEffect, useRef } = React;
+
+const data = [
+  {id:"udacity",name:"Udacity",x:.72,y:.78,q:1,r:"Global",b:"Individual",lang:"EN",price:"$249/mo",depth:"Inter→Adv",ho:"Very High",cred:"Nanodegree",desc:"Project-based Nanodegrees with mentor support & career services. AI, ML, Deep Learning & GenAI programs co-created with Google, AT&T, Mercedes-Benz.",tag:"Pioneer of the online tech bootcamp",lat:37.39,lng:-122.03,url:"https://www.udacity.com/"},
+  {id:"nvidia",name:"NVIDIA DLI",x:.68,y:.85,q:1,r:"Global",b:"Enterprise",lang:"EN",price:"$30–500",depth:"Inter→Expert",ho:"Very High",cred:"NVIDIA Cert",desc:"Deep Learning Institute. GPU-focused AI/ML training with hands-on labs. Industry gold standard for computer vision, NLP, and accelerated computing.",tag:"Unmatched for GPU/CUDA work",lat:37.37,lng:-121.96,url:"https://www.nvidia.com/en-us/training/"},
+  {id:"pluralsight",name:"Pluralsight",x:.70,y:.70,q:1,r:"Global",b:"Enterprise",lang:"EN +AI",price:"$29–45/mo",depth:"Inter→Adv",ho:"High",cred:"Skill IQ + Cert Prep",desc:"Enterprise tech skills with Iris AI assistant. Labs, sandboxes & role-based paths.",tag:"Best skill assessment engine",lat:40.69,lng:-111.89,url:"https://www.pluralsight.com/"},
+  {id:"aws",name:"AWS Skill Builder",x:.75,y:.72,q:1,r:"Global",b:"Enterprise",lang:"EN +6",price:"$29/mo",depth:"Beg→Adv",ho:"Very High",cred:"AWS Certification",desc:"GenAI learning plans with hands-on labs on live AWS infrastructure. Direct pipeline from training to certifications.",tag:"Training-to-production, zero gap",lat:47.62,lng:-122.34,url:"https://skillbuilder.aws/"},
+  {id:"lewagon",name:"Le Wagon",x:.64,y:.80,q:1,r:"EU/Global",b:"Individual",lang:"EN, FR +",price:"€5–9K",depth:"Beg→Inter",ho:"Very High",cred:"Bootcamp Cert",desc:"Data Science & AI bootcamp with project weeks and portfolio focus. 45+ campuses worldwide.",tag:"Top career-switch bootcamp",lat:48.86,lng:2.35,url:"https://www.lewagon.com/"},
+  {id:"artefact",name:"Artefact School",x:.61,y:.76,q:1,r:"France/EU",b:"Mixed",lang:"FR, EN",price:"€3–7K",depth:"Beg→Inter",ho:"High",cred:"Professional Cert",desc:"Intensive bootcamps incl. Data Science & AI. Paris cohorts + hybrid. Backed by Artefact consulting.",tag:"Strong EU enterprise signaling",lat:48.87,lng:2.33,url:"https://www.artefact.com/data-school/"},
+  {id:"simplilearn",name:"Simplilearn",x:.63,y:.68,q:1,r:"India/Global",b:"Mixed",lang:"EN",price:"$2–5K",depth:"Beg→Adv",ho:"High",cred:"Bootcamp + Univ",desc:"Multi-month bootcamps co-created with IBM, Caltech, Purdue.",tag:"Multi-month career transformation",lat:12.97,lng:77.59,url:"https://www.simplilearn.com/"},
+  {id:"scaler",name:"Scaler",x:.60,y:.74,q:1,r:"India",b:"Individual",lang:"EN",price:"~$3.5K",depth:"Beg→Adv",ho:"Very High",cred:"Program Cert",desc:"AI/ML programs with real-world projects, mentorship and career support. Dominant in Indian tech market.",tag:"Dominates the Indian market",lat:12.93,lng:77.63,url:"https://www.scaler.com/"},
+  {id:"jedha",name:"Jedha",x:.57,y:.73,q:1,r:"France",b:"Individual",lang:"FR",price:"€4–7K",depth:"Beg→Adv",ho:"High",cred:"RNCP (state)",desc:"AI/Data bootcamp with GenAI skill sprints. France-focused. Government-certified, CPF eligible.",tag:"French state-recognized credentials",lat:48.87,lng:2.34,url:"https://en.jedha.co/"},
+  {id:"coursera",name:"Coursera",x:.82,y:.38,q:2,r:"Global",b:"Mixed",lang:"EN +22",price:"$49–79/mo",depth:"Beg→Degree",ho:"Medium",cred:"Univ + Industry",desc:"183M+ learners. Google, IBM, DeepLearning.AI, Stanford. Acquiring Udemy for $2.5B.",tag:"Largest platform. Udemy merger reshapes everything.",notable:true,lat:37.39,lng:-122.08,url:"https://www.coursera.org/"},
+  {id:"edx",name:"edX",x:.78,y:.40,q:2,r:"Global",b:"Mixed",lang:"EN +10",price:"$50–300",depth:"Beg→Master's",ho:"Medium",cred:"MIT/Harvard/Univ",desc:"MIT, Harvard & 160+ university partners. MicroMasters, Professional Certs & full online degrees.",tag:"Gold-standard academic credentials",lat:40.65,lng:-73.95,url:"https://www.edx.org/"},
+  {id:"gcloud",name:"Google Skills Boost",x:.73,y:.48,q:2,r:"Global",b:"Enterprise",lang:"EN +8",price:"$29/mo",depth:"Beg→Adv",ho:"Med-High",cred:"Google Cert",desc:"Structured role paths with strong vendor recognition. Labs on live GCP.",tag:"Straddles Q1/Q2 — some paths very hands-on",lat:37.42,lng:-122.08,url:"https://www.cloudskillsboost.google/"},
+  {id:"linkedin",name:"LinkedIn Learning",x:.72,y:.30,q:2,r:"Global",b:"Enterprise",lang:"EN +10",price:"$29.99/mo",depth:"Beg→Inter",ho:"Low",cred:"LinkedIn Certs",desc:"Integrated with LinkedIn's 1B+ professional network. Micro-learning 1–3hr courses.",tag:"Unmatched professional network integration",lat:37.42,lng:-122.07,url:"https://www.linkedin.com/learning/"},
+  {id:"mslearn",name:"Microsoft Learn",x:.76,y:.35,q:2,r:"Global",b:"Enterprise",lang:"EN +30",price:"Free",depth:"Beg→Adv",ho:"Medium",cred:"Microsoft Certs",desc:"Broad free catalog for Azure AI, Copilot & Microsoft ecosystem.",tag:"Free. Best for Microsoft ecosystem roles.",lat:47.64,lng:-122.13,url:"https://learn.microsoft.com/"},
+  {id:"snowflake",name:"Snowflake Academy",x:.65,y:.32,q:2,r:"Global",b:"Enterprise",lang:"EN",price:"Free–$",depth:"Intermediate",ho:"Medium",cred:"Snowflake Cert",desc:"Role-aligned learning for Data Engineering & AI on Snowflake.",tag:"Niche vendor, growing AI surface",lat:40.58,lng:-111.98,url:"https://www.snowflake.com/en/education-and-training/"},
+  {id:"fastai",name:"fast.ai",x:.22,y:.88,q:3,r:"Global",b:"Individual",lang:"EN",price:"Free",depth:"Inter→Expert",ho:"Very High",cred:"Portfolio",desc:"Jeremy Howard's legendary course. Top-down practical approach. PyTorch-based.",tag:"Most respected free AI course on earth",notable:true,lat:37.77,lng:-122.42,url:"https://www.fast.ai/"},
+  {id:"kaggle",name:"Kaggle Learn",x:.25,y:.85,q:3,r:"Global",b:"Individual",lang:"EN",price:"Free",depth:"Beg→Expert",ho:"Very High",cred:"Kaggle rank",desc:"25M+ community. Micro-courses + competitions. Public proof-of-competence through rankings.",tag:"Competitions = most credible ML skill proof",notable:true,lat:37.42,lng:-122.08,url:"https://www.kaggle.com/learn"},
+  {id:"hf",name:"Hugging Face",x:.20,y:.82,q:3,r:"Global",b:"Individual",lang:"EN",price:"Free",depth:"Inter→Expert",ho:"Very High",cred:"Portfolio",desc:"Open-source ecosystem. LLM, Diffusion & Agent courses. 1.5M+ public models.",tag:"Learn by shipping on production tools",lat:40.74,lng:-73.99,url:"https://huggingface.co/learn"},
+  {id:"dlai",name:"DeepLearning.AI",x:.38,y:.72,q:3,r:"Global",b:"Individual",lang:"EN",price:"Free–$49/mo",depth:"Beg→Adv",ho:"High",cred:"Coursera cert",desc:"Andrew Ng's platform. Short courses with OpenAI, LangChain, Anthropic researchers.",tag:"Andrew Ng = most trusted name in AI ed",notable:true,lat:37.44,lng:-122.16,url:"https://www.deeplearning.ai/"},
+  {id:"datacamp",name:"DataCamp",x:.40,y:.76,q:3,r:"Global",b:"Mixed",lang:"EN",price:"$29–39/mo",depth:"Beg→Inter",ho:"Very High",cred:"DataCamp Cert",desc:"510+ courses. Interactive browser coding. Career & skill tracks for Python, R, SQL.",tag:"Best interactive coding env for data",lat:40.74,lng:-73.99,url:"https://www.datacamp.com/"},
+  {id:"codecademy",name:"Codecademy",x:.35,y:.70,q:3,r:"Global",b:"Individual",lang:"EN",price:"$17–25/mo",depth:"Beg→Inter",ho:"Very High",cred:"Completion",desc:"Learn-by-coding with growing AI/ML catalog. Browser IDE.",tag:"Best beginner coding-first onramp",lat:40.74,lng:-74.00,url:"https://www.codecademy.com/"},
+  {id:"dataquest",name:"Dataquest",x:.30,y:.75,q:3,r:"Global",b:"Individual",lang:"EN",price:"$29–49/mo",depth:"Beg→Inter",ho:"Very High",cred:"Completion",desc:"Project-based ML/AI paths. Anti-video: text + code approach.",tag:"Pure text + code — no video",lat:37.77,lng:-122.42,url:"https://www.dataquest.io/"},
+  {id:"wandb",name:"Weights & Biases",x:.18,y:.68,q:3,r:"Global",b:"Individual",lang:"EN",price:"Free",depth:"Inter→Expert",ho:"Very High",cred:"Portfolio",desc:"MLOps courses on experiment tracking, model evaluation & LLM fine-tuning.",tag:"Essential for MLOps practitioners",lat:37.78,lng:-122.39,url:"https://www.wandb.courses/"},
+  {id:"brainster",name:"Brainster",x:.28,y:.72,q:3,r:"SE Europe",b:"Individual",lang:"EN, MK",price:"€2–4K",depth:"Beg→Inter",ho:"High",cred:"Portfolio",desc:"Data Science academy. Regional recognition in SE Europe.",tag:"Strongest regional player in Balkans",lat:41.99,lng:21.43,url:"https://brainster.co/"},
+  {id:"platzi",name:"Platzi",x:.32,y:.70,q:3,r:"LatAm",b:"Individual",lang:"ES",price:"$25–49/mo",depth:"Beg→Inter",ho:"High",cred:"Completion",desc:"AI & Data Science school. Spanish-first. Huge LatAm community.",tag:"Dominant Spanish-language AI ed",lat:19.43,lng:-99.13,url:"https://platzi.com/"},
+  {id:"eureka",name:"Eureka Labs",x:.24,y:.58,q:3,r:"Global",b:"Individual",lang:"EN",price:"Free (planned)",depth:"Inter→Expert",ho:"Very High",cred:"None yet",desc:"Karpathy's AI-native school. LLM101n first course.",tag:"The Karpathy factor is enormous",notable:true,lat:37.77,lng:-122.42,url:"https://eurekalabs.ai/"},
+  {id:"udemy",name:"Udemy",x:.40,y:.30,q:4,r:"Global",b:"Individual",lang:"EN +15",price:"$10–200",depth:"Beg→Inter",ho:"Low-Med",cred:"Completion",desc:"11M+ AI enrollments. Quality varies wildly. Being acquired by Coursera.",tag:"Mega-marketplace. Coursera merger pending.",notable:true,lat:37.78,lng:-122.39,url:"https://www.udemy.com/"},
+  {id:"oreilly",name:"O'Reilly",x:.42,y:.35,q:4,r:"Global",b:"Enterprise",lang:"EN",price:"$49/mo",depth:"Beg→Adv",ho:"Medium",cred:"None formal",desc:"AI Academy + deep enterprise library. Books, videos, live events, sandboxes.",tag:"Deepest library. Needs curation.",lat:37.78,lng:-122.40,url:"https://www.oreilly.com/"},
+  {id:"educative",name:"Educative",x:.32,y:.40,q:4,r:"Global",b:"Individual",lang:"EN",price:"$47–64/mo",depth:"Beg→Inter",ho:"Medium",cred:"Completion",desc:"Developer-oriented, text-based with interactive code.",tag:"Text-first, faster learning loops",lat:47.62,lng:-122.34,url:"https://www.educative.io/"},
+  {id:"openai-academy",name:"OpenAI Academy",x:.28,y:.28,q:4,r:"Global",b:"Mixed",lang:"EN",price:"Free",depth:"Beg→Inter",ho:"Low-Med",cred:"Planned 2026",desc:"Newly launched by OpenAI. Workshops, discussions & digital content.",tag:"Brand new — certs coming soon",lat:37.77,lng:-122.42,url:"https://academy.openai.com/"},
+  {id:"khan",name:"Khan Academy",x:.22,y:.25,q:4,r:"Global",b:"Individual",lang:"EN +40",price:"Free/$4mo",depth:"Beginner",ho:"Low",cred:"None",desc:"AI tutor Khanmigo. Strongest for K-12 and foundational understanding.",tag:"Most inclusive. $4/mo AI tutoring.",lat:37.42,lng:-122.17,url:"https://www.khanacademy.org/"},
+];
+
+const Q={1:{name:"Ship & Signal",sub:"High credential · High hands-on",color:"#1a7a5c",bg:"#e8f5ef",rule:"Need job-change proof in 8–16 weeks → finish projects, publish artifacts, show evidence.",icon:"◆"},2:{name:"Credential Fast",sub:"High credential · Lower hands-on",color:"#3b5cc6",bg:"#e8eef8",rule:"Need recognized certs fast for managers, analysts, or AI literacy → add a project track later.",icon:"●"},3:{name:"Build & Prove",sub:"Lower credential · High hands-on",color:"#b8860b",bg:"#faf3e0",rule:"Already code, want fastest growth → prove skills with GitHub, notebooks, demos, Kaggle rank.",icon:"▲"},4:{name:"Explore & Orient",sub:"Lower credential · Lower hands-on",color:"#6b7280",bg:"#f0f1f3",rule:"Still choosing direction → browse 1–2 weeks, vet quality, then commit to a hands-on track.",icon:"□"}};
+
+const countryRegion={840:"na",124:"na",826:"uk",250:"eu",276:"eu",756:"eu",380:"eu",724:"eu",528:"eu",56:"eu",40:"eu",620:"eu",300:"eu",203:"eu",616:"eu",348:"eu",642:"eu",100:"eu",752:"eu",578:"eu",246:"eu",208:"eu",372:"eu",703:"eu",705:"eu",191:"eu",233:"eu",428:"eu",440:"eu",807:"eu",8:"eu",70:"eu",688:"eu",499:"eu",356:"in",410:"kr",484:"latam",76:"latam",32:"latam",152:"latam",170:"latam",604:"latam",218:"latam",862:"latam",858:"latam",600:"latam",68:"latam",591:"latam",320:"latam",340:"latam",222:"latam",558:"latam",188:"latam"};
+const regionFilter={"Global":null,"EU/Global":"eu","France/EU":"eu","France":"eu","India/Global":"in","India":"in","SE Europe":"eu","LatAm":"latam"};
+
+function WorldMap({programs, sel, setSel, hov, setHov, activeRegion, accent}){
+  const svgRef=useRef(null);
+  const[countries,setCountries]=useState(null);
+  const[path,setPath]=useState(null);
+  const MW=640,MH=380;
+
+  useEffect(()=>{
+    const proj=d3.geoNaturalEarth1().scale(120).translate([MW/2,MH/2]);
+    const pathGen=d3.geoPath(proj);
+    setPath(()=>pathGen);
+    fetch("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json")
+      .then(r=>r.json())
+      .then(w=>{setCountries(topojson.feature(w,w.objects.countries).features);})
+      .catch(()=>{});
+  },[]);
+
+  const activeReg=regionFilter[activeRegion]||null;
+  const proj=d3.geoNaturalEarth1().scale(120).translate([MW/2,MH/2]);
+  const projPt=(lng,lat)=>proj([lng,lat]);
+
+  const graticule=d3.geoGraticule().step([30,30])();
+  const gratPath=path?path(graticule):"";
+  const outlinePath=path?path(d3.geoGraticule().outline()):"";
+
+  return(
+    <svg viewBox={`0 0 ${MW} ${MH}`} style={{width:"100%",maxWidth:MW,borderRadius:14,overflow:"hidden",boxShadow:"0 1px 3px rgba(0,0,0,.06),0 8px 30px rgba(0,0,0,.06)"}}>
+      <rect width={MW} height={MH} fill="#d6e6f0"/>
+      {outlinePath&&<path d={outlinePath} fill="#d0e0ec" stroke="#b8cdd8" strokeWidth={.5}/>}
+      {gratPath&&<path d={gratPath} fill="none" stroke="#c2d6e4" strokeWidth={.3}/>}
+      {countries&&path&&countries.map((c,i)=>{
+        const cReg=countryRegion[+c.id];
+        const hi=activeReg&&cReg===activeReg;
+        return <path key={i} d={path(c)} fill={hi?"#f0e4c8":"#ede9e0"} stroke={hi?accent:"#c8c2b8"} strokeWidth={hi?.8:.3} style={{transition:"fill .3s, stroke .3s"}}/>;
+      })}
+      {outlinePath&&<path d={outlinePath} fill="none" stroke="#a0b8c8" strokeWidth={.8}/>}
+      {programs.map(p=>{
+        const pt=projPt(p.lng,p.lat);
+        if(!pt)return null;
+        const[cx,cy]=pt;
+        if(cx<0||cx>MW||cy<0||cy>MH)return null;
+        const r=p.notable?7:5;
+        const c=Q[p.q].color;
+        const isSel=sel?.id===p.id,isHov=hov===p.id,act=isSel||isHov;
+        return(<g key={p.id} onClick={()=>setSel(isSel?null:p)} onMouseEnter={()=>setHov(p.id)} onMouseLeave={()=>setHov(null)} style={{cursor:"pointer"}}>
+          {act&&<circle cx={cx} cy={cy} r={r+4} fill="none" stroke={c} strokeWidth={1.5} opacity={.5}/>}
+          {p.notable&&!act&&<circle cx={cx} cy={cy} r={r+2.5} fill="none" stroke={c} strokeWidth={.5} opacity={.3}/>}
+          <circle cx={cx} cy={cy} r={r} fill={isSel?c:act?"#fff":c} fillOpacity={isSel?1:(act?1:.85)} stroke={isSel?"#fff":c} strokeWidth={isSel?2:(act?1.5:.8)}/>
+          {act&&<text x={cx} y={cy-r-5} textAnchor="middle" fontFamily="'Manrope',sans-serif" fontSize={8} fontWeight={700} fill="#1a1a2e" stroke="#fff" strokeWidth={3} paintOrder="stroke">{p.name}</text>}
+        </g>);
+      })}
+      {hov&&!sel&&(()=>{const p=data.find(d=>d.id===hov);if(!p)return null;const pt=projPt(p.lng,p.lat);if(!pt)return null;const[cx,cy]=pt;const tw=210,th=54;let ttx=cx-tw/2,tty=cy-12-th-6;if(ttx<4)ttx=4;if(ttx+tw>MW-4)ttx=MW-tw-4;if(tty<4)tty=cy+14;return(<g style={{pointerEvents:"none"}}><rect x={ttx} y={tty} width={tw} height={th} rx={7} fill="#1a1a2e" opacity={.95}/><text x={ttx+12} y={tty+16} fontFamily="'Manrope',sans-serif" fontSize={10} fontWeight={700} fill="#fff">{p.name}</text><text x={ttx+12} y={tty+30} fontFamily="'Manrope',sans-serif" fontSize={8} fill="#aaa">{p.tag}</text><text x={ttx+12} y={tty+44} fontFamily="'IBM Plex Mono',monospace" fontSize={8} fill={accent}>{p.price} · {p.r}</text></g>);})()}
+    </svg>
+  );
+}
+
+function App(){
+  const[sel,setSel]=useState(null);const[hov,setHov]=useState(null);const[fq,setFq]=useState(0);const[fr,setFr]=useState("All");const[fb,setFb]=useState("All");const[view,setView]=useState("quadrant");const[ready,setReady]=useState(false);
+  useEffect(()=>{requestAnimationFrame(()=>setReady(true));},[]);
+  const vis=data.filter(p=>(fq===0||p.q===fq)&&(fr==="All"||p.r===fr)&&(fb==="All"||p.b===fb));
+  const pad={t:44,r:32,b:52,l:52},W=640,H=600,iW=W-pad.l-pad.r,iH=H-pad.t-pad.b;
+  const px=v=>pad.l+v*iW,py=v=>pad.t+(1-v)*iH;
+  const rad=p=>p.notable?20:(["coursera","edx","udemy","linkedin","kaggle","fastai","dlai","datacamp","pluralsight","udacity"].includes(p.id)?17:14);
+  const regions=[...new Set(data.map(p=>p.r))],buyers=[...new Set(data.map(p=>p.b))];
+  const splitLabel=n=>{if(n.length<=12||!n.includes(" "))return[n];const w=n.split(" ");if(w.length===2)return w;const m=Math.ceil(w.length/2);return[w.slice(0,m).join(" "),w.slice(m).join(" ")];};
+  const Pill=({active,color,children,onClick})=>(<button onClick={onClick} style={{padding:"5px 14px",borderRadius:100,fontSize:11.5,fontWeight:500,cursor:"pointer",whiteSpace:"nowrap",border:`1.5px solid ${active?color:"#ddd"}`,background:active?color+"11":"#fff",color:active?color:"#888",transition:"all .15s ease",fontFamily:"'Manrope',sans-serif"}}>{children}</button>);
+
+  return(<div style={{minHeight:"100vh",background:"#faf9f6",color:"#1a1a2e",fontFamily:"'Source Serif 4',Georgia,serif"}}>
+    <style>{`@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400&family=Manrope:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap');*{box-sizing:border-box;margin:0}::selection{background:#b8860b33}button{font-family:'Manrope',sans-serif}`}</style>
+
+    <div style={{maxWidth:1200,margin:"0 auto",padding:"36px 28px 0",opacity:ready?1:0,transform:ready?"none":"translateY(-12px)",transition:"all .7s cubic-bezier(.23,1,.32,1)"}}>
+      <div style={{display:"flex",alignItems:"baseline",gap:12,marginBottom:6}}>
+        <span style={{fontFamily:"'IBM Plex Mono'",fontSize:10,letterSpacing:3,color:"#b8860b",textTransform:"uppercase"}}>Market Map</span>
+        <span style={{width:40,height:1,background:"#b8860b44",display:"inline-block",verticalAlign:"middle"}}/>
+        <span style={{fontFamily:"'IBM Plex Mono'",fontSize:10,color:"#999"}}>March 2026</span>
+      </div>
+      <h1 style={{fontFamily:"'Source Serif 4',Georgia",fontSize:36,fontWeight:700,letterSpacing:-0.5,lineHeight:1.15,color:"#1a1a2e",marginBottom:8}}>Who Teaches AI<br/><span style={{color:"#b8860b"}}>Outside the University?</span></h1>
+      <p style={{fontFamily:"'Manrope',sans-serif",fontSize:14,color:"#666",lineHeight:1.6,maxWidth:620}}>34 non-academic providers mapped by credential strength and hands-on depth, with a geographic view. Click any provider for details or visit their site.</p>
+    </div>
+
+    <div style={{maxWidth:1200,margin:"0 auto",padding:"18px 28px 0",opacity:ready?1:0,transition:"all .7s ease .15s"}}>
+      <div style={{display:"flex",gap:12,marginBottom:12,flexWrap:"wrap"}}>
+        <div style={{display:"flex",gap:4,background:"#fff",borderRadius:10,padding:3,border:"1px solid #ece9e3",width:"fit-content"}}>
+          {[{k:"quadrant",l:"Quadrant"},{k:"map",l:"Geographic Map"}].map(({k,l})=><button key={k} onClick={()=>{setView(k);setSel(null);}} style={{padding:"6px 16px",borderRadius:8,fontSize:11.5,fontWeight:600,cursor:"pointer",border:"none",background:view===k?"#b8860b":"transparent",color:view===k?"#fff":"#888",transition:"all .2s ease",fontFamily:"'Manrope',sans-serif"}}>{l}</button>)}
+        </div>
+      </div>
+      <div style={{display:"flex",gap:6,flexWrap:"wrap",alignItems:"center"}}>
+        <Pill active={fq===0} color="#1a1a2e" onClick={()=>{setFq(0);setSel(null)}}>All {data.length}</Pill>
+        {[1,2,3,4].map(q=><Pill key={q} active={fq===q} color={Q[q].color} onClick={()=>{setFq(fq===q?0:q);setSel(null)}}>{Q[q].icon} {Q[q].name}</Pill>)}
+        <span style={{width:1,height:20,background:"#e0ddd8",margin:"0 4px"}}/>
+        <select value={fr} onChange={e=>{setFr(e.target.value);setSel(null)}} style={{fontFamily:"'Manrope'",fontSize:11.5,padding:"5px 10px",borderRadius:8,border:"1.5px solid #ddd",background:"#fff",color:"#555",cursor:"pointer"}}><option value="All">All Regions</option>{regions.map(r=><option key={r} value={r}>{r}</option>)}</select>
+        <select value={fb} onChange={e=>{setFb(e.target.value);setSel(null)}} style={{fontFamily:"'Manrope'",fontSize:11.5,padding:"5px 10px",borderRadius:8,border:"1.5px solid #ddd",background:"#fff",color:"#555",cursor:"pointer"}}><option value="All">All Buyers</option>{buyers.map(b=><option key={b} value={b}>{b}</option>)}</select>
+        <span style={{fontFamily:"'IBM Plex Mono'",fontSize:11,color:"#aaa",marginLeft:6}}>{vis.length} shown</span>
+      </div>
+    </div>
+
+    <div style={{maxWidth:1200,margin:"0 auto",padding:"20px 28px",display:"flex",gap:28,alignItems:"flex-start",flexWrap:"wrap"}}>
+      <div style={{flex:"1 1 640px",minWidth:320,opacity:ready?1:0,transform:ready?"none":"translateY(16px)",transition:"all .8s cubic-bezier(.23,1,.32,1) .2s"}}>
+        {view==="quadrant"?(<svg viewBox={`0 0 ${W} ${H}`} style={{width:"100%",maxWidth:W,borderRadius:14,background:"#fff",boxShadow:"0 1px 3px rgba(0,0,0,.04),0 8px 30px rgba(0,0,0,.04)",border:"1px solid #ece9e3"}}>
+          <rect x={pad.l} y={pad.t} width={iW/2} height={iH/2} fill={Q[3].bg}/><rect x={pad.l+iW/2} y={pad.t} width={iW/2} height={iH/2} fill={Q[1].bg}/><rect x={pad.l} y={pad.t+iH/2} width={iW/2} height={iH/2} fill={Q[4].bg}/><rect x={pad.l+iW/2} y={pad.t+iH/2} width={iW/2} height={iH/2} fill={Q[2].bg}/>
+          {[.25,.75].map(v=><g key={v} opacity={.35}><line x1={px(v)} y1={pad.t} x2={px(v)} y2={H-pad.b} stroke="#ccc" strokeDasharray="2,4" strokeWidth={.5}/><line x1={pad.l} y1={py(v)} x2={W-pad.r} y2={py(v)} stroke="#ccc" strokeDasharray="2,4" strokeWidth={.5}/></g>)}
+          <line x1={px(.5)} y1={pad.t} x2={px(.5)} y2={H-pad.b} stroke="#c4bfb6" strokeWidth={1}/><line x1={pad.l} y1={py(.5)} x2={W-pad.r} y2={py(.5)} stroke="#c4bfb6" strokeWidth={1}/>
+          {[{q:3,lx:pad.l+iW*.13,ly:pad.t+iH*.08},{q:1,lx:pad.l+iW*.63,ly:pad.t+iH*.08},{q:4,lx:pad.l+iW*.13,ly:pad.t+iH*.58},{q:2,lx:pad.l+iW*.63,ly:pad.t+iH*.58}].map(({q,lx,ly})=>(<g key={q}><text x={lx} y={ly} fontFamily="'Source Serif 4',Georgia" fontSize={13} fontWeight={600} fill={Q[q].color} opacity={.18}>{Q[q].name}</text><text x={lx} y={ly+15} fontFamily="'Manrope',sans-serif" fontSize={8.5} fill={Q[q].color} opacity={.12}>{Q[q].sub}</text></g>))}
+          <text x={W/2} y={H-8} textAnchor="middle" fontFamily="'Manrope',sans-serif" fontSize={10.5} fill="#999" fontWeight={500}>Credential & Employer Signaling →</text>
+          <text x={10} y={H/2} textAnchor="middle" fontFamily="'Manrope',sans-serif" fontSize={10.5} fill="#999" fontWeight={500} transform={`rotate(-90,10,${H/2})`}>Hands-on Depth →</text>
+          <text x={pad.l+2} y={H-pad.b+14} fontFamily="'IBM Plex Mono',monospace" fontSize={8} fill="#bbb">Low</text><text x={W-pad.r-2} y={H-pad.b+14} fontFamily="'IBM Plex Mono',monospace" fontSize={8} fill="#bbb" textAnchor="end">High</text>
+          <text x={pad.l-4} y={H-pad.b-2} fontFamily="'IBM Plex Mono',monospace" fontSize={8} fill="#bbb" textAnchor="end">Low</text><text x={pad.l-4} y={pad.t+8} fontFamily="'IBM Plex Mono',monospace" fontSize={8} fill="#bbb" textAnchor="end">High</text>
+          {vis.map(p=>{const cx=px(p.x),cy=py(p.y),r=rad(p),c=Q[p.q].color,isSel=sel?.id===p.id,isHov=hov===p.id,act=isSel||isHov,lines=splitLabel(p.name);return(<g key={p.id} onClick={()=>setSel(isSel?null:p)} onMouseEnter={()=>setHov(p.id)} onMouseLeave={()=>setHov(null)} style={{cursor:"pointer"}}>{act&&<circle cx={cx} cy={cy} r={r+5} fill="none" stroke={c} strokeWidth={1.5} opacity={.3} strokeDasharray={isSel?"none":"3,2"}/>}{p.notable&&!act&&<circle cx={cx} cy={cy} r={r+3} fill="none" stroke={c} strokeWidth={.5} opacity={.2}/>}<circle cx={cx} cy={cy} r={r} fill={isSel?c:"#fff"} stroke={c} strokeWidth={isSel?2.5:(act?2:1.2)} opacity={act?1:.9}/>{lines.map((line,i)=><text key={i} x={cx} y={cy+(i-(lines.length-1)/2)*(r>16?10:9)} textAnchor="middle" dominantBaseline="middle" fontFamily="'Manrope',sans-serif" fontSize={lines.length>1?(r>=17?7:6.5):(p.name.length>14?6.5:(r>=17?8:7))} fontWeight={600} fill={isSel?"#fff":c} style={{pointerEvents:"none"}}>{line}</text>)}</g>);})}
+          {hov&&!sel&&(()=>{const p=data.find(d=>d.id===hov);if(!p)return null;const cx=px(p.x),cy=py(p.y),tw=190,th=44;let ttx=cx-tw/2,tty=cy-rad(p)-th-8;if(ttx<pad.l)ttx=pad.l+4;if(ttx+tw>W-pad.r)ttx=W-pad.r-tw-4;if(tty<pad.t)tty=cy+rad(p)+8;return(<g style={{pointerEvents:"none"}}><rect x={ttx} y={tty} width={tw} height={th} rx={7} fill="#1a1a2e" opacity={.93}/><text x={ttx+12} y={tty+17} fontFamily="'Manrope',sans-serif" fontSize={10.5} fontWeight={700} fill="#fff">{p.name}</text><text x={ttx+12} y={tty+32} fontFamily="'Manrope',sans-serif" fontSize={8.5} fill="#aaa">{p.tag}</text></g>);})()}
+        </svg>):(
+          <WorldMap programs={vis} sel={sel} setSel={setSel} hov={hov} setHov={setHov} activeRegion={fr} accent="#b8860b"/>
+        )}
+      </div>
+
+      <div style={{flex:"0 1 400px",minWidth:290,opacity:ready?1:0,transform:ready?"none":"translateX(20px)",transition:"all .8s cubic-bezier(.23,1,.32,1) .35s"}}>
+        {sel?(()=>{const q=Q[sel.q];return(<div style={{background:"#fff",borderRadius:14,padding:24,boxShadow:"0 1px 3px rgba(0,0,0,.04),0 8px 30px rgba(0,0,0,.06)",border:`1px solid ${q.color}18`}}>
+          <div style={{display:"inline-flex",alignItems:"center",gap:6,padding:"3px 12px",borderRadius:100,background:q.bg,border:`1px solid ${q.color}22`,marginBottom:14}}><span style={{fontFamily:"'IBM Plex Mono'",fontSize:9,fontWeight:600,color:q.color,letterSpacing:1.5,textTransform:"uppercase"}}>{q.icon} {q.name}</span></div>
+          <h2 style={{fontFamily:"'Source Serif 4',Georgia",fontSize:26,fontWeight:700,color:"#1a1a2e",lineHeight:1.15,margin:"0 0 4px"}}>{sel.name}</h2>
+          <p style={{fontFamily:"'Manrope'",fontSize:12,color:q.color,fontStyle:"italic",margin:"0 0 14px",fontWeight:500}}>{sel.tag}</p>
+          <p style={{fontFamily:"'Manrope'",fontSize:13,color:"#555",lineHeight:1.65,margin:"0 0 18px"}}>{sel.desc}</p>
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:18}}>
+            {[{l:"Price",v:sel.price},{l:"Depth",v:sel.depth},{l:"Hands-on",v:sel.ho},{l:"Credential",v:sel.cred},{l:"Region",v:sel.r},{l:"Language",v:sel.lang}].map(({l,v})=>(<div key={l} style={{padding:"8px 12px",borderRadius:8,background:"#faf9f6",border:"1px solid #ece9e3"}}><div style={{fontFamily:"'IBM Plex Mono'",fontSize:9,color:"#aaa",letterSpacing:1,marginBottom:3}}>{l.toUpperCase()}</div><div style={{fontFamily:"'Manrope'",fontSize:12,color:"#333",fontWeight:600}}>{v}</div></div>))}
+          </div>
+          {[{l:"Credential Signal",v:sel.x},{l:"Hands-on Depth",v:sel.y}].map(({l,v})=>(<div key={l} style={{marginBottom:8}}><div style={{display:"flex",justifyContent:"space-between",marginBottom:4}}><span style={{fontFamily:"'Manrope'",fontSize:11,color:"#888"}}>{l}</span><span style={{fontFamily:"'IBM Plex Mono'",fontSize:11,color:"#333",fontWeight:600}}>{Math.round(v*100)}</span></div><div style={{height:4,background:"#ece9e3",borderRadius:2}}><div style={{height:"100%",width:`${v*100}%`,borderRadius:2,background:q.color,transition:"width .4s cubic-bezier(.23,1,.32,1)"}}/></div></div>))}
+          <a href={sel.url} target="_blank" rel="noopener noreferrer" style={{display:"block",marginTop:16,padding:"10px 16px",borderRadius:8,background:q.color,color:"#fff",fontFamily:"'Manrope'",fontSize:12.5,fontWeight:600,textAlign:"center",textDecoration:"none",cursor:"pointer",letterSpacing:.3}}>Visit Platform →</a>
+          <div style={{marginTop:10,padding:"12px 14px",borderRadius:10,background:q.bg,border:`1px solid ${q.color}15`}}><div style={{fontFamily:"'IBM Plex Mono'",fontSize:9,color:q.color,letterSpacing:1.5,marginBottom:4}}>ACTION RULE</div><div style={{fontFamily:"'Manrope'",fontSize:12,color:"#555",lineHeight:1.5}}>{q.rule}</div></div>
+          <button onClick={()=>setSel(null)} style={{marginTop:12,width:"100%",padding:"9px",borderRadius:8,border:"1.5px solid #e0ddd8",background:"#faf9f6",color:"#999",fontSize:12,cursor:"pointer",fontWeight:500}}>Close</button>
+        </div>);})():(
+          <div>
+            <div style={{background:"#fff",borderRadius:14,padding:22,marginBottom:16,boxShadow:"0 1px 3px rgba(0,0,0,.04),0 8px 30px rgba(0,0,0,.04)",border:"1px solid #ece9e3"}}>
+              <h3 style={{fontFamily:"'Source Serif 4',Georgia",fontSize:18,fontWeight:600,color:"#1a1a2e",margin:"0 0 4px"}}>Which quadrant is for you?</h3>
+              <p style={{fontFamily:"'Manrope'",fontSize:11,color:"#999",margin:"0 0 14px"}}>{view==="map"?"Select a region to highlight on the globe":"Credential × Hands-on view"}</p>
+              {[{q:1,who:"Need job-change proof in 8–16 weeks",pick:"Ship & Signal"},{q:2,who:"Need recognized certs for non-engineers",pick:"Credential Fast"},{q:3,who:"Already code, want fastest skill growth",pick:"Build & Prove"},{q:4,who:"Still choosing a direction",pick:"Explore & Orient"}].map(({q,who,pick})=>(<div key={q} onClick={()=>setFq(fq===q?0:q)} style={{display:"flex",gap:12,padding:"10px 14px",marginBottom:6,borderRadius:10,cursor:"pointer",background:fq===q?Q[q].bg:"transparent",border:`1.5px solid ${fq===q?Q[q].color+"30":"transparent"}`,transition:"all .2s ease"}}><span style={{width:28,height:28,borderRadius:8,flexShrink:0,display:"flex",alignItems:"center",justifyContent:"center",background:Q[q].color+"12",color:Q[q].color,fontFamily:"'IBM Plex Mono'",fontSize:14,fontWeight:700}}>{Q[q].icon}</span><div><div style={{fontFamily:"'Manrope'",fontSize:13,color:"#333",fontWeight:600,lineHeight:1.3}}>{who}</div><div style={{fontFamily:"'IBM Plex Mono'",fontSize:11,color:Q[q].color,fontWeight:500,marginTop:2}}>→ {pick}</div></div></div>))}
+            </div>
+            <div style={{background:"#fff",borderRadius:14,padding:20,boxShadow:"0 1px 3px rgba(0,0,0,.04),0 4px 20px rgba(0,0,0,.03)",border:"1px solid #ece9e3"}}>
+              <div style={{fontFamily:"'IBM Plex Mono'",fontSize:9,letterSpacing:2,color:"#aaa",marginBottom:12}}>READING THE MAP</div>
+              {[{t:"Toggle views",d:"Switch between quadrant chart and geographic map. Both respond to filters."},{t:"Region filter",d:"Select a region to highlight countries on the globe and filter providers."},{t:"Dot color",d:"Matches quadrant assignment. Notable providers have a halo."},{t:"Click through",d:"Click a provider → 'Visit Platform →' to go to their site."}].map(({t,d})=>(<div key={t} style={{marginBottom:8}}><span style={{fontFamily:"'Manrope'",fontSize:12,fontWeight:700,color:"#333"}}>{t}. </span><span style={{fontFamily:"'Manrope'",fontSize:12,color:"#777"}}>{d}</span></div>))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+
+    <div style={{maxWidth:1200,margin:"0 auto",padding:"0 28px 20px",opacity:ready?1:0,transition:"all .8s ease .5s"}}>
+      <div style={{background:"#fff",borderRadius:14,padding:20,boxShadow:"0 1px 3px rgba(0,0,0,.04),0 8px 30px rgba(0,0,0,.04)",border:"1px solid #ece9e3",overflowX:"auto"}}>
+        <div style={{display:"flex",alignItems:"baseline",gap:10,marginBottom:14}}>
+          <h3 style={{fontFamily:"'Source Serif 4',Georgia",fontSize:18,fontWeight:600,color:"#1a1a2e"}}>Full Directory</h3>
+          <span style={{fontFamily:"'IBM Plex Mono'",fontSize:11,color:"#aaa"}}>{vis.length} providers</span>
+        </div>
+        <table style={{width:"100%",borderCollapse:"collapse"}}>
+          <thead><tr>{["Platform","Quadrant","Region","Price","Hands-on","Credential"].map(h=><th key={h} style={{padding:"8px 12px",textAlign:"left",borderBottom:"2px solid #ece9e3",fontFamily:"'IBM Plex Mono'",fontSize:9,letterSpacing:1.2,color:"#aaa",fontWeight:500,textTransform:"uppercase",whiteSpace:"nowrap"}}>{h}</th>)}</tr></thead>
+          <tbody>{vis.map((p,i)=>{const q=Q[p.q],isSel=sel?.id===p.id;return(<tr key={p.id} onClick={()=>setSel(isSel?null:p)} style={{cursor:"pointer",background:isSel?q.bg:(i%2===0?"#faf9f6":"#fff"),transition:"background .15s ease"}}><td style={{padding:"8px 12px",fontFamily:"'Manrope'",fontSize:12.5,fontWeight:600,color:"#333",whiteSpace:"nowrap"}}>{p.notable&&<span style={{color:q.color,marginRight:4,fontSize:8}}>●</span>}{p.name}</td><td style={{padding:"8px 12px"}}><span style={{display:"inline-block",padding:"2px 10px",borderRadius:100,background:q.bg,border:`1px solid ${q.color}20`,fontFamily:"'IBM Plex Mono'",fontSize:9.5,fontWeight:600,color:q.color,whiteSpace:"nowrap"}}>{q.icon} {q.name}</span></td><td style={{padding:"8px 12px",fontFamily:"'Manrope'",fontSize:11,color:"#888",whiteSpace:"nowrap"}}>{p.r}</td><td style={{padding:"8px 12px",fontFamily:"'Manrope'",fontSize:11,color:"#666",whiteSpace:"nowrap"}}>{p.price}</td><td style={{padding:"8px 12px",fontFamily:"'Manrope'",fontSize:11,color:"#666"}}>{p.ho}</td><td style={{padding:"8px 12px",fontFamily:"'Manrope'",fontSize:11,color:"#666",maxWidth:140,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{p.cred}</td></tr>);})}</tbody>
+        </table>
+      </div>
+    </div>
+
+    <div style={{maxWidth:1200,margin:"0 auto",padding:"0 28px 48px"}}>
+      <div style={{borderTop:"1px solid #ece9e3",paddingTop:20}}>
+        <p style={{fontFamily:"'Manrope',sans-serif",fontSize:11,color:"#b0a99f",lineHeight:1.7,maxWidth:720}}>
+          <span style={{fontFamily:"'IBM Plex Mono'",fontSize:9,letterSpacing:1.5,color:"#c4bfb6",textTransform:"uppercase"}}>Disclaimer</span><br/>
+          The positions, ratings, and assessments on this page reflect one person's working evaluation based on personal research and experience. This is not legal, financial, or professional advice. Platform details — including pricing, content, and credentials — change frequently; always verify directly with the provider before making any decisions. No platform has endorsed, sponsored, or reviewed its placement here. Use this as a starting point for your own research, not as a definitive ranking.
+        </p>
+        <p style={{fontFamily:"'IBM Plex Mono'",fontSize:10,color:"#c4bfb6",marginTop:10}}>© 2026 Goran Trajkovski · gorantrajkovski.com</p>
+      </div>
+    </div>
+  </div>);
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(App));
+</script>
+</body>
+</html>

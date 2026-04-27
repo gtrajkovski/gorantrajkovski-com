@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Who Teaches AI Inside the University? · Goran Trajkovski</title>
+<meta name="description" content="32 academic AI programs mapped on dual axes with geographic view.">
+<meta property="og:title" content="Who Teaches AI Inside the University? · Goran Trajkovski">
+<meta property="og:description" content="32 academic AI programs mapped on dual axes with interactive geographic map.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
+<style>
+*{box-sizing:border-box;margin:0}body{background:#faf9f6}
+.site-back{position:fixed;top:14px;right:14px;z-index:9999;font:600 12px/1 -apple-system,sans-serif;color:#fff;background:rgba(0,0,0,.5);padding:7px 12px;border-radius:7px;text-decoration:none;backdrop-filter:blur(10px);transition:background .2s}
+.site-back:hover{background:rgba(124,58,237,.9)}
+</style>
+</head>
+<body>
+<a href="/" class="site-back">← gorantrajkovski.com</a>
+<div id="root"></div>
+<script type="text/babel">
+const { useState, useEffect, useRef } = React;
+
+const data = [
+  {id:"stanford",name:"Stanford MS CS",ax:.12,ay:.95,bx:.98,by:.72,type:"Full MS",fmt:"Campus",dur:"1.5–2 yr",r:"US",cost:"$60K+",sel:"Very High",rsch:"World-leading",lang:"EN",desc:"CS department ranked #1 globally. AI specialization covers ML, NLP, vision, robotics. Access to Stanford AI Lab (SAIL), HAI institute.",tag:"The apex. If you can get in.",notable:true,lat:37.43,lng:-122.17,url:"https://cs.stanford.edu/degrees/mscs/"},
+  {id:"mit",name:"MIT EECS",ax:.10,ay:.95,bx:.97,by:.75,type:"Full MS/PhD",fmt:"Campus",dur:"2 yr",r:"US",cost:"$55K+",sel:"Very High",rsch:"World-leading",lang:"EN",desc:"Electrical Engineering & Computer Science with AI/ML focus. Access to CSAIL — largest CS research lab in the US.",tag:"Research powerhouse. PhD pipeline.",notable:true,lat:42.36,lng:-71.09,url:"https://www.eecs.mit.edu/academics/graduate-programs/"},
+  {id:"cmu-ml",name:"CMU MS in ML",ax:.14,ay:.93,bx:.96,by:.80,type:"Full MS",fmt:"Campus",dur:"1–2 yr",r:"US",cost:"$50K+",sel:"Very High",rsch:"World-leading",lang:"EN",desc:"Dedicated Machine Learning Department — one of the only standalone ML departments in the world. Thesis required. Small cohort.",tag:"Only standalone ML department on earth",notable:true,lat:40.44,lng:-79.94,url:"https://www.ml.cmu.edu/academics/ms-in-machine-learning.html"},
+  {id:"cambridge",name:"Cambridge MPhil ML",ax:.12,ay:.90,bx:.95,by:.68,type:"Full MS",fmt:"Campus",dur:"1 yr",r:"UK",cost:"£45K intl",sel:"Very High",rsch:"World-leading",lang:"EN",desc:"Machine Learning and Machine Intelligence track. Strong Bayesian ML tradition. Small cohort (~30). Deep ties to DeepMind.",tag:"Bayesian ML birthplace. DeepMind pipeline.",lat:52.20,lng:0.12,url:"https://www.mlmi.eng.cam.ac.uk/"},
+  {id:"oxford",name:"Oxford MSc Adv CS",ax:.13,ay:.88,bx:.94,by:.65,type:"Full MS",fmt:"Campus",dur:"1 yr",r:"UK",cost:"£45K intl",sel:"Very High",rsch:"World-leading",lang:"EN",desc:"Advanced Computer Science with ML/AI specialization. Research-intensive. Dissertation required.",tag:"Oxford brand + research depth",lat:51.75,lng:-1.26,url:"https://www.cs.ox.ac.uk/admissions/graduate/"},
+  {id:"edinburgh",name:"Edinburgh MSc AI",ax:.25,ay:.85,bx:.87,by:.70,type:"Full MS",fmt:"Campus",dur:"1 yr",r:"UK",cost:"£35K intl",sel:"High",rsch:"Very strong",lang:"EN",desc:"One of the oldest AI programs (est. 1983). Bayes Centre. Strong in NLP, robotics, probabilistic ML.",tag:"Oldest AI MSc. Bayes Centre.",lat:55.95,lng:-3.19,url:"https://www.ed.ac.uk/studying/postgraduate/degrees?id=107"},
+  {id:"eth",name:"ETH Zürich MS CS",ax:.55,ay:.92,bx:.90,by:.72,type:"Full MS",fmt:"Campus",dur:"2 yr",r:"EU",cost:"CHF 1.5K/yr",sel:"High",rsch:"World-leading",lang:"EN",desc:"Arguably the best value in elite CS education globally. ML/AI track with thesis.",tag:"World-class research. $1,500/year.",notable:true,lat:47.38,lng:8.55,url:"https://inf.ethz.ch/studies/master.html"},
+  {id:"tum",name:"TU Munich Informatics",ax:.62,ay:.88,bx:.82,by:.72,type:"Full MS",fmt:"Campus",dur:"2 yr",r:"EU",cost:"~€300/sem",sel:"High",rsch:"Very strong",lang:"EN",desc:"Near-free tuition at a top European technical university. Munich tech hub. Research thesis required.",tag:"Near-free tuition. Munich tech hub.",notable:true,lat:48.15,lng:11.57,url:"https://www.in.tum.de/en/for-prospective-students/masters-programs/informatics/"},
+  {id:"mila",name:"Mila / UMontréal",ax:.55,ay:.90,bx:.80,by:.78,type:"Full MS/PhD",fmt:"Campus",dur:"2 yr",r:"Canada",cost:"CAD $4K/yr",sel:"High",rsch:"World-leading",lang:"EN, FR",desc:"World's largest academic deep learning research institute. Founded by Yoshua Bengio (Turing Award).",tag:"Bengio's lab. Deep learning epicenter.",notable:true,lat:45.50,lng:-73.57,url:"https://mila.quebec/en/"},
+  {id:"saclay",name:"Paris-Saclay MS AI",ax:.60,ay:.85,bx:.78,by:.68,type:"Full MS",fmt:"Campus",dur:"2 yr",r:"EU",cost:"~€250/yr EU",sel:"High",rsch:"Very strong",lang:"EN, FR",desc:"Part of Université Paris-Saclay cluster. Near-free for EU students. Strong ties to INRIA.",tag:"France's AI research corridor.",lat:48.71,lng:2.17,url:"https://www.universite-paris-saclay.fr/en/education/master/artificial-intelligence"},
+  {id:"kaist",name:"KAIST MS AI",ax:.58,ay:.86,bx:.75,by:.75,type:"Full MS",fmt:"Campus",dur:"2 yr",r:"Korea",cost:"Subsidized",sel:"High",rsch:"Very strong",lang:"EN, KR",desc:"AI Graduate School launched 2019. Subsidized tuition with stipends. Samsung/LG/Naver connections.",tag:"Korea's MIT. Subsidized + stipends.",lat:36.37,lng:127.36,url:"https://gsai.kaist.ac.kr/"},
+  {id:"ucl",name:"UCL MSc ML",ax:.22,ay:.82,bx:.88,by:.65,type:"Full MS",fmt:"Campus",dur:"1 yr",r:"UK",cost:"£35K intl",sel:"High",rsch:"Very strong",lang:"EN",desc:"Gatsby Computational Neuroscience Unit is world-renowned. Strong DeepMind ties.",tag:"Gatsby Unit. London location.",lat:51.52,lng:-0.13,url:"https://www.ucl.ac.uk/prospective-students/graduate/taught-degrees/machine-learning-msc"},
+  {id:"imperial",name:"Imperial MSc AI",ax:.20,ay:.72,bx:.90,by:.62,type:"Full MS",fmt:"Campus",dur:"1 yr",r:"UK",cost:"£40K intl",sel:"High",rsch:"Strong",lang:"EN",desc:"Applied AI with industry focus. Strong employer network. Group projects with industry partners.",tag:"Applied + prestigious. Industry projects.",lat:51.50,lng:-0.18,url:"https://www.imperial.ac.uk/computing/prospective-students/pg/mai/"},
+  {id:"erasmus",name:"Erasmus Mundus AI",ax:.45,ay:.80,bx:.75,by:.72,type:"Full MS",fmt:"Multi-campus",dur:"2 yr",r:"EU",cost:"€4K–18K",sel:"High",rsch:"Strong",lang:"EN",desc:"Joint degree across 3+ EU universities. EU-funded scholarships available.",tag:"Study AI across Europe. Scholarships.",lat:50.88,lng:4.70,url:"https://master-ai.eu/"},
+  {id:"gatech",name:"Georgia Tech OMSCS",ax:.88,ay:.82,bx:.88,by:.70,type:"Online MS",fmt:"Online",dur:"2–4 yr",r:"US/Global",cost:"~$7–10K",sel:"Moderate",rsch:"Strong",lang:"EN",desc:"The program that started the online MS revolution. Same degree as on-campus. Below 50% graduation rate — rigorous.",tag:"$7K for a top-10 CS degree.",notable:true,lat:33.78,lng:-84.40,url:"https://omscs.gatech.edu/"},
+  {id:"uiuc",name:"UIUC Online MCS",ax:.78,ay:.75,bx:.82,by:.62,type:"Online MS",fmt:"Online",dur:"2–3 yr",r:"US/Global",cost:"~$21K",sel:"Moderate",rsch:"Strong",lang:"EN",desc:"University of Illinois CS (top 5 US). MCS with data science and AI tracks. Coursera-delivered.",tag:"Top-5 CS department. Under $30K.",lat:40.10,lng:-88.23,url:"https://cs.illinois.edu/academics/graduate/professional-mcs"},
+  {id:"umass",name:"UMass Amherst MS CS",ax:.75,ay:.65,bx:.78,by:.60,type:"Online MS",fmt:"Online",dur:"2–3 yr",r:"US/Global",cost:"~$15K",sel:"Moderate",rsch:"Strong",lang:"EN",desc:"Strong AI/NLP group. Center for Intelligent Information Retrieval.",tag:"NLP powerhouse. Research pedigree.",lat:42.39,lng:-72.53,url:"https://www.cics.umass.edu/degree-program/ms"},
+  {id:"iit-madras",name:"IIT Madras Online DS",ax:.90,ay:.48,bx:.65,by:.60,type:"Online Degree",fmt:"Online",dur:"1–3 yr",r:"India",cost:"~$1–4K",sel:"Low",rsch:"Moderate",lang:"EN",desc:"India's premier technical institute. Extremely affordable. Massive enrollment.",tag:"IIT brand at $1K. India scale.",lat:12.99,lng:80.23,url:"https://study.iitm.ac.in/ds/"},
+  {id:"columbia",name:"Columbia MS CS (ML)",ax:.15,ay:.55,bx:.92,by:.60,type:"Full MS",fmt:"Campus",dur:"1.5 yr",r:"US",cost:"$70K+",sel:"Very High",rsch:"Moderate-Strong",lang:"EN",desc:"Ivy League CS with ML track. NYC location drives finance + tech ML placements.",tag:"Ivy + NYC + ML. Industry-focused.",lat:40.81,lng:-73.96,url:"https://www.cs.columbia.edu/education/ms/"},
+  {id:"jhu",name:"JHU Online MS AI",ax:.50,ay:.52,bx:.85,by:.55,type:"Online MS",fmt:"Online",dur:"2–3 yr",r:"US/Global",cost:"~$44K",sel:"Moderate-High",rsch:"Moderate",lang:"EN",desc:"Applied Physics Lab built the curriculum. NLP, applied ML, AI systems.",tag:"APL-built curriculum. Strong brand.",lat:39.33,lng:-76.62,url:"https://ep.jhu.edu/programs/artificial-intelligence/"},
+  {id:"bocconi",name:"Bocconi MSc AI",ax:.30,ay:.55,bx:.78,by:.58,type:"Full MS",fmt:"Campus",dur:"2 yr",r:"EU",cost:"€14–30K",sel:"High",rsch:"Moderate",lang:"EN",desc:"AI meets business school. Combines ML with strategy, ethics. Milan tech hub.",tag:"Where AI meets business strategy.",lat:45.45,lng:9.19,url:"https://www.unibocconi.eu/"},
+  {id:"stanford-cert",name:"Stanford SCPD Certs",ax:.35,ay:.40,bx:.85,by:.38,type:"Certificate",fmt:"Online",dur:"6–12 mo",r:"US/Global",cost:"~$15K",sel:"Open",rsch:"Low",lang:"EN",desc:"Graduate-level AI/ML certificates. Same faculty, non-degree.",tag:"Stanford faculty. Non-degree.",lat:37.43,lng:-122.10,url:"https://online.stanford.edu/programs/artificial-intelligence-professional-program"},
+  {id:"oxford-said",name:"Oxford Saïd AI",ax:.28,ay:.22,bx:.82,by:.25,type:"Exec Ed",fmt:"Online",dur:"6–8 weeks",r:"UK/Global",cost:"~£3K",sel:"Open",rsch:"Low",lang:"EN",desc:"Executive education. AI strategy and leadership focus.",tag:"AI for executives. Oxford brand.",lat:51.76,lng:-1.24,url:"https://www.sbs.ox.ac.uk/"},
+  {id:"mit-xpro",name:"MIT xPRO AI/ML",ax:.62,ay:.32,bx:.80,by:.35,type:"Certificate",fmt:"Online",dur:"2–4 mo",r:"US/Global",cost:"~$2.5K",sel:"Open",rsch:"Low",lang:"EN",desc:"Professional certificates from MIT faculty. Short-format.",tag:"MIT credential. Short commitment.",lat:42.36,lng:-71.04,url:"https://xpro.mit.edu/"},
+  {id:"ut-austin",name:"UT Austin MSAI",ax:.85,ay:.52,bx:.82,by:.58,type:"Online MS",fmt:"Online",dur:"1.5–3 yr",r:"US/Global",cost:"$10K",sel:"Moderate",rsch:"Moderate",lang:"EN",desc:"$10K for a full MS in AI from R1 university. Diploma identical to on-campus.",tag:"$10K. UT Austin brand. No asterisk.",notable:true,lat:30.28,lng:-97.74,url:"https://cdso.utexas.edu/msai"},
+  {id:"cu-boulder",name:"CU Boulder MSDS",ax:.82,ay:.40,bx:.72,by:.50,type:"Online MS",fmt:"Online",dur:"1.5–3 yr",r:"US/Global",cost:"~$21K",sel:"Low-Moderate",rsch:"Moderate",lang:"EN",desc:"Fully online Data Science MS on Coursera. R1 university. Flexible pacing.",tag:"R1 degree on Coursera.",lat:40.01,lng:-105.27,url:"https://www.colorado.edu/program/data-science/"},
+  {id:"umich-mads",name:"UMich MADS",ax:.80,ay:.42,bx:.75,by:.48,type:"Online MS",fmt:"Online",dur:"1–3 yr",r:"US/Global",cost:"~$22K",sel:"Moderate",rsch:"Moderate",lang:"EN",desc:"Applied Data Science from Michigan. ML, NLP, network analysis.",tag:"Michigan brand. Applied focus.",lat:42.28,lng:-83.74,url:"https://www.si.umich.edu/programs/master-applied-data-science-online"},
+  {id:"northeastern",name:"Northeastern MPS AI",ax:.68,ay:.45,bx:.70,by:.55,type:"Online MS",fmt:"Online",dur:"1–2 yr",r:"US/Global",cost:"~$25K",sel:"Moderate",rsch:"Low-Moderate",lang:"EN",desc:"Master of Professional Studies — explicitly applied.",tag:"Applied AI with concentrations.",lat:42.34,lng:-71.09,url:"https://www.khoury.northeastern.edu/"},
+  {id:"penn-mcit",name:"Penn Online MCIT",ax:.60,ay:.45,bx:.82,by:.50,type:"Online MS",fmt:"Online",dur:"2–3 yr",r:"US/Global",cost:"~$30K",sel:"Moderate",rsch:"Low-Moderate",lang:"EN",desc:"Ivy League. Designed for career changers — no CS background required.",tag:"Ivy for career changers.",lat:39.95,lng:-75.19,url:"https://online.seas.upenn.edu/degrees/mcit-online/"},
+  {id:"drexel",name:"Drexel MS AI/ML",ax:.55,ay:.48,bx:.72,by:.58,type:"Online MS",fmt:"Online",dur:"2–3 yr",r:"US",cost:"~$45K",sel:"Moderate",rsch:"Moderate",lang:"EN",desc:"Dedicated AI and Machine Learning degree. Industry capstone.",tag:"Dedicated AI/ML degree.",lat:39.96,lng:-75.19,url:"https://drexel.edu/cci/"},
+  {id:"harvard-ext",name:"Harvard Ext AI",ax:.72,ay:.38,bx:.78,by:.42,type:"Certificate",fmt:"Online/Hybrid",dur:"6–12 mo",r:"US/Global",cost:"~$10K",sel:"Open",rsch:"Low",lang:"EN",desc:"Graduate certificate. Open enrollment. Can stack toward a degree.",tag:"Harvard name. Open enrollment.",lat:42.37,lng:-71.12,url:"https://extension.harvard.edu/"},
+  {id:"edx-mit",name:"edX MicroMasters MIT",ax:.90,ay:.52,bx:.72,by:.50,type:"MOOC Pathway",fmt:"Online",dur:"6–12 mo",r:"Global",cost:"~$1.5K",sel:"Open",rsch:"Moderate",lang:"EN",desc:"Statistics and Data Science MicroMasters. MIT-quality. Can count as credit.",tag:"MIT content at $1.5K.",notable:true,lat:42.36,lng:-71.07,url:"https://www.edx.org/micromasters/mitx-statistics-and-data-science"},
+  {id:"edx-columbia",name:"edX Columbia AI",ax:.92,ay:.42,bx:.68,by:.45,type:"MOOC Pathway",fmt:"Online",dur:"4–6 mo",r:"Global",cost:"~$900",sel:"Open",rsch:"Moderate",lang:"EN",desc:"AI MicroMasters from Columbia. Covers ML, robotics.",tag:"Columbia AI for $900.",lat:40.81,lng:-73.97,url:"https://www.edx.org/micromasters/columbiax-artificial-intelligence"},
+];
+
+const QB={1:{name:"Hidden Gems",sub:"Accessible + Research-deep",color:"#1a7a5c",bg:"#e8f5ef",icon:"◆",rule:"Research rigor without the elite price tag. Best ROI in higher education."},2:{name:"Research Elite",sub:"Selective + Research-deep",color:"#7c3aed",bg:"#ede9fe",icon:"★",rule:"Top-tier research labs and PhD pipelines. Competition is fierce, costs can be high."},3:{name:"Skill Bridge",sub:"Accessible + Applied",color:"#3b5cc6",bg:"#e8eef8",icon:"●",rule:"University credential while working. Applied programs that fit around your career."},4:{name:"Brand & Apply",sub:"Selective + Applied",color:"#b8860b",bg:"#faf3e0",icon:"▲",rule:"Prestigious brand on applied AI skills. Professional programs from top institutions."}};
+const QA={1:{name:"Ship & Signal",sub:"High credential + High hands-on",color:"#1a7a5c",bg:"#e8f5ef",icon:"◆",rule:"Strong employer signal AND deep project work."},2:{name:"Credential Fast",sub:"High credential + Lower hands-on",color:"#3b5cc6",bg:"#e8eef8",icon:"●",rule:"University brand does heavy lifting. Credential opens doors."},3:{name:"Build & Prove",sub:"Lower credential + High hands-on",color:"#b8860b",bg:"#faf3e0",icon:"▲",rule:"Hands-on and research-rich, credential may need explanation."},4:{name:"Explore & Orient",sub:"Lower credential + Lower hands-on",color:"#6b7280",bg:"#f0f1f3",icon:"□",rule:"Lightweight entry points for testing the waters."}};
+const getQ=(x,y)=>{if(x>=.5&&y>=.5)return 1;if(x<.5&&y>=.5)return 2;if(x>=.5&&y<.5)return 3;return 4;};
+
+const countryRegion={840:"na",124:"na",826:"uk",250:"eu",276:"eu",756:"eu",380:"eu",724:"eu",528:"eu",56:"eu",40:"eu",620:"eu",300:"eu",203:"eu",616:"eu",348:"eu",642:"eu",100:"eu",752:"eu",578:"eu",246:"eu",208:"eu",372:"eu",703:"eu",705:"eu",191:"eu",233:"eu",428:"eu",440:"eu",356:"in",410:"kr"};
+const regionFilter={"US":"na","US/Global":"na","UK":"uk","UK/Global":"uk","EU":"eu","EU/Global":"eu","Canada":"na","Korea":"kr","India":"in","France":"eu","Global":null};
+
+function WorldMap({programs,sel,setSel,hov,setHov,activeRegion,accent,Qs,xk,yk}){
+  const[countries,setCountries]=useState(null);
+  const[pathFn,setPathFn]=useState(null);
+  const MW=640,MH=380;
+  useEffect(()=>{
+    const proj=d3.geoNaturalEarth1().scale(120).translate([MW/2,MH/2]);
+    setPathFn(()=>d3.geoPath(proj));
+    fetch("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json").then(r=>r.json()).then(w=>{setCountries(topojson.feature(w,w.objects.countries).features);}).catch(()=>{});
+  },[]);
+  const activeReg=regionFilter[activeRegion]||null;
+  const proj=d3.geoNaturalEarth1().scale(120).translate([MW/2,MH/2]);
+  const projPt=(lng,lat)=>proj([lng,lat]);
+  const graticule=d3.geoGraticule().step([30,30])();
+  const gratPath=pathFn?pathFn(graticule):"";
+  const outlinePath=pathFn?pathFn(d3.geoGraticule().outline()):"";
+  return(
+    <svg viewBox={`0 0 ${MW} ${MH}`} style={{width:"100%",maxWidth:MW,borderRadius:14,overflow:"hidden",boxShadow:"0 1px 3px rgba(0,0,0,.06),0 8px 30px rgba(0,0,0,.06)"}}>
+      <rect width={MW} height={MH} fill="#d6e6f0"/>
+      {outlinePath&&<path d={outlinePath} fill="#d0e0ec" stroke="#b8cdd8" strokeWidth={.5}/>}
+      {gratPath&&<path d={gratPath} fill="none" stroke="#c2d6e4" strokeWidth={.3}/>}
+      {countries&&pathFn&&countries.map((c,i)=>{const cReg=countryRegion[+c.id];const hi=activeReg&&cReg===activeReg;return <path key={i} d={pathFn(c)} fill={hi?"#e4d8f0":"#ede9e0"} stroke={hi?accent:"#c8c2b8"} strokeWidth={hi?.8:.3} style={{transition:"fill .3s, stroke .3s"}}/>;
+      })}
+      {outlinePath&&<path d={outlinePath} fill="none" stroke="#a0b8c8" strokeWidth={.8}/>}
+      {programs.map(p=>{const pt=projPt(p.lng,p.lat);if(!pt)return null;const[cx,cy]=pt;if(cx<0||cx>MW||cy<0||cy>MH)return null;const r=p.notable?7:5;const q=getQ(p[xk],p[yk]);const c=Qs[q].color;const isSel=sel?.id===p.id,isHov=hov===p.id,act=isSel||isHov;return(<g key={p.id} onClick={()=>setSel(isSel?null:p)} onMouseEnter={()=>setHov(p.id)} onMouseLeave={()=>setHov(null)} style={{cursor:"pointer"}}>{act&&<circle cx={cx} cy={cy} r={r+4} fill="none" stroke={c} strokeWidth={1.5} opacity={.5}/>}{p.notable&&!act&&<circle cx={cx} cy={cy} r={r+2.5} fill="none" stroke={c} strokeWidth={.5} opacity={.3}/>}<circle cx={cx} cy={cy} r={r} fill={isSel?c:act?"#fff":c} fillOpacity={isSel?1:(act?1:.85)} stroke={isSel?"#fff":c} strokeWidth={isSel?2:(act?1.5:.8)}/>{act&&<text x={cx} y={cy-r-5} textAnchor="middle" fontFamily="'Manrope',sans-serif" fontSize={8} fontWeight={700} fill="#1a1a2e" stroke="#fff" strokeWidth={3} paintOrder="stroke">{p.name}</text>}</g>);})}
+      {hov&&!sel&&(()=>{const p=data.find(d=>d.id===hov);if(!p)return null;const pt=projPt(p.lng,p.lat);if(!pt)return null;const[cx,cy]=pt;const tw=210,th=54;let ttx=cx-tw/2,tty=cy-12-th-6;if(ttx<4)ttx=4;if(ttx+tw>MW-4)ttx=MW-tw-4;if(tty<4)tty=cy+14;return(<g style={{pointerEvents:"none"}}><rect x={ttx} y={tty} width={tw} height={th} rx={7} fill="#1a1a2e" opacity={.95}/><text x={ttx+12} y={tty+16} fontFamily="'Manrope',sans-serif" fontSize={10} fontWeight={700} fill="#fff">{p.name}</text><text x={ttx+12} y={tty+30} fontFamily="'Manrope',sans-serif" fontSize={8} fill="#aaa">{p.tag}</text><text x={ttx+12} y={tty+44} fontFamily="'IBM Plex Mono',monospace" fontSize={8} fill={accent}>{p.cost} · {p.fmt} · {p.r}</text></g>);})()}
+    </svg>);
+}
+
+function App(){
+  const[sel,setSel]=useState(null);const[hov,setHov]=useState(null);const[mode,setMode]=useState("B");const[view,setView]=useState("quadrant");const[ff,setFf]=useState("All");const[fr,setFr]=useState("All");const[ft,setFt]=useState("All");const[ready,setReady]=useState(false);
+  useEffect(()=>{requestAnimationFrame(()=>setReady(true));},[]);
+  const Qs=mode==="B"?QB:QA,xk=mode==="B"?"ax":"bx",yk=mode==="B"?"ay":"by";
+  const vis=data.filter(p=>(ff==="All"||p.fmt===ff)&&(fr==="All"||p.r===fr||p.r.includes(fr))&&(ft==="All"||p.type===ft));
+  const formats=[...new Set(data.map(p=>p.fmt))],regions=[...new Set(data.map(p=>p.r))],types=[...new Set(data.map(p=>p.type))];
+  const pad={t:44,r:32,b:52,l:52},W=640,H=600,iW=W-pad.l-pad.r,iH=H-pad.t-pad.b;
+  const px=v=>pad.l+v*iW,py=v=>pad.t+(1-v)*iH;
+  const rad=p=>p.notable?20:17;
+  const splitLabel=n=>{if(n.length<=12||!n.includes(" "))return[n];const w=n.split(" ");if(w.length===2)return w;const m=Math.ceil(w.length/2);return[w.slice(0,m).join(" "),w.slice(m).join(" ")];};
+  const xLabel=mode==="B"?"Accessibility →":"Credential & Employer Signaling →";
+  const yLabel=mode==="B"?"Research Depth →":"Hands-on Depth →";
+
+  return(<div style={{minHeight:"100vh",background:"#faf9f6",color:"#1a1a2e",fontFamily:"'Source Serif 4',Georgia,serif"}}>
+    <style>{`@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400&family=Manrope:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap');*{box-sizing:border-box;margin:0}::selection{background:#7c3aed22}button{font-family:'Manrope',sans-serif}`}</style>
+    <div style={{maxWidth:1200,margin:"0 auto",padding:"36px 28px 0",opacity:ready?1:0,transform:ready?"none":"translateY(-12px)",transition:"all .7s cubic-bezier(.23,1,.32,1)"}}>
+      <div style={{display:"flex",alignItems:"baseline",gap:12,marginBottom:6}}><span style={{fontFamily:"'IBM Plex Mono'",fontSize:10,letterSpacing:3,color:"#7c3aed",textTransform:"uppercase"}}>Academic Map</span><span style={{width:40,height:1,background:"#7c3aed44",display:"inline-block",verticalAlign:"middle"}}/><span style={{fontFamily:"'IBM Plex Mono'",fontSize:10,color:"#999"}}>March 2026</span></div>
+      <h1 style={{fontFamily:"'Source Serif 4',Georgia",fontSize:36,fontWeight:700,letterSpacing:-0.5,lineHeight:1.15,color:"#1a1a2e",marginBottom:8}}>Who Teaches AI<br/><span style={{color:"#7c3aed"}}>Inside the University?</span></h1>
+      <p style={{fontFamily:"'Manrope',sans-serif",fontSize:14,color:"#666",lineHeight:1.6,maxWidth:620}}>32 academic programs on dual axes with a geographic view. Full degrees, online masters, certificates, and MOOC pathways. Click any program for details or visit the program site.</p>
+    </div>
+    <div style={{maxWidth:1200,margin:"0 auto",padding:"18px 28px 0",opacity:ready?1:0,transition:"all .7s ease .15s"}}>
+      <div style={{display:"flex",gap:12,marginBottom:12,flexWrap:"wrap"}}>
+        <div style={{display:"flex",gap:4,background:"#fff",borderRadius:10,padding:3,border:"1px solid #ece9e3",width:"fit-content"}}>{[{k:"quadrant",l:"Quadrant"},{k:"map",l:"Geographic Map"}].map(({k,l})=><button key={k} onClick={()=>{setView(k);setSel(null);}} style={{padding:"6px 16px",borderRadius:8,fontSize:11.5,fontWeight:600,cursor:"pointer",border:"none",background:view===k?"#7c3aed":"transparent",color:view===k?"#fff":"#888",transition:"all .2s ease",fontFamily:"'Manrope',sans-serif"}}>{l}</button>)}</div>
+        {view==="quadrant"&&<div style={{display:"flex",gap:4,background:"#fff",borderRadius:10,padding:3,border:"1px solid #ece9e3",width:"fit-content"}}>{[{k:"B",l:"Accessibility × Research"},{k:"A",l:"Credential × Hands-on"}].map(({k,l})=><button key={k} onClick={()=>{setMode(k);setSel(null);}} style={{padding:"6px 14px",borderRadius:8,fontSize:11,fontWeight:600,cursor:"pointer",border:"none",background:mode===k?"#7c3aed":"transparent",color:mode===k?"#fff":"#888",transition:"all .2s ease",fontFamily:"'Manrope',sans-serif"}}>{l}</button>)}</div>}
+      </div>
+      <div style={{display:"flex",gap:6,flexWrap:"wrap",alignItems:"center"}}>
+        <select value={ff} onChange={e=>{setFf(e.target.value);setSel(null);}} style={{fontFamily:"'Manrope'",fontSize:11.5,padding:"5px 10px",borderRadius:8,border:"1.5px solid #ddd",background:"#fff",color:"#555",cursor:"pointer"}}><option value="All">All Formats</option>{formats.map(f=><option key={f} value={f}>{f}</option>)}</select>
+        <select value={fr} onChange={e=>{setFr(e.target.value);setSel(null);}} style={{fontFamily:"'Manrope'",fontSize:11.5,padding:"5px 10px",borderRadius:8,border:"1.5px solid #ddd",background:"#fff",color:"#555",cursor:"pointer"}}><option value="All">All Regions</option>{regions.map(r=><option key={r} value={r}>{r}</option>)}</select>
+        <select value={ft} onChange={e=>{setFt(e.target.value);setSel(null);}} style={{fontFamily:"'Manrope'",fontSize:11.5,padding:"5px 10px",borderRadius:8,border:"1.5px solid #ddd",background:"#fff",color:"#555",cursor:"pointer"}}><option value="All">All Types</option>{types.map(t=><option key={t} value={t}>{t}</option>)}</select>
+        <span style={{fontFamily:"'IBM Plex Mono'",fontSize:11,color:"#aaa",marginLeft:6}}>{vis.length} shown</span>
+      </div>
+    </div>
+    <div style={{maxWidth:1200,margin:"0 auto",padding:"20px 28px",display:"flex",gap:28,alignItems:"flex-start",flexWrap:"wrap"}}>
+      <div style={{flex:"1 1 640px",minWidth:320,opacity:ready?1:0,transform:ready?"none":"translateY(16px)",transition:"all .8s cubic-bezier(.23,1,.32,1) .2s"}}>
+        {view==="quadrant"?(<svg viewBox={`0 0 ${W} ${H}`} style={{width:"100%",maxWidth:W,borderRadius:14,background:"#fff",boxShadow:"0 1px 3px rgba(0,0,0,.04),0 8px 30px rgba(0,0,0,.04)",border:"1px solid #ece9e3"}}>
+          <rect x={pad.l} y={pad.t} width={iW/2} height={iH/2} fill={Qs[2].bg}/><rect x={pad.l+iW/2} y={pad.t} width={iW/2} height={iH/2} fill={Qs[1].bg}/><rect x={pad.l} y={pad.t+iH/2} width={iW/2} height={iH/2} fill={Qs[4].bg}/><rect x={pad.l+iW/2} y={pad.t+iH/2} width={iW/2} height={iH/2} fill={Qs[3].bg}/>
+          {[.25,.75].map(v=><g key={v} opacity={.35}><line x1={px(v)} y1={pad.t} x2={px(v)} y2={H-pad.b} stroke="#ccc" strokeDasharray="2,4" strokeWidth={.5}/><line x1={pad.l} y1={py(v)} x2={W-pad.r} y2={py(v)} stroke="#ccc" strokeDasharray="2,4" strokeWidth={.5}/></g>)}
+          <line x1={px(.5)} y1={pad.t} x2={px(.5)} y2={H-pad.b} stroke="#c4bfb6" strokeWidth={1}/><line x1={pad.l} y1={py(.5)} x2={W-pad.r} y2={py(.5)} stroke="#c4bfb6" strokeWidth={1}/>
+          {[{qi:2,lx:pad.l+iW*.08,ly:pad.t+iH*.06},{qi:1,lx:pad.l+iW*.58,ly:pad.t+iH*.06},{qi:4,lx:pad.l+iW*.08,ly:pad.t+iH*.56},{qi:3,lx:pad.l+iW*.58,ly:pad.t+iH*.56}].map(({qi,lx,ly})=>(<g key={qi}><text x={lx} y={ly} fontFamily="'Source Serif 4',Georgia" fontSize={12} fontWeight={600} fill={Qs[qi].color} opacity={.18}>{Qs[qi].name}</text><text x={lx} y={ly+14} fontFamily="'Manrope',sans-serif" fontSize={8} fill={Qs[qi].color} opacity={.12}>{Qs[qi].sub}</text></g>))}
+          <text x={W/2} y={H-8} textAnchor="middle" fontFamily="'Manrope',sans-serif" fontSize={10.5} fill="#999" fontWeight={500}>{xLabel}</text>
+          <text x={10} y={H/2} textAnchor="middle" fontFamily="'Manrope',sans-serif" fontSize={10.5} fill="#999" fontWeight={500} transform={`rotate(-90,10,${H/2})`}>{yLabel}</text>
+          <text x={pad.l+2} y={H-pad.b+14} fontFamily="'IBM Plex Mono',monospace" fontSize={8} fill="#bbb">Low</text><text x={W-pad.r-2} y={H-pad.b+14} fontFamily="'IBM Plex Mono',monospace" fontSize={8} fill="#bbb" textAnchor="end">High</text>
+          <text x={pad.l-4} y={H-pad.b-2} fontFamily="'IBM Plex Mono',monospace" fontSize={8} fill="#bbb" textAnchor="end">Low</text><text x={pad.l-4} y={pad.t+8} fontFamily="'IBM Plex Mono',monospace" fontSize={8} fill="#bbb" textAnchor="end">High</text>
+          {vis.map(p=>{const cx=px(p[xk]),cy=py(p[yk]),r=rad(p),q=getQ(p[xk],p[yk]),c=Qs[q].color,isSel=sel?.id===p.id,isHov=hov===p.id,act=isSel||isHov,lines=splitLabel(p.name);return(<g key={p.id} onClick={()=>setSel(isSel?null:p)} onMouseEnter={()=>setHov(p.id)} onMouseLeave={()=>setHov(null)} style={{cursor:"pointer"}}>{act&&<circle cx={cx} cy={cy} r={r+5} fill="none" stroke={c} strokeWidth={1.5} opacity={.3} strokeDasharray={isSel?"none":"3,2"}/>}{p.notable&&!act&&<circle cx={cx} cy={cy} r={r+3} fill="none" stroke={c} strokeWidth={.5} opacity={.2}/>}<circle cx={cx} cy={cy} r={r} fill={isSel?c:"#fff"} stroke={c} strokeWidth={isSel?2.5:(act?2:1.2)} opacity={act?1:.9}/>{lines.map((line,i)=><text key={i} x={cx} y={cy+(i-(lines.length-1)/2)*10} textAnchor="middle" dominantBaseline="middle" fontFamily="'Manrope',sans-serif" fontSize={lines.length>1?6.5:(p.name.length>14?6:7)} fontWeight={600} fill={isSel?"#fff":c} style={{pointerEvents:"none"}}>{line}</text>)}</g>);})}
+          {hov&&!sel&&(()=>{const p=data.find(d=>d.id===hov);if(!p)return null;const cx=px(p[xk]),cy=py(p[yk]),tw=200,th=44;let ttx=cx-tw/2,tty=cy-rad(p)-th-8;if(ttx<pad.l)ttx=pad.l+4;if(ttx+tw>W-pad.r)ttx=W-pad.r-tw-4;if(tty<pad.t)tty=cy+rad(p)+8;return(<g style={{pointerEvents:"none"}}><rect x={ttx} y={tty} width={tw} height={th} rx={7} fill="#1a1a2e" opacity={.93}/><text x={ttx+12} y={tty+17} fontFamily="'Manrope',sans-serif" fontSize={10.5} fontWeight={700} fill="#fff">{p.name}</text><text x={ttx+12} y={tty+32} fontFamily="'Manrope',sans-serif" fontSize={8.5} fill="#aaa">{p.tag}</text></g>);})()}
+        </svg>):(<WorldMap programs={vis} sel={sel} setSel={setSel} hov={hov} setHov={setHov} activeRegion={fr} accent="#7c3aed" Qs={Qs} xk={xk} yk={yk}/>)}
+      </div>
+      <div style={{flex:"0 1 400px",minWidth:290,opacity:ready?1:0,transform:ready?"none":"translateX(20px)",transition:"all .8s cubic-bezier(.23,1,.32,1) .35s"}}>
+        {sel?(()=>{const q=getQ(sel[xk],sel[yk]),qs=Qs[q];return(<div style={{background:"#fff",borderRadius:14,padding:24,boxShadow:"0 1px 3px rgba(0,0,0,.04),0 8px 30px rgba(0,0,0,.06)",border:`1px solid ${qs.color}18`}}>
+          <div style={{display:"inline-flex",alignItems:"center",gap:6,padding:"3px 12px",borderRadius:100,background:qs.bg,border:`1px solid ${qs.color}22`,marginBottom:14}}><span style={{fontFamily:"'IBM Plex Mono'",fontSize:9,fontWeight:600,color:qs.color,letterSpacing:1.5,textTransform:"uppercase"}}>{qs.icon} {qs.name}</span></div>
+          <h2 style={{fontFamily:"'Source Serif 4',Georgia",fontSize:24,fontWeight:700,color:"#1a1a2e",lineHeight:1.15,margin:"0 0 4px"}}>{sel.name}</h2>
+          <p style={{fontFamily:"'Manrope'",fontSize:12,color:qs.color,fontStyle:"italic",margin:"0 0 14px",fontWeight:500}}>{sel.tag}</p>
+          <p style={{fontFamily:"'Manrope'",fontSize:13,color:"#555",lineHeight:1.65,margin:"0 0 18px"}}>{sel.desc}</p>
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:8,marginBottom:18}}>
+            {[{l:"Cost",v:sel.cost},{l:"Duration",v:sel.dur},{l:"Format",v:sel.fmt},{l:"Type",v:sel.type},{l:"Selectivity",v:sel.sel},{l:"Research",v:sel.rsch},{l:"Region",v:sel.r},{l:"Language",v:sel.lang}].map(({l,v})=>(<div key={l} style={{padding:"7px 11px",borderRadius:8,background:"#faf9f6",border:"1px solid #ece9e3"}}><div style={{fontFamily:"'IBM Plex Mono'",fontSize:8.5,color:"#aaa",letterSpacing:1,marginBottom:2}}>{l.toUpperCase()}</div><div style={{fontFamily:"'Manrope'",fontSize:11.5,color:"#333",fontWeight:600}}>{v}</div></div>))}
+          </div>
+          <a href={sel.url} target="_blank" rel="noopener noreferrer" style={{display:"block",marginTop:16,padding:"10px 16px",borderRadius:8,background:qs.color,color:"#fff",fontFamily:"'Manrope'",fontSize:12.5,fontWeight:600,textAlign:"center",textDecoration:"none",cursor:"pointer",letterSpacing:.3}}>Visit Program →</a>
+          <div style={{marginTop:10,padding:"12px 14px",borderRadius:10,background:qs.bg,border:`1px solid ${qs.color}15`}}><div style={{fontFamily:"'IBM Plex Mono'",fontSize:9,color:qs.color,letterSpacing:1.5,marginBottom:4}}>QUADRANT RULE</div><div style={{fontFamily:"'Manrope'",fontSize:12,color:"#555",lineHeight:1.5}}>{qs.rule}</div></div>
+          <button onClick={()=>setSel(null)} style={{marginTop:12,width:"100%",padding:"9px",borderRadius:8,border:"1.5px solid #e0ddd8",background:"#faf9f6",color:"#999",fontSize:12,cursor:"pointer",fontWeight:500}}>Close</button>
+        </div>);})():(
+          <div>
+            <div style={{background:"#fff",borderRadius:14,padding:22,marginBottom:16,boxShadow:"0 1px 3px rgba(0,0,0,.04),0 8px 30px rgba(0,0,0,.04)",border:"1px solid #ece9e3"}}>
+              <h3 style={{fontFamily:"'Source Serif 4',Georgia",fontSize:17,fontWeight:600,color:"#1a1a2e",margin:"0 0 4px"}}>Which quadrant fits?</h3>
+              <p style={{fontFamily:"'Manrope'",fontSize:11,color:"#999",margin:"0 0 14px"}}>{view==="map"?"Select a region to highlight on the globe":mode==="B"?"Accessibility × Research":"Credential × Hands-on"}</p>
+              {[1,2,3,4].map(q=>(<div key={q} style={{display:"flex",gap:12,padding:"9px 12px",marginBottom:5,borderRadius:10}}><span style={{width:26,height:26,borderRadius:7,flexShrink:0,display:"flex",alignItems:"center",justifyContent:"center",background:Qs[q].color+"12",color:Qs[q].color,fontFamily:"'IBM Plex Mono'",fontSize:13,fontWeight:700}}>{Qs[q].icon}</span><div><div style={{fontFamily:"'Manrope'",fontSize:12.5,color:"#333",fontWeight:600,lineHeight:1.2}}>{Qs[q].name}</div><div style={{fontFamily:"'Manrope'",fontSize:11,color:"#888",marginTop:2,lineHeight:1.4}}>{Qs[q].rule}</div></div></div>))}
+            </div>
+            <div style={{background:"#fff",borderRadius:14,padding:20,boxShadow:"0 1px 3px rgba(0,0,0,.04),0 4px 20px rgba(0,0,0,.03)",border:"1px solid #ece9e3"}}>
+              <div style={{fontFamily:"'IBM Plex Mono'",fontSize:9,letterSpacing:2,color:"#aaa",marginBottom:12}}>READING THE MAP</div>
+              {[{t:"Toggle views",d:"Switch between quadrant chart and geographic map."},{t:"Region filter",d:"Select a region to highlight countries on the globe."},{t:"Dot color",d:"Matches quadrant. Notable programs have a halo."},{t:"Click through",d:"Click a program → 'Visit Program →' to go to the school's site."}].map(({t,d})=>(<div key={t} style={{marginBottom:8}}><span style={{fontFamily:"'Manrope'",fontSize:12,fontWeight:700,color:"#333"}}>{t}. </span><span style={{fontFamily:"'Manrope'",fontSize:12,color:"#777"}}>{d}</span></div>))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+    <div style={{maxWidth:1200,margin:"0 auto",padding:"0 28px 20px",opacity:ready?1:0,transition:"all .8s ease .5s"}}>
+      <div style={{background:"#fff",borderRadius:14,padding:20,boxShadow:"0 1px 3px rgba(0,0,0,.04),0 8px 30px rgba(0,0,0,.04)",border:"1px solid #ece9e3",overflowX:"auto"}}>
+        <div style={{display:"flex",alignItems:"baseline",gap:10,marginBottom:14}}><h3 style={{fontFamily:"'Source Serif 4',Georgia",fontSize:18,fontWeight:600,color:"#1a1a2e"}}>Full Directory</h3><span style={{fontFamily:"'IBM Plex Mono'",fontSize:11,color:"#aaa"}}>{vis.length} programs</span></div>
+        <table style={{width:"100%",borderCollapse:"collapse"}}>
+          <thead><tr>{["Program","Quadrant","Format","Cost","Duration","Region"].map(h=><th key={h} style={{padding:"8px 12px",textAlign:"left",borderBottom:"2px solid #ece9e3",fontFamily:"'IBM Plex Mono'",fontSize:9,letterSpacing:1.2,color:"#aaa",fontWeight:500,textTransform:"uppercase",whiteSpace:"nowrap"}}>{h}</th>)}</tr></thead>
+          <tbody>{vis.map((p,i)=>{const q=getQ(p[xk],p[yk]),qs=Qs[q],isSel=sel?.id===p.id;return(<tr key={p.id} onClick={()=>setSel(isSel?null:p)} style={{cursor:"pointer",background:isSel?qs.bg:(i%2===0?"#faf9f6":"#fff")}}><td style={{padding:"8px 12px",fontFamily:"'Manrope'",fontSize:12.5,fontWeight:600,color:"#333",whiteSpace:"nowrap"}}>{p.notable&&<span style={{color:qs.color,marginRight:4,fontSize:8}}>●</span>}{p.name}</td><td style={{padding:"8px 12px"}}><span style={{display:"inline-block",padding:"2px 10px",borderRadius:100,background:qs.bg,border:`1px solid ${qs.color}20`,fontFamily:"'IBM Plex Mono'",fontSize:9.5,fontWeight:600,color:qs.color,whiteSpace:"nowrap"}}>{qs.icon} {qs.name}</span></td><td style={{padding:"8px 12px",fontFamily:"'Manrope'",fontSize:11,color:"#888"}}>{p.fmt}</td><td style={{padding:"8px 12px",fontFamily:"'Manrope'",fontSize:11,color:"#666"}}>{p.cost}</td><td style={{padding:"8px 12px",fontFamily:"'Manrope'",fontSize:11,color:"#666"}}>{p.dur}</td><td style={{padding:"8px 12px",fontFamily:"'Manrope'",fontSize:11,color:"#666"}}>{p.r}</td></tr>);})}</tbody>
+        </table>
+      </div>
+    </div>
+    <div style={{maxWidth:1200,margin:"0 auto",padding:"0 28px 48px"}}>
+      <div style={{borderTop:"1px solid #ece9e3",paddingTop:20}}>
+        <p style={{fontFamily:"'Manrope',sans-serif",fontSize:11,color:"#b0a99f",lineHeight:1.7,maxWidth:720}}>
+          <span style={{fontFamily:"'IBM Plex Mono'",fontSize:9,letterSpacing:1.5,color:"#c4bfb6",textTransform:"uppercase"}}>Disclaimer</span><br/>
+          The positions, ratings, and assessments on this page reflect one person's working evaluation based on personal research and experience. This is not legal, financial, or professional advice. Program details — including cost, format, selectivity, and curriculum — change frequently; always verify directly with the institution before making any decisions. No institution has endorsed, sponsored, or reviewed its placement here. Use this as a starting point for your own research, not as a definitive ranking.
+        </p>
+        <p style={{fontFamily:"'IBM Plex Mono'",fontSize:10,color:"#c4bfb6",marginTop:10}}>© 2026 Goran Trajkovski · gorantrajkovski.com</p>
+      </div>
+    </div>
+  </div>);
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(App));
+</script>
+</body>
+</html>

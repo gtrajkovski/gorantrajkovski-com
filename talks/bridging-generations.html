@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bridging Generations · Goran Trajkovski</title>
+<meta name="description" content="AI-Powered Approaches to Multigenerational Workforce Collaboration — talk by Goran Trajkovski.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css">
+<style>
+:root {
+  --bg: #3D4F7A;
+  --card: #1E2740;
+  --red: #FF6B9D;
+  --teal: #22D3EE;
+  --purple: #A78BFA;
+  --green: #4ADE80;
+  --gold: #FBBF24;
+}
+.reveal { font-family: system-ui, -apple-system, sans-serif; }
+.reveal .slides { text-align: left; }
+.reveal .slides section { padding: 40px 50px; box-sizing: border-box; }
+section.present { background: var(--bg) !important; }
+.reveal .slide-background { background: var(--bg) !important; }
+.reveal section { background: var(--bg) !important; }
+.reveal h1, .reveal h2, .reveal h3 { color: #fff; font-family: system-ui, -apple-system, sans-serif; text-transform: none; letter-spacing: 0; }
+.reveal h2 { font-size: 1.6em; margin-bottom: 0.5em; }
+.reveal p, .reveal li, .reveal td, .reveal th { color: #FFFFFF; font-size: 0.55em; line-height: 1.5; }
+.reveal a { color: var(--teal); text-decoration: underline; font-weight: 600; }
+
+.border-red { border-top: 4px solid var(--red); }
+.border-purple { border-top: 4px solid var(--purple); }
+.border-teal { border-top: 4px solid var(--teal); }
+.border-green { border-top: 4px solid var(--green); }
+
+.card {
+  background: var(--card);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin: 8px 0;
+}
+.stat-grid { display: grid; gap: 16px; }
+.stat-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+.stat-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+.stat-grid.cols-4 { grid-template-columns: 1fr 1fr; }
+.card .big-stat { font-size: 2.2em; font-weight: 800; line-height: 1.1; margin-bottom: 6px; }
+.card .stat-label { font-size: 0.48em; color: #FFFFFF; line-height: 1.4; }
+.card .stat-source { font-size: 0.38em; color: #D1D9E6; margin-top: 6px; }
+
+.provocation-quote {
+  font-size: 0.7em;
+  font-style: italic;
+  color: #e2e8f0;
+  border-left: 4px solid var(--red);
+  padding: 16px 24px;
+  margin: 16px 0;
+  background: rgba(244,0,9,0.05);
+  border-radius: 0 8px 8px 0;
+}
+
+.link-btn {
+  display: inline-block;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-size: 0.55em;
+  font-weight: 600;
+  text-decoration: none !important;
+  margin: 6px 8px 6px 0;
+  transition: transform 0.2s;
+}
+.link-btn:hover { transform: translateY(-2px); }
+.link-btn.purple { background: var(--purple); color: #fff !important; }
+.link-btn.teal { background: var(--teal); color: #fff !important; }
+.link-btn.green { background: var(--green); color: #fff !important; }
+
+.callout {
+  border: 2px solid var(--teal);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin: 16px 0;
+  background: rgba(8,145,178,0.08);
+}
+.callout-title { font-weight: 700; color: var(--teal); font-size: 0.55em; margin-bottom: 4px; }
+
+.dir { color: #F40009; font-style: italic; font-weight: 600; display: block; margin: 8px 0; padding: 4px 8px; background: rgba(244,0,9,0.1); border-left: 3px solid #F40009; border-radius: 0 4px 4px 0; }
+
+.draft-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.45em;
+  color: #cbd5e1;
+}
+.draft-logo .circle {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+}
+
+.compare-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.compare-col { border-radius: 12px; padding: 20px; }
+.compare-col.bad { background: rgba(244,0,9,0.08); border: 1px solid rgba(244,0,9,0.25); }
+.compare-col.good { background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.25); }
+.compare-col h3 { font-size: 0.6em; margin-bottom: 10px; }
+.compare-col li { font-size: 0.48em; margin-bottom: 4px; list-style: none; padding-left: 0; }
+
+.pacing-table { width: 100%; border-collapse: separate; border-spacing: 0 6px; }
+.pacing-table td { padding: 10px 14px; font-size: 0.45em; background: var(--card); }
+.pacing-table td:first-child { border-radius: 8px 0 0 8px; font-weight: 700; border-left: 4px solid; }
+.pacing-table td:last-child { border-radius: 0 8px 8px 0; }
+
+.growth-card {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin: 8px 0;
+}
+.growth-card .growth-stat { font-size: 1.6em; font-weight: 800; color: var(--green); }
+.growth-card .growth-bar {
+  height: 8px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 4px;
+  margin: 8px 0;
+  overflow: hidden;
+}
+.growth-card .growth-bar-fill { height: 100%; border-radius: 4px; background: var(--green); }
+
+.journey-row {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  align-items: center;
+  gap: 12px;
+  margin: 30px 0;
+}
+.journey-card {
+  background: var(--card);
+  border-radius: 16px;
+  padding: 24px 20px;
+  text-align: center;
+  border-top: 4px solid;
+}
+.journey-arrow { font-size: 1.5em; color: #64748b; }
+
+.iframe-slide iframe {
+  width: 95%;
+  height: 80vh;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  background: #fff;
+}
+.iframe-label {
+  font-size: 0.4em;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #94a3b8;
+  margin-bottom: 8px;
+}
+
+.research-item {
+  border-left: 4px solid;
+  padding: 12px 20px;
+  margin: 12px 0;
+  background: var(--card);
+  border-radius: 0 12px 12px 0;
+}
+.research-item p { margin: 0; }
+
+.logos-row { display: flex; gap: 24px; margin-top: 16px; }
+
+.reveal .slides section.title-slide { text-align: center; }
+.reveal .slides section.center-content { text-align: center; }
+
+.reveal .progress span { background: var(--red); }
+.reveal .controls { color: var(--red); }
+.reveal .slide-number { color: #64748b; font-size: 14px; }
+
+.site-back{position:fixed;top:14px;left:14px;z-index:9999;font:600 12px/1 -apple-system,sans-serif;color:#fff;background:rgba(0,0,0,.55);padding:7px 12px;border-radius:7px;text-decoration:none !important;backdrop-filter:blur(10px);transition:background .2s}
+.site-back:hover{background:rgba(200,82,28,.9)}
+</style>
+</head>
+<body>
+<a href="/" class="site-back">← gorantrajkovski.com</a>
+<div class="reveal">
+<div class="slides">
+
+<!-- SLIDE 1: TITLE -->
+<section class="title-slide border-red">
+  <h1 style="font-size:2em;margin-bottom:0.1em;">Bridging Generations</h1>
+  <p style="font-size:0.65em;color:#FFFFFF;margin-bottom:4px;">AI-Powered Approaches to Multigenerational Workforce Collaboration</p>
+  <p style="font-size:0.45em;color:#D1D9E6;">Goran Trajkovski &nbsp;|&nbsp; March 2026</p>
+  <div style="margin-top:30px;">
+    <p style="font-size:0.4em;">
+      <a href="https://gorantrajkovski.com" target="_blank">gorantrajkovski.com</a> &nbsp;&bull;&nbsp;
+      <a href="https://beautifulprompt.expert" target="_blank">beautifulprompt.expert</a>
+    </p>
+  </div>
+  <div class="logos-row" style="justify-content:center;margin-top:30px;gap:40px;">
+    <span class="circle" style="background:var(--purple);width:64px;height:64px;font-size:32px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;">&#128065;</span>
+    <span class="circle" style="background:var(--teal);width:64px;height:64px;font-size:32px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;">&#129309;</span>
+    <span class="circle" style="background:var(--green);width:64px;height:64px;font-size:32px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;">&#127918;</span>
+  </div>
+  <aside class="notes">Welcome everyone. I'm Goran Trajkovski, and today I'll share some research on how AI can help bridge generational gaps in the workplace. This is a research-focused talk — I'll share findings, frameworks, and three working prototypes you can try on your phone right now. We'll go about 25 minutes, and then we'll have 5 minutes for questions.<span class="dir">PAUSE — let them settle in.</span></aside>
+</section>
+
+<!-- SLIDE 2: THE PROVOCATION -->
+<section class="border-red">
+  <h2>The Perception Gap</h2>
+  <div class="provocation-quote">
+    "Your 28-year-old developer thinks your 55-year-old VP is technologically out of touch. Your VP thinks the developer has no strategic thinking."
+  </div>
+  <p style="font-size:0.65em;color:var(--red);font-weight:700;margin:16px 0;">They're both wrong — and both right.</p>
+  <div class="stat-grid cols-2">
+    <div class="card">
+      <div class="big-stat" style="color:var(--red);">45%</div>
+      <div class="stat-label">of HR professionals cite generational communication as top challenge</div>
+      <div class="stat-source">SHRM, 2023</div>
+    </div>
+    <div class="card">
+      <div class="big-stat" style="color:var(--red);">28%</div>
+      <div class="stat-label">of employees feel comfortable being vulnerable with colleagues — down from 36%</div>
+      <div class="stat-source">Gartner, 2025</div>
+    </div>
+  </div>
+  <aside class="notes">I want to start with a scenario you'll all recognize. This isn't a demographic curiosity — it's an operational problem. And it's getting worse, not better. The Society for Human Resource Management found that nearly half of HR professionals say generational communication differences are their number one workplace challenge. And Gartner's data shows something alarming — employee comfort with vulnerability has dropped from 36% to just 28% in three years. People are pulling away from each other, not coming together.<span class="dir">PAUSE — let the stats sink in. Make eye contact.</span></aside>
+</section>
+
+<!-- SLIDE 3: THE COST -->
+<section class="border-red">
+  <h2>What This Costs You</h2>
+  <div class="stat-grid cols-4">
+    <div class="card">
+      <div class="big-stat" style="color:var(--red);">$1.2T</div>
+      <div class="stat-label">Annual cost of poor communication</div>
+      <div class="stat-source">Grammarly / Harris Poll</div>
+    </div>
+    <div class="card">
+      <div class="big-stat" style="color:var(--red);">20–30 yrs</div>
+      <div class="stat-label">Institutional knowledge lost per departing senior</div>
+      <div class="stat-source">AARP</div>
+    </div>
+    <div class="card">
+      <div class="big-stat" style="color:var(--red);">50%</div>
+      <div class="stat-label">Less likely to build cross-team relationships in hybrid</div>
+      <div class="stat-source">Microsoft</div>
+    </div>
+    <div class="card">
+      <div class="big-stat" style="color:var(--red);">70%</div>
+      <div class="stat-label">Of job skills will change by 2030</div>
+      <div class="stat-source">LinkedIn</div>
+    </div>
+  </div>
+  <aside class="notes">So the generations can't talk to each other effectively. The experienced people are leaving — and taking decades of knowledge with them. Remote work killed the water cooler. And the skills are shifting underneath everyone. That's the setup.<span class="dir">PAUSE — then transition with energy:</span>Now let me show you what we built.</aside>
+</section>
+
+<!-- SLIDE 4: MIRROR MODE INTRO -->
+<section class="border-purple">
+  <div class="draft-logo" style="margin-bottom:16px;">
+    <span class="circle" style="background:var(--purple);width:40px;height:40px;font-size:20px;">&#128065;</span>
+    <span style="font-size:1.2em;font-weight:700;color:#fff;">Mirror Mode</span>
+  </div>
+  <h2>Let's Start With You</h2>
+  <p style="font-size:0.65em;color:#FFFFFF;">How do other generations actually see you?</p>
+  <div style="margin-top:24px;">
+    <a href="https://mirror-mode-gamma.vercel.app" target="_blank" class="link-btn purple">mirror-mode-gamma.vercel.app</a>
+    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fmirror-mode-gamma.vercel.app" style="width:120px;height:120px;vertical-align:middle;margin-left:20px;">
+  </div>
+  <aside class="notes">I'm not going to explain this first. I'm going to show you. If you want to follow along on your phone, open this link right now — it takes about two minutes.<span class="dir">PAUSE — give them time to pull out phones. Then click to the next slide for the live demo.</span></aside>
+</section>
+
+<!-- SLIDE 5: MIRROR MODE LIVE DEMO -->
+<section class="iframe-slide border-purple">
+  <div class="iframe-label">LIVE PROTOTYPE — Mirror Mode</div>
+  <iframe src="https://mirror-mode-gamma.vercel.app" allow="fullscreen" loading="lazy"></iframe>
+  <aside class="notes"><span class="dir">LIVE DEMO — Click through the Mirror Mode prototype inside the iframe. Narrate as you go:</span>You answer 10 questions about how you work — your communication preferences, how you like feedback, your meeting style. And then the AI shows you how five different generations perceive you. Look at this radar chart — see where the perception gaps are. These are your superpowers — where generations agree you're strong. And these are your blind spots — things others see that you don't.<span class="dir">Spend about 2-3 minutes here. Then advance.</span></aside>
+</section>
+
+<!-- SLIDE 6: THE SCIENCE -->
+<section class="border-purple">
+  <h2>Why That Worked</h2>
+  <div style="text-align:center;margin:20px 0;">
+    <div style="font-size:3em;font-weight:800;color:#FFFFFF;">95%</div>
+    <p style="font-size:0.6em;color:#FFFFFF;">think they're self-aware</p>
+    <p style="font-size:0.7em;color:var(--red);font-weight:700;">Only 10–15% actually are</p>
+    <p style="font-size:0.4em;color:#D1D9E6;">— Tasha Eurich, HBR 2018</p>
+  </div>
+  <hr style="border:none;border-top:1px solid rgba(255,255,255,0.1);margin:20px 0;">
+  <div class="card">
+    <p style="font-size:0.55em;font-weight:700;color:var(--teal);margin-bottom:4px;">Johari Window Framework</p>
+    <p style="font-size:0.48em;color:#FFFFFF;">Teams using Johari exercises show measurable improvements in trust and reduced conflict</p>
+    <p style="font-size:0.38em;color:#D1D9E6;">Journal of Management Development</p>
+  </div>
+  <div class="callout" style="margin-top:16px;border-color:var(--purple);">
+    <p style="font-size:0.5em;color:#FFFFFF;margin:0;"><strong style="color:var(--purple);">Key connection:</strong> Mirror Mode serves as preparation for reverse mentoring — know yourself first, then grow with a partner.</p>
+  </div>
+  <aside class="notes">So why did that work? The research is striking. Organizational psychologist Tasha Eurich — published in the Harvard Business Review in 2018 — found that 95% of people think they're self-aware, but only 10 to 15 percent actually are. That gap is enormous. Mirror Mode is built on the Johari Window framework, which research shows measurably improves trust and reduces conflict in teams. And here's the key connection — Mirror Mode is a preparation step. You know yourself first. Then you grow with a partner.<span class="dir">PAUSE — then transition:</span>Which brings us to the main concept.</aside>
+</section>
+
+<!-- SLIDE 7: REVERSE MENTORING INTRO -->
+<section class="border-teal">
+  <div class="draft-logo" style="margin-bottom:12px;">
+    <span class="circle" style="background:var(--teal);width:40px;height:40px;font-size:20px;">&#129309;</span>
+    <span style="font-size:1.2em;font-weight:700;color:#fff;">MentorBridge AI</span>
+  </div>
+  <h2 style="font-size:1.3em;">Bridge the People, Not Just the Skills</h2>
+  <p style="font-size:0.5em;color:#FFFFFF;margin-bottom:14px;">Jack Welch paired 500 GE executives with junior employees in 1999. It worked then. AI makes it work at scale now.</p>
+  <div class="stat-grid cols-3">
+    <div class="card">
+      <div class="big-stat" style="color:var(--teal);font-size:1.8em;">50%</div>
+      <div class="stat-label">Higher retention with formal mentoring</div>
+      <div class="stat-source">ATD, 2019</div>
+    </div>
+    <div class="card">
+      <div class="big-stat" style="color:var(--teal);font-size:1.8em;">94%</div>
+      <div class="stat-label">Of senior mentees gained new digital skills</div>
+      <div class="stat-source">HBR, 2019</div>
+    </div>
+    <div class="card">
+      <div class="big-stat" style="color:var(--teal);font-size:1.8em;">6x</div>
+      <div class="stat-label">More likely to be promoted as a mentor</div>
+      <div class="stat-source">Chronus</div>
+    </div>
+  </div>
+  <div class="callout" style="margin-top:14px;">
+    <p style="font-size:0.5em;margin:0;"><strong style="color:var(--teal);">AI suggests. Humans decide.</strong><br>
+    <span style="color:#FFFFFF;">Line managers and employees make the final call on pairings — based on availability, willingness, and readiness. The AI gives them a much deeper, wider pool. System can weight matching by function, generation, gender, seniority, or custom criteria.</span></p>
+  </div>
+  <div style="margin-top:14px;">
+    <a href="https://competency-predictor.vercel.app" target="_blank" class="link-btn teal">competency-predictor.vercel.app</a>
+    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fcompetency-predictor.vercel.app" style="width:120px;height:120px;vertical-align:middle;margin-left:20px;">
+  </div>
+  <aside class="notes">Now the centerpiece — AI-Powered Reverse Mentoring. Reverse mentoring has been around since 1999, when Jack Welch at General Electric paired 500 senior executives with junior employees to learn about the internet. It worked then. But scaling it was always the problem. AI solves that. The results speak for themselves: the Association for Talent Development found that companies with formal mentoring see 50% higher retention. The Harvard Business Review reported that 94% of senior mentees in reverse mentoring programs gained new digital skills. And here's what most people don't know — Chronus Research found that mentors themselves are 6 times more likely to be promoted. It's truly bidirectional.<span class="dir">PAUSE — important point coming:</span>And I want to be very clear about something. The AI suggests pairings, but humans decide. Line managers and employees still make the final call — based on availability, willingness, readiness. The AI just gives them a much deeper, wider pool than they'd have from their recent interactions alone. And the system can be fine-tuned — you can weight matching by function, generation, gender, seniority, whatever matters most to your organization.</aside>
+</section>
+
+<!-- SLIDE 8: WHY AI BEATS MANAGER PICKS -->
+<section class="border-teal">
+  <h2>Why AI Beats Manager Picks</h2>
+  <p style="font-size:0.55em;color:var(--teal);font-weight:700;margin-bottom:16px;">Algorithm-matched pairs: 50% higher completion rates <span style="color:#D1D9E6;font-weight:400;">— MentorcliQ</span></p>
+  <div class="compare-cols">
+    <div class="compare-col bad">
+      <h3 style="color:var(--red);">Manager-Selected Pairs</h3>
+      <ul style="padding:0;list-style:none;">
+        <li style="color:#FFFFFF;"><span style="color:var(--red);font-weight:700;margin-right:8px;">&mdash;</span> Proximity bias</li>
+        <li style="color:#FFFFFF;"><span style="color:var(--red);font-weight:700;margin-right:8px;">&mdash;</span> Similarity bias</li>
+        <li style="color:#FFFFFF;"><span style="color:var(--red);font-weight:700;margin-right:8px;">&mdash;</span> Hierarchy bias</li>
+        <li style="color:#FFFFFF;"><span style="color:var(--red);font-weight:700;margin-right:8px;">&mdash;</span> Small sample</li>
+        <li style="color:#FFFFFF;"><span style="color:var(--red);font-weight:700;margin-right:8px;">&mdash;</span> Social friction</li>
+      </ul>
+    </div>
+    <div class="compare-col good">
+      <h3 style="color:var(--green);">AI-Powered Matching</h3>
+      <ul style="padding:0;list-style:none;">
+        <li style="color:#FFFFFF;"><span style="color:var(--green);font-weight:700;margin-right:8px;">+</span> 12 competencies + SHAP explainability</li>
+        <li style="color:#FFFFFF;"><span style="color:var(--green);font-weight:700;margin-right:8px;">+</span> Cross-department matching</li>
+        <li style="color:#FFFFFF;"><span style="color:var(--green);font-weight:700;margin-right:8px;">+</span> Learning-style alignment</li>
+        <li style="color:#FFFFFF;"><span style="color:var(--green);font-weight:700;margin-right:8px;">+</span> Large dataset</li>
+        <li style="color:#FFFFFF;"><span style="color:var(--green);font-weight:700;margin-right:8px;">+</span> Zero social friction</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">This is the core argument for why AI does this better than traditional manager picks. Managers select mentoring pairs from a small pool of people they recently interacted with. That introduces proximity bias — they pair people who already know each other. Similarity bias — they pair similar personalities. Hierarchy bias — they follow the org chart instead of learning needs. The AI analyzes 12 competencies across the entire organization, with SHAP — that's Shapley Additive Explanations — a method from machine learning that makes predictions transparent. We can tell you exactly why a pairing was recommended. It matches across departments. It aligns learning styles. And it removes the social awkwardness entirely — the AI makes the introduction. MentorcliQ — a mentoring software research firm — found that algorithm-matched pairs have 50% higher completion rates.<span class="dir">PAUSE — this is the slide people photograph. Give them 10 seconds to read it. Then advance to the live demo.</span></aside>
+</section>
+
+<!-- SLIDE 9: MENTORBRIDGE LIVE DEMO -->
+<section class="iframe-slide border-teal">
+  <div class="iframe-label">LIVE PROTOTYPE — MentorBridge AI</div>
+  <iframe src="https://competency-predictor.vercel.app" allow="fullscreen" loading="lazy"></iframe>
+  <aside class="notes"><span class="dir">LIVE DEMO — This is the most important demo. Spend 4-5 minutes here. Click through the prototype inside the iframe and narrate:</span>Here's the MentorBridge AI prototype. This is the gap analysis heatmap. Each row is an employee, each column is a competency. Green cells are skills they can teach — teaching strengths. Darker cells are learning opportunities — skills they could develop through reverse mentoring. The AI uses this to find optimal cross-generational pairings.<span class="dir">Click "Mentoring Pairs" in the nav.</span>And here are the AI-generated mentoring pairs. Notice the match percentages — 98%, 96%. Each pair includes personalized pacing recommendations. The system found 10 optimal pairs, 9 of which are cross-department. Remember — these are suggestions. The line manager and the employees themselves make the final decision.<span class="dir">Click "Journey" in the nav.</span>And this is the mentoring journey — four phases over 12 weeks. Onboarding, building trust, deep skill transfer, reflection and growth. Each pair is tracked with progress indicators and session logs.</aside>
+</section>
+
+<!-- SLIDE 10: INDIVIDUALIZED PACING -->
+<section class="border-teal">
+  <h2>Every Pair Gets a Different Format</h2>
+  <table class="pacing-table">
+    <tr>
+      <td style="border-color:var(--gold);">Gen Alpha</td>
+      <td>20 min</td>
+      <td>3x / week</td>
+      <td>Co-working / Screen Share</td>
+      <td>Fast-Informal</td>
+    </tr>
+    <tr>
+      <td style="border-color:#3b82f6;">Gen Z</td>
+      <td>15 min</td>
+      <td>3x / week</td>
+      <td>Quick Video / Screen Share</td>
+      <td>Fast-Informal</td>
+    </tr>
+    <tr>
+      <td style="border-color:var(--green);">Millennials</td>
+      <td>30 min</td>
+      <td>2x / week</td>
+      <td>Collaborative Session</td>
+      <td>Collaborative</td>
+    </tr>
+    <tr>
+      <td style="border-color:var(--teal);">Gen X</td>
+      <td>45 min</td>
+      <td>Weekly</td>
+      <td>Structured Agenda</td>
+      <td>Structured</td>
+    </tr>
+    <tr>
+      <td style="border-color:var(--purple);">Boomers</td>
+      <td>60 min</td>
+      <td>Biweekly</td>
+      <td>Deep-Dive Discussion</td>
+      <td>Formal-Deep</td>
+    </tr>
+  </table>
+  <p style="font-size:0.38em;color:#D1D9E6;margin-top:16px;">Source: Journal of Workplace Learning — learning preferences vary by generation due to different foundational mental models, not innate differences</p>
+  <aside class="notes">The AI doesn't just match the right people — it also recommends the right format for each pair. Research from the Journal of Workplace Learning shows that learning preferences vary significantly across generations. Not because of innate differences — but because of different foundational mental models. So we adapt. Gen Z and Gen Alpha prefer short, frequent, informal sessions — 15 to 20 minutes, three times a week, over screen share. Millennials prefer 30-minute collaborative sessions twice a week. Gen X prefers structured 45-minute sessions with a clear agenda, once a week. And Boomers prefer deeper, 60-minute discussions every two weeks. The system adapts to both participants in each pair.</aside>
+</section>
+
+<!-- SLIDE 11: RESULTS -->
+<section class="border-teal">
+  <h2>What Changes in 16 Weeks</h2>
+  <div class="stat-grid cols-2">
+    <div class="growth-card">
+      <div class="growth-stat">+36%</div>
+      <p style="font-size:0.48em;color:#FFFFFF;margin:4px 0;">Cross-generational communication</p>
+      <div class="growth-bar"><div class="growth-bar-fill" style="width:78%;"></div></div>
+      <p style="font-size:0.35em;color:#D1D9E6;margin:0;">42% &rarr; 78%</p>
+    </div>
+    <div class="growth-card">
+      <div class="growth-stat">+36%</div>
+      <p style="font-size:0.48em;color:#FFFFFF;margin:4px 0;">Digital fluency for seniors</p>
+      <div class="growth-bar"><div class="growth-bar-fill" style="width:71%;"></div></div>
+      <p style="font-size:0.35em;color:#D1D9E6;margin:0;">35% &rarr; 71%</p>
+    </div>
+    <div class="growth-card">
+      <div class="growth-stat">+34%</div>
+      <p style="font-size:0.48em;color:#FFFFFF;margin:4px 0;">Strategic thinking for juniors</p>
+      <div class="growth-bar"><div class="growth-bar-fill" style="width:62%;"></div></div>
+      <p style="font-size:0.35em;color:#D1D9E6;margin:0;">28% &rarr; 62%</p>
+    </div>
+    <div class="growth-card">
+      <div class="growth-stat">+35%</div>
+      <p style="font-size:0.48em;color:#FFFFFF;margin:4px 0;">Knowledge transfer</p>
+      <div class="growth-bar"><div class="growth-bar-fill" style="width:75%;"></div></div>
+      <p style="font-size:0.35em;color:#D1D9E6;margin:0;">40% &rarr; 75%</p>
+    </div>
+  </div>
+  <aside class="notes">These are the modeled growth outcomes from the prototype. The mentoring journey runs 16 weeks across four phases — onboarding, trust-building, deep skill transfer, and reflection. But the numbers are what matters. Cross-generational communication improves by 36 percent. Digital fluency for senior employees jumps by 36 percent. Strategic thinking for junior employees grows by 34 percent. And knowledge transfer effectiveness improves by 35 percent.<span class="dir">PAUSE — let them absorb the numbers. If anyone asks about the phases, offer to walk through them in Q&amp;A.</span></aside>
+</section>
+
+<!-- SLIDE 12: GENGAMES INTRO -->
+<section class="border-green">
+  <div class="draft-logo" style="margin-bottom:16px;">
+    <span class="circle" style="background:var(--green);width:40px;height:40px;font-size:20px;">&#127918;</span>
+    <span style="font-size:1.2em;font-weight:700;color:#fff;">GenGames</span>
+  </div>
+  <h2>Now Scale It: GenGames</h2>
+  <p style="font-size:0.55em;color:#FFFFFF;">When mentoring builds individual muscle, gamified challenges build team muscle.</p>
+  <div class="card" style="margin:16px 0;">
+    <div class="big-stat" style="color:var(--green);font-size:1.8em;">89%</div>
+    <div class="stat-label">say gamification makes them more productive</div>
+    <div class="stat-source">TalentLMS</div>
+  </div>
+  <div class="callout" style="border-color:var(--green);background:rgba(34,197,94,0.08);">
+    <p style="font-size:0.5em;color:#FFFFFF;margin:0;"><strong style="color:var(--green);">Key insight:</strong> Collaborative challenges work across all generations. Pure competition demotivates older participants.</p>
+  </div>
+  <div style="margin-top:16px;">
+    <a href="https://gengames.vercel.app" target="_blank" class="link-btn green">gengames.vercel.app</a>
+    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fgengames.vercel.app" style="width:120px;height:120px;vertical-align:middle;margin-left:20px;">
+  </div>
+  <aside class="notes">The third concept takes what we've built at the individual and pair level, and scales it to teams. GenGames creates gamified challenges designed for team effectiveness workshops and group events. A TalentLMS survey found that 89% of employees say gamification makes them more productive. But here's the key research insight — collaborative challenges work universally across all generations. Pure competition, on the other hand, can actually demotivate older participants. So GenGames is designed around collaborative problem-solving, not leaderboard chasing.<span class="dir">Advance to the live demo — keep this quick, about 60 seconds.</span></aside>
+</section>
+
+<!-- SLIDE 13: GENGAMES LIVE DEMO -->
+<section class="iframe-slide border-green">
+  <div class="iframe-label">LIVE PROTOTYPE — GenGames</div>
+  <iframe src="https://gengames.vercel.app" allow="fullscreen" loading="lazy"></iframe>
+  <aside class="notes"><span class="dir">QUICK DEMO — 60 seconds max. Click through the iframe:</span>Here's GenGames. You can see four types of challenges — Innovation Sprint, Process Improvement, Customer Insight, Culture Hack. Teams are auto-formed with mandatory generational diversity — at least three generations per team. Each team gets a diversity score.<span class="dir">Click "Teams" in the nav to show team formation and diversity scores. Then advance — this is the "and there's more" moment, not the main event.</span></aside>
+</section>
+
+<!-- SLIDE 14: THE CONNECTED JOURNEY -->
+<section class="border-red center-content" style="text-align:center;">
+  <h2 style="text-align:center;">Three Tools, One Path</h2>
+  <div class="journey-row">
+    <div class="journey-card" style="border-color:var(--purple);">
+      <div style="font-size:2em;margin-bottom:8px;">&#128065;</div>
+      <p style="font-size:0.55em;font-weight:700;color:var(--purple);margin:4px 0;">Mirror Mode</p>
+      <p style="font-size:0.5em;color:#FFFFFF;margin:0;">Know Yourself</p>
+    </div>
+    <div class="journey-arrow">&rarr;</div>
+    <div class="journey-card" style="border-color:var(--teal);">
+      <div style="font-size:2em;margin-bottom:8px;">&#129309;</div>
+      <p style="font-size:0.55em;font-weight:700;color:var(--teal);margin:4px 0;">MentorBridge AI</p>
+      <p style="font-size:0.5em;color:#FFFFFF;margin:0;">Grow With a Partner</p>
+    </div>
+    <div class="journey-arrow">&rarr;</div>
+    <div class="journey-card" style="border-color:var(--green);">
+      <div style="font-size:2em;margin-bottom:8px;">&#127918;</div>
+      <p style="font-size:0.55em;font-weight:700;color:var(--green);margin:4px 0;">GenGames</p>
+      <p style="font-size:0.5em;color:#FFFFFF;margin:0;">Build Team Muscle</p>
+    </div>
+  </div>
+  <p style="font-size:0.45em;color:#D1D9E6;">Research-backed &middot; AI-enhanced &middot; Designed for the 5-generation workplace</p>
+  <aside class="notes">So here's how everything connects into one continuous development path. Mirror Mode is self-awareness — know yourself first. MentorBridge AI is structured growth — grow with a cross-generational partner. GenGames is team capability — build that collaboration muscle through play. Self-awareness leads to structured growth, which leads to team capability. Each concept is research-backed, AI-enhanced, and designed specifically for the five-generation workplace we're all navigating right now.<span class="dir">PAUSE — let the arc land before moving on.</span></aside>
+</section>
+
+<!-- SLIDE 15: RESEARCH PROGRAM -->
+<section class="border-red">
+  <h2>Active Research Program</h2>
+  <div class="research-item" style="border-color:var(--teal);">
+    <p style="font-size:0.5em;color:#FFFFFF;margin:0;"><strong>AI-driven predictive models for competency assessment</strong></p>
+    <p style="font-size:0.4em;color:#D1D9E6;margin:4px 0 0;">Touro University / AIR Seed Grant</p>
+  </div>
+  <div class="research-item" style="border-color:var(--purple);">
+    <p style="font-size:0.5em;color:#FFFFFF;margin:0;"><strong>Patent-pending technology for standardized assessment datasets</strong></p>
+    <p style="font-size:0.4em;color:#D1D9E6;margin:4px 0 0;">US Provisional Patent 63/535,673</p>
+  </div>
+  <div class="research-item" style="border-color:var(--green);">
+    <p style="font-size:0.5em;color:#FFFFFF;margin:0;"><strong>Adversarial AI and secure model design</strong></p>
+    <p style="font-size:0.4em;color:#D1D9E6;margin:4px 0 0;">Apress / Springer, under contract</p>
+  </div>
+  <p style="font-size:0.42em;color:#D1D9E6;margin-top:24px;">Full research foundation: 7 domains, 30+ cited sources — available on request</p>
+  <aside class="notes">The prototypes you saw today sit inside a larger research program. I'm currently working on AI-driven predictive models for competency-based assessment with Touro University, funded by an Association for Institutional Research Seed Grant. I have a patent pending for technology that generates standardized assessment datasets. And I have a book on adversarial AI and secure model design under contract with Apress/Springer. The full research foundation spans seven domains with over thirty cited sources — happy to share that with anyone who's interested.</aside>
+</section>
+
+<!-- SLIDE 16: THE CLOSE -->
+<section class="border-red center-content" style="text-align:center;">
+  <h2 style="text-align:center;">Try It Right Now</h2>
+  <p style="font-size:0.7em;color:#FFFFFF;font-weight:600;margin:24px auto;max-width:80%;">You can keep hoping generations figure each other out.<br>Or you can <span style="color:var(--red);">engineer it</span>.</p>
+  <div style="margin:28px 0;display:flex;justify-content:center;gap:40px;align-items:center;">
+    <div style="text-align:center;">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fmirror-mode-gamma.vercel.app" style="width:100px;height:100px;"><br>
+      <a href="https://mirror-mode-gamma.vercel.app" target="_blank" class="link-btn purple" style="margin-top:8px;">&#128065; Mirror Mode</a>
+    </div>
+    <div style="text-align:center;">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fcompetency-predictor.vercel.app" style="width:100px;height:100px;"><br>
+      <a href="https://competency-predictor.vercel.app" target="_blank" class="link-btn teal" style="margin-top:8px;">&#129309; MentorBridge AI</a>
+    </div>
+    <div style="text-align:center;">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https%3A%2F%2Fgengames.vercel.app" style="width:100px;height:100px;"><br>
+      <a href="https://gengames.vercel.app" target="_blank" class="link-btn green" style="margin-top:8px;">&#127918; GenGames</a>
+    </div>
+  </div>
+  <p style="font-size:0.6em;font-weight:700;color:#fff;margin-top:28px;">Goran Trajkovski</p>
+  <p style="font-size:0.42em;">
+    <a href="https://gorantrajkovski.com" target="_blank">gorantrajkovski.com</a> &nbsp;&bull;&nbsp;
+    <a href="https://beautifulprompt.expert" target="_blank">beautifulprompt.expert</a>
+  </p>
+  <aside class="notes">Your phone is in your hand. Open one of these links right now. Don't take my word for it — try it yourself. These are live, working prototypes. And if you want to learn more about my work, visit gorantrajkovski.com or beautifulprompt.expert.<span class="dir">DO NOT say "thank you" — end with confidence. Let the silence hang for a moment, then say:</span>I'd love to hear your thoughts. What resonates? What would you change?</aside>
+</section>
+
+</div><!-- /slides -->
+</div><!-- /reveal -->
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+<script>
+Reveal.initialize({
+  hash: true,
+  slideNumber: true,
+  progress: true,
+  controls: true,
+  transition: 'fade',
+  transitionSpeed: 'default',
+  width: 1280,
+  height: 720,
+  margin: 0,
+  plugins: [ RevealNotes ]
+});
+</script>
+</body>
+</html>

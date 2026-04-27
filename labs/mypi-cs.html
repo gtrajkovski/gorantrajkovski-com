@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyPI CS Projects — AI Lab Assistant · Goran Trajkovski</title>
+    <meta name="description" content="MyPI CS Projects AI Lab Assistant — your 24/7 study companion for labs, code, and concepts.">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            color: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container { max-width: 640px; width: 100%; text-align: center; }
+        .icon { font-size: 64px; margin-bottom: 24px; }
+        h1 { font-size: 2rem; font-weight: 700; color: #f8fafc; margin-bottom: 8px; }
+        .subtitle { font-size: 1.1rem; color: #94a3b8; margin-bottom: 40px; }
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 24px;
+            backdrop-filter: blur(10px);
+        }
+        .card h2 { font-size: 1.1rem; color: #f8fafc; margin-bottom: 16px; }
+        .steps { text-align: left; list-style: none; padding: 0; }
+        .steps li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex; align-items: flex-start; gap: 12px;
+            font-size: 0.95rem; color: #cbd5e1; line-height: 1.5;
+        }
+        .steps li:last-child { border-bottom: none; }
+        .step-num {
+            background: rgba(99, 102, 241, 0.2);
+            color: #818cf8;
+            font-weight: 700; font-size: 0.8rem;
+            width: 28px; height: 28px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0; margin-top: 1px;
+        }
+        .cta-button {
+            display: inline-flex; align-items: center; gap: 10px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white; text-decoration: none;
+            font-size: 1.15rem; font-weight: 600;
+            padding: 16px 40px; border-radius: 12px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 24px rgba(99, 102, 241, 0.3);
+        }
+        .cta-button:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(99, 102, 241, 0.45); }
+        .cta-button svg { width: 20px; height: 20px; }
+        .tips { margin-top: 32px; text-align: left; }
+        .tips h3 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; color: #64748b; margin-bottom: 12px; }
+        .tips ul { list-style: none; padding: 0; }
+        .tips li { font-size: 0.9rem; color: #94a3b8; padding: 6px 0; padding-left: 20px; position: relative; }
+        .tips li::before { content: "→"; position: absolute; left: 0; color: #6366f1; }
+        .footer { margin-top: 40px; font-size: 0.8rem; color: #475569; }
+        .site-back {
+            position: fixed; top: 14px; left: 14px; z-index: 9999;
+            font: 600 12px/1 -apple-system, sans-serif;
+            color: #fff; background: rgba(0, 0, 0, .35);
+            padding: 7px 12px; border-radius: 7px;
+            text-decoration: none;
+            backdrop-filter: blur(10px);
+            transition: background .2s;
+        }
+        .site-back:hover { background: rgba(200, 82, 28, .85); }
+    </style>
+</head>
+<body>
+    <a href="/" class="site-back">← gorantrajkovski.com</a>
+    <div class="container">
+        <div class="icon">🤖</div>
+        <h1>MyPI CS Projects</h1>
+        <p class="subtitle">Your AI Lab Assistant — available 24/7</p>
+
+        <div class="card">
+            <h2>How to Get Started</h2>
+            <ol class="steps">
+                <li>
+                    <span class="step-num">1</span>
+                    <span>Sign in or create a free <strong>ChatGPT account</strong> at chatgpt.com</span>
+                </li>
+                <li>
+                    <span class="step-num">2</span>
+                    <span>Click the button below to open the AI assistant</span>
+                </li>
+                <li>
+                    <span class="step-num">3</span>
+                    <span>Ask your question about labs, code, or concepts — your chat is <strong>private to you</strong></span>
+                </li>
+            </ol>
+        </div>
+
+        <a href="https://chatgpt.com/g/g-p-6787153588b08191a7ad4b943ed39492-mypi-cs-projects/project"
+           target="_top"
+           rel="noopener noreferrer"
+           class="cta-button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+            Open AI Assistant
+        </a>
+
+        <div class="tips">
+            <h3>Tips for Better Answers</h3>
+            <ul>
+                <li>Paste your error message along with your question</li>
+                <li>Mention which lab or assignment you're working on</li>
+                <li>Share the specific code snippet that's giving you trouble</li>
+                <li>Ask follow-up questions if the first answer isn't clear</li>
+            </ul>
+        </div>
+
+        <p class="footer">Uses your own free ChatGPT account · Your conversations are private · Does not cost your instructor anything</p>
+    </div>
+</body>
+</html>
