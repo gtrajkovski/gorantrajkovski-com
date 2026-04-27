@@ -1079,7 +1079,7 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
 .lock-overlay {
   position: fixed;
   inset: 0;
-  z-index: 1000;
+  z-index: 50; /* below nav (z=100) so language/theme controls stay accessible */
   display: flex;
   align-items: center;
   justify-content: center;
