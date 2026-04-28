@@ -153,9 +153,129 @@
     });
   }
 
+  // ---- CV download: lock individual link without locking the whole page ----
+  function setupCvDownloads() {
+    const links = document.querySelectorAll('a.cv-download[data-cipher]');
+    if (!links.length) return;
+
+    let modal = null;
+    function buildModal() {
+      if (modal) return modal;
+      modal = document.createElement('div');
+      modal.className = 'cv-lock';
+      modal.innerHTML = (
+        '<div class="cv-lock__backdrop" data-cv-close></div>' +
+        '<div class="cv-lock__card" role="dialog" aria-modal="true" aria-labelledby="cv-lock-title">' +
+          '<button type="button" class="cv-lock__x" aria-label="Close" data-cv-close>×</button>' +
+          '<p class="cv-lock__eyebrow">Protected · CV</p>' +
+          '<h2 class="cv-lock__title" id="cv-lock-title">Enter access code</h2>' +
+          '<p class="cv-lock__lede">The same code as the portfolio. Don’t have it? <a href="#contact" data-cv-close>Request access via the contact form.</a></p>' +
+          '<form class="cv-lock__form">' +
+            '<input type="password" class="cv-lock__input" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="passphrase" />' +
+            '<button type="submit" class="cv-lock__submit btn btn--primary">Unlock &amp; download</button>' +
+          '</form>' +
+          '<p class="cv-lock__error" aria-live="polite"></p>' +
+        '</div>'
+      );
+      document.body.appendChild(modal);
+      modal.addEventListener('click', e => {
+        if (e.target.matches('[data-cv-close]')) closeModal();
+      });
+      modal.querySelector('.cv-lock__form').addEventListener('submit', onSubmit);
+      return modal;
+    }
+    function openModal() {
+      buildModal();
+      modal.classList.add('is-open');
+      const inp = modal.querySelector('.cv-lock__input');
+      setTimeout(() => inp && inp.focus(), 60);
+    }
+    function closeModal() {
+      if (!modal) return;
+      modal.classList.remove('is-open');
+      const err = modal.querySelector('.cv-lock__error');
+      if (err) { err.textContent = ''; err.classList.remove('is-visible'); }
+      const inp = modal.querySelector('.cv-lock__input');
+      if (inp) inp.value = '';
+    }
+
+    let pendingCipher = null;
+    async function triggerDownload(key, cipher) {
+      const url = await decryptCipher(key, cipher);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = '';
+      a.rel = 'noopener';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    }
+
+    async function onSubmit(e) {
+      e.preventDefault();
+      const form = e.currentTarget;
+      const inp = form.querySelector('.cv-lock__input');
+      const submit = form.querySelector('.cv-lock__submit');
+      const err = modal.querySelector('.cv-lock__error');
+      const phrase = (inp.value || '').trim();
+      if (!phrase) return;
+      const original = submit.textContent;
+      submit.disabled = true;
+      submit.textContent = '…';
+      err.textContent = '';
+      err.classList.remove('is-visible');
+      try {
+        const key = await deriveKey(phrase);
+        if (await verifyKey(key)) {
+          sessionStorage.setItem(KEY_CACHE, await exportKeyB64(key));
+          await triggerDownload(key, pendingCipher);
+          closeModal();
+        } else {
+          err.textContent = 'Wrong access code — try again.';
+          err.classList.add('is-visible');
+          inp.value = '';
+          inp.focus();
+        }
+      } catch (e2) {
+        err.textContent = 'Something went wrong. Reload and try again.';
+        err.classList.add('is-visible');
+      } finally {
+        submit.disabled = false;
+        submit.textContent = original;
+      }
+    }
+
+    links.forEach(a => {
+      a.addEventListener('click', async (e) => {
+        e.preventDefault();
+        pendingCipher = a.dataset.cipher;
+        // Try cached key first — silent download
+        const cached = sessionStorage.getItem(KEY_CACHE);
+        if (cached) {
+          try {
+            const key = await importKeyB64(cached);
+            if (await verifyKey(key)) {
+              await triggerDownload(key, pendingCipher);
+              return;
+            }
+          } catch (_) { sessionStorage.removeItem(KEY_CACHE); }
+        }
+        openModal();
+      });
+    });
+
+    // Esc to close
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && modal && modal.classList.contains('is-open')) {
+        closeModal();
+      }
+    });
+  }
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
+    document.addEventListener('DOMContentLoaded', () => { init(); setupCvDownloads(); });
   } else {
     init();
+    setupCvDownloads();
   }
 })();

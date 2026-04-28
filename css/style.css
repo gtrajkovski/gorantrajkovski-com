@@ -337,6 +337,8 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
 }
 .hero__availability:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
+/* Availability indicator: green = "open/available" universal semantic.
+   Eyebrow text stays carmine for brand. */
 .hero__availability-pulse {
   position: relative;
   width: 12px; height: 12px;
@@ -349,7 +351,7 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  background: var(--accent);
+  background: #2BB673;
 }
 .hero__availability-pulse::after {
   animation: availability-pulse 1.8s var(--t) infinite;
@@ -359,8 +361,8 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
   position: absolute;
   inset: 3px;
   border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 0 3px rgba(200,51,30,.18);
+  background: #2BB673;
+  box-shadow: 0 0 0 3px rgba(43,182,115,.20);
   z-index: 1;
 }
 @keyframes availability-pulse {
@@ -982,6 +984,25 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
 }
 
 /* Selected publications */
+.track-pubs__intro {
+  font-family: var(--serif);
+  font-size: 15px;
+  font-style: italic;
+  color: var(--muted);
+  margin: -8px 0 24px;
+  max-width: 720px;
+  line-height: 1.55;
+}
+.track-pubs__subhead {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  color: var(--ink);
+  margin-top: 28px;
+  margin-bottom: 8px;
+}
+.track-pubs__subhead:first-of-type { margin-top: 0; }
 .track-pubs {
   list-style: none;
   margin: 0;
@@ -1583,6 +1604,97 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
 .lang-switch a.is-active {
   background: var(--ink);
   color: var(--paper);
+}
+
+/* ============================================
+   CV unlock modal (homepage CV download)
+   ============================================ */
+.cv-lock {
+  position: fixed; inset: 0; z-index: 200;
+  display: none;
+}
+.cv-lock.is-open { display: block; }
+.cv-lock__backdrop {
+  position: absolute; inset: 0;
+  background: rgba(10,10,10,.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  animation: cvFade .25s var(--t);
+}
+.cv-lock__card {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(440px, calc(100vw - 32px));
+  background: var(--paper);
+  color: var(--ink);
+  padding: 32px 32px 28px;
+  border-radius: 14px;
+  border: 1px solid var(--rule-strong);
+  box-shadow: 0 24px 60px rgba(0,0,0,.30);
+  animation: cvLift .25s var(--t);
+}
+:root[data-theme="dark"] .cv-lock__card { background: #22232A; }
+.cv-lock__x {
+  position: absolute; top: 12px; right: 14px;
+  width: 32px; height: 32px;
+  font-size: 22px; line-height: 1;
+  color: var(--muted); cursor: pointer;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+.cv-lock__x:hover { background: var(--paper-2); color: var(--ink); }
+.cv-lock__eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+.cv-lock__title {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  margin-bottom: 10px;
+}
+.cv-lock__lede {
+  color: var(--ink-2);
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 18px;
+}
+.cv-lock__lede a { color: var(--accent); border-bottom: 1px solid var(--accent); }
+.cv-lock__form { display: flex; flex-direction: column; gap: 10px; }
+.cv-lock__input {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--paper-2);
+  color: var(--ink);
+  outline: none;
+  transition: border-color .2s var(--t);
+}
+.cv-lock__input:focus { border-color: var(--accent); }
+.cv-lock__submit { width: 100%; }
+.cv-lock__error {
+  min-height: 18px;
+  margin-top: 10px;
+  font-size: 13px;
+  color: var(--accent);
+  opacity: 0;
+  transition: opacity .2s var(--t);
+}
+.cv-lock__error.is-visible { opacity: 1; }
+@keyframes cvFade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes cvLift {
+  from { opacity: 0; transform: translate(-50%, -46%); }
+  to   { opacity: 1; transform: translate(-50%, -50%); }
 }
 
 /* ============================================

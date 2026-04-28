@@ -22,6 +22,13 @@ PAIRS = [
     (ROOT / 'es' / 'portfolio.source.html', ROOT / 'es' / 'portfolio.html'),
     (ROOT / 'mk' / 'portfolio.source.html', ROOT / 'mk' / 'portfolio.html'),
 ]
+# Homepages that contain a `<a class="cv-download" ...>` button to be locked
+# in place. The build script encrypts the href and injects __lockData.
+HOMEPAGES = [
+    ROOT / 'index.html',
+    ROOT / 'es' / 'index.html',
+    ROOT / 'mk' / 'index.html',
+]
 ITERATIONS = 600_000
 VERIFY_PLAINTEXT = b'OK-portfolio-2026'
 
@@ -85,6 +92,58 @@ def process_file(src: Path, dst: Path, key: bytes,
     dst.write_text(new_text, encoding='utf-8')
     return count
 
+def process_homepage(path: Path, key: bytes,
+                     salt_b64: str, verify_b64: str) -> int:
+    """Encrypt cv-download link on a homepage in place, inject __lockData."""
+    if not path.exists():
+        print(f'  SKIP — homepage not found: {path}')
+        return 0
+    text = path.read_text(encoding='utf-8')
+
+    # Match any <a ...> tag and rewrite if it has cv-download class + a real href.
+    # Attribute order is not constrained.
+    tag_re = re.compile(r'<a\s+([^>]+?)>', re.IGNORECASE)
+    href_re = re.compile(r'href="([^"]+)"', re.IGNORECASE)
+    cls_re = re.compile(r'class="([^"]*)"', re.IGNORECASE)
+
+    count = 0
+    def repl(m):
+        nonlocal count
+        attrs = m.group(1)
+        cls_match = cls_re.search(attrs)
+        if not cls_match or 'cv-download' not in cls_match.group(1).split():
+            return m.group(0)
+        href_match = href_re.search(attrs)
+        if not href_match:
+            return m.group(0)
+        href = href_match.group(1)
+        if href == '#' or 'data-cipher' in attrs:
+            return m.group(0)
+        cipher = encrypt(key, href.encode())
+        new_attrs = href_re.sub(f'href="#" data-cipher="{cipher}"', attrs, count=1)
+        count += 1
+        return f'<a {new_attrs}>'
+    new_text = tag_re.sub(repl, text)
+
+    # Inject lockData script before </head> (replace if present)
+    lock_script = (
+        f'<script>window.__lockData={{'
+        f'salt:"{salt_b64}",verify:"{verify_b64}",'
+        f'iters:{ITERATIONS},vt:"{b64(VERIFY_PLAINTEXT)}"'
+        f'}};</script>'
+    )
+    if 'window.__lockData' in new_text:
+        new_text = re.sub(
+            r'<script>window\.__lockData=.*?</script>',
+            lock_script, new_text, flags=re.DOTALL
+        )
+    elif count > 0:
+        new_text = new_text.replace('</head>', f'  {lock_script}\n</head>', 1)
+
+    if new_text != text:
+        path.write_text(new_text, encoding='utf-8')
+    return count
+
 def main():
     password = os.environ.get('PORTFOLIO_PASSWORD')
     if not password:
@@ -108,7 +167,14 @@ def main():
         print(f'  {rel}: {n} URLs encrypted')
         total += n
 
-    print(f'\nDone. {total} URLs encrypted across {len(PAIRS)} files.')
+    cv_total = 0
+    for hp in HOMEPAGES:
+        n = process_homepage(hp, key, salt_b64, verify)
+        rel = hp.relative_to(ROOT)
+        print(f'  {rel}: {n} CV link(s) encrypted')
+        cv_total += n
+
+    print(f'\nDone. {total} portfolio URLs + {cv_total} CV links encrypted.')
 
 if __name__ == '__main__':
     main()
