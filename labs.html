@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500;1,8..60,600&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="/css/style.css?v=16" />
+  <link rel="stylesheet" href="/css/style.css?v=17" />
 
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon/favicon-32x32.png" />
@@ -72,7 +72,6 @@
   </header>
 
   <main>
-
     <!-- COMING SOON -->
     <section class="section" id="coming-soon">
       <div class="container">
@@ -80,36 +79,41 @@
           <p class="section__eyebrow">Coming soon</p>
           <h2 class="section__title">In private development.</h2>
           <p class="section__lede">
-            These are in private beta — early-access inquiries welcome if you have
-            a real use case. I'll send a brief and a NDA if it makes sense.
+            Six builds in private beta — early-access inquiries welcome if you have a real use case.
+            I'll send a brief and a NDA if it makes sense.
           </p>
         </div>
 
         <ul class="lab-soon">
           <li>
-            <h3 class="lab-soon__title">CBE Pipeline</h3>
-            <p class="lab-soon__body">AI-powered 14-phase CBE course development pipeline. From CCW to final delivery, instrumented end to end.</p>
+            <h3 class="lab-soon__title">CBE Course Development Pipeline</h3>
+            <p class="lab-soon__body">WGU-style CBE course development pipeline. Competencies &rarr; evidence statements &rarr; LOs &rarr; task models &rarr; PA prompts &rarr; DOCX. 7-pass quality audits built in.</p>
             <a class="lab-card__cta" href="/?product=CBE%20Pipeline#contact">Inquire →</a>
           </li>
           <li>
-            <h3 class="lab-soon__title">CourseBuilder</h3>
-            <p class="lab-soon__body">Course-design environment focused on the build phase — drafts, branching, accessibility, alignment.</p>
-            <a class="lab-card__cta" href="/?product=CourseBuilder#contact">Inquire →</a>
-          </li>
-          <li>
             <h3 class="lab-soon__title">Classroom of Tomorrow</h3>
-            <p class="lab-soon__body">An AI-powered learning platform that rethinks the synchronous classroom around the actual learner.</p>
+            <p class="lab-soon__body">AI-powered LMS with 7 specialized agents that run Socratic conversations with learners. Monorepo: Next.js 14 web + Hono API + Anthropic Claude + Drizzle/Postgres.</p>
             <a class="lab-card__cta" href="/?product=Classroom%20of%20Tomorrow#contact">Inquire →</a>
           </li>
           <li>
+            <h3 class="lab-soon__title">SurveyStudio</h3>
+            <p class="lab-soon__body">Full-stack survey + assessment creation with AI-generated items and analysis. Next.js 15 frontend, Django REST backend, Flask AI service with RAG document grounding.</p>
+            <a class="lab-card__cta" href="/?product=SurveyStudio#contact">Inquire →</a>
+          </li>
+          <li>
+            <h3 class="lab-soon__title">CourseBuilder</h3>
+            <p class="lab-soon__body">AI platform that generates complete Coursera short courses from high-level blueprints. 20+ content types &mdash; scripts, quizzes, HOLs, rubrics, slide decks. Flask app, ~4,200 tests.</p>
+            <a class="lab-card__cta" href="/?product=CourseBuilder#contact">Inquire →</a>
+          </li>
+          <li>
             <h3 class="lab-soon__title">CalendarHub</h3>
-            <p class="lab-soon__body">Unified calendar management — Google, Office 365, and others — with AI scheduling that actually respects context.</p>
+            <p class="lab-soon__body">Tauri 2 desktop app unifying Google Calendar and Office 365 in a single local-first interface. SQLite, OAuth 2.0, OS keychain. React 19 + Rust.</p>
             <a class="lab-card__cta" href="/?product=CalendarHub#contact">Inquire →</a>
           </li>
           <li>
-            <h3 class="lab-soon__title">SurveyStudio</h3>
-            <p class="lab-soon__body">AI-powered survey and assessment tool. Item generation, validity checks, and analysis baked in.</p>
-            <a class="lab-card__cta" href="/?product=SurveyStudio#contact">Inquire →</a>
+            <h3 class="lab-soon__title">AviationEnglish</h3>
+            <p class="lab-soon__body">AI-powered training app: speech recognition, ICAO rubric scoring, ELPAC/RELTA exam templates, VHF radio simulation. v5.0 with 512 exercises. <a href="https://unaware-emilee-the-art-of-living-large-878d9a12.koyeb.app/" target="_blank" rel="noopener">Live demo</a>.</p>
+            <a class="lab-card__cta" href="/?product=AviationEnglish#contact">Inquire →</a>
           </li>
         </ul>
       </div>
@@ -120,19 +124,15 @@
       <div class="container">
         <div class="section__head">
           <p class="section__eyebrow">In development</p>
-          <h2 class="section__title">Public — and ready to <em>show</em>.</h2>
+          <h2 class="section__title">Two streams of <em>active</em> work.</h2>
         </div>
 
-        <!-- Generations Suite cluster -->
+                <!-- Generations Suite cluster -->
         <div class="lab-cluster">
           <div class="lab-cluster__head">
             <p class="lab-cluster__eyebrow">Suite · 8 products</p>
             <h3 class="lab-cluster__title">Generations Suite</h3>
-            <p class="lab-cluster__lede">
-              Eight productizations of my <em>Bridging Generations</em> talk —
-              AI-powered tools for multigenerational teams.
-              <a href="/talks/bridging-generations.html">See the talk →</a>
-            </p>
+            <p class="lab-cluster__lede">Eight productizations of my <em>Bridging Generations</em> talk — AI-powered tools for multigenerational teams. <a href="/talks/bridging-generations.html">See the talk →</a></p>
           </div>
 
           <div class="lab-grid">
@@ -146,7 +146,6 @@
                 <a class="lab-card__src" href="https://github.com/gtrajkovski/cokegen-mirror-mode" target="_blank" rel="noopener">Source ↗</a>
               </div>
             </article>
-
             <article class="lab-card">
               <p class="lab-card__num">02</p>
               <h4 class="lab-card__title">GenBridge Live</h4>
@@ -157,7 +156,6 @@
                 <a class="lab-card__src" href="https://github.com/gtrajkovski/cokegen-genbridge-live" target="_blank" rel="noopener">Source ↗</a>
               </div>
             </article>
-
             <article class="lab-card">
               <p class="lab-card__num">03</p>
               <h4 class="lab-card__title">The Whisperer</h4>
@@ -168,7 +166,6 @@
                 <a class="lab-card__src" href="https://github.com/gtrajkovski/cokegen-the-whisperer" target="_blank" rel="noopener">Source ↗</a>
               </div>
             </article>
-
             <article class="lab-card">
               <p class="lab-card__num">04</p>
               <h4 class="lab-card__title">GenGames</h4>
@@ -179,7 +176,6 @@
                 <a class="lab-card__src" href="https://github.com/gtrajkovski/cokegen-gengames" target="_blank" rel="noopener">Source ↗</a>
               </div>
             </article>
-
             <article class="lab-card">
               <p class="lab-card__num">05</p>
               <h4 class="lab-card__title">The Recipe</h4>
@@ -190,7 +186,6 @@
                 <a class="lab-card__src" href="https://github.com/gtrajkovski/cokegen-the-recipe" target="_blank" rel="noopener">Source ↗</a>
               </div>
             </article>
-
             <article class="lab-card">
               <p class="lab-card__num">06</p>
               <h4 class="lab-card__title">Generation Swap</h4>
@@ -201,7 +196,6 @@
                 <a class="lab-card__src" href="https://github.com/gtrajkovski/cokegen-generation-swap" target="_blank" rel="noopener">Source ↗</a>
               </div>
             </article>
-
             <article class="lab-card">
               <p class="lab-card__num">07</p>
               <h4 class="lab-card__title">Generations Unplugged</h4>
@@ -212,7 +206,6 @@
                 <a class="lab-card__src" href="https://github.com/gtrajkovski/cokegen-generations-unplugged" target="_blank" rel="noopener">Source ↗</a>
               </div>
             </article>
-
             <article class="lab-card">
               <p class="lab-card__num">08</p>
               <h4 class="lab-card__title">Competency Predictor</h4>
@@ -226,90 +219,71 @@
           </div>
         </div>
 
-        <!-- Education tooling cluster -->
+        <!-- Live builds cluster -->
         <div class="lab-cluster">
           <div class="lab-cluster__head">
-            <p class="lab-cluster__eyebrow">Cluster · Education tooling</p>
-            <h3 class="lab-cluster__title">Things that help courses ship.</h3>
-            <p class="lab-cluster__lede">
-              Tools I built for the recurring problems in course development, assessment,
-              and accreditation — most started as scratch-my-own-itch and grew up.
-            </p>
+            <p class="lab-cluster__eyebrow">Cluster · Live builds</p>
+            <h3 class="lab-cluster__title">On <em>GitHub</em> right now.</h3>
+            <p class="lab-cluster__lede">Five active builds with public repos — early-stage, evolving, and open to contributors. All are AI- or learning-adjacent.</p>
           </div>
 
           <div class="lab-grid">
             <article class="lab-card">
-              <p class="lab-card__num">09</p>
+              <p class="lab-card__num">01</p>
               <h4 class="lab-card__title">TalkTrack</h4>
-              <p class="lab-card__tagline">Voice-first rehearsal coach.</p>
-              <p class="lab-card__body">Rehearse presentations, speeches, and pitches hands-free. Real-time pacing, fillers, and clarity feedback.</p>
+              <p class="lab-card__tagline">Rehearse hands-free, eyes-free — even while driving.</p>
+              <p class="lab-card__body">Voice-first PWA for practicing presentations, speeches, and scripts. 35+ voice commands across 4 languages, multiple import formats, offline-first. <strong>v1.0 shipped.</strong></p>
               <div class="lab-card__foot">
                 <a class="lab-card__cta" href="/?product=TalkTrack#contact">Inquire →</a>
                 <a class="lab-card__src" href="https://github.com/gtrajkovski/talktrack" target="_blank" rel="noopener">Source ↗</a>
               </div>
+        </div>
             </article>
-
             <article class="lab-card">
-              <p class="lab-card__num">10</p>
-              <h4 class="lab-card__title">CBE Course Generator</h4>
-              <p class="lab-card__tagline">13-phase wizard for competency-based education.</p>
-              <p class="lab-card__body">From CCW to draft course in a structured pipeline. Built on the workflow I used at WGU and refined since.</p>
-              <div class="lab-card__foot">
-                <a class="lab-card__cta" href="/?product=CBE%20Course%20Generator#contact">Inquire →</a>
-                <a class="lab-card__src" href="https://github.com/gtrajkovski/cbe-course-generator" target="_blank" rel="noopener">Source ↗</a>
-              </div>
-            </article>
-
-            <article class="lab-card">
-              <p class="lab-card__num">11</p>
+              <p class="lab-card__num">02</p>
               <h4 class="lab-card__title">WonderCourse</h4>
-              <p class="lab-card__tagline">AI-powered course authoring (v2).</p>
-              <p class="lab-card__body">Adaptive learning, UDL support, content scaffolding. End-to-end authoring for institutions that need volume without losing rigor.</p>
+              <p class="lab-card__tagline">Adaptive courses, every learner&rsquo;s path.</p>
+              <p class="lab-card__body">AI course generator with UDL menus, depth layers, inquiry arcs, and mastery-based progression. 15 content types generated end to end. Flask, single-user.</p>
               <div class="lab-card__foot">
                 <a class="lab-card__cta" href="/?product=WonderCourse#contact">Inquire →</a>
                 <a class="lab-card__src" href="https://github.com/gtrajkovski/WonderCourse" target="_blank" rel="noopener">Source ↗</a>
               </div>
             </article>
-
             <article class="lab-card">
-              <p class="lab-card__num">12</p>
-              <h4 class="lab-card__title">AccreditationStudio</h4>
-              <p class="lab-card__tagline">The accreditation grind, instrumented.</p>
-              <p class="lab-card__body">Tooling for evidence collection, narrative drafting, and review prep — for institutions in active accreditation cycles.</p>
+              <p class="lab-card__num">03</p>
+              <h4 class="lab-card__title">AccreditAI</h4>
+              <p class="lab-card__tagline">Accreditation, end to end, agent-driven.</p>
+              <p class="lab-card__body">AI platform for the full accreditation lifecycle: self-evaluation, exhibits, on-site readiness, post-visit response. Audits accreditor + federal + state + licensure standards. Highly agentic.</p>
               <div class="lab-card__foot">
-                <a class="lab-card__cta" href="/?product=AccreditationStudio#contact">Inquire →</a>
+                <a class="lab-card__cta" href="/?product=AccreditAI#contact">Inquire →</a>
                 <a class="lab-card__src" href="https://github.com/gtrajkovski/accreditationStudio" target="_blank" rel="noopener">Source ↗</a>
               </div>
             </article>
-
             <article class="lab-card">
-              <p class="lab-card__num">13</p>
+              <p class="lab-card__num">04</p>
               <h4 class="lab-card__title">My Scattered Brain</h4>
-              <p class="lab-card__tagline">Personal project &amp; idea organizer.</p>
-              <p class="lab-card__body">Mindmaps, Claude Code session imports, calendar integration. The tool I needed before I built it.</p>
+              <p class="lab-card__tagline">All my work, mapped.</p>
+              <p class="lab-card__body">Personal knowledge tool that imports Claude Code session logs and renders project relationships as interactive mindmaps. Local-first, single-user. Next.js 16 + React Flow + SQLite.</p>
               <div class="lab-card__foot">
                 <a class="lab-card__cta" href="/?product=My%20Scattered%20Brain#contact">Inquire →</a>
                 <a class="lab-card__src" href="https://github.com/gtrajkovski/my-scattered-brain" target="_blank" rel="noopener">Source ↗</a>
               </div>
             </article>
-
             <article class="lab-card">
-              <p class="lab-card__num">14</p>
-              <h4 class="lab-card__title">GSD Launcher</h4>
-              <p class="lab-card__tagline">Desktop launcher for Claude Code projects.</p>
-              <p class="lab-card__body">A small front door for managing GSD (Get Shit Done) project workspaces with Claude Code. For developers, mostly.</p>
+              <p class="lab-card__num">05</p>
+              <h4 class="lab-card__title">ScreencastHelper</h4>
+              <p class="lab-card__tagline">Bullets &rarr; polished screencast.</p>
+              <p class="lab-card__body">AI screencast production assistant. Bullets become narration scripts, TTS-optimized, synced with demo code and supporting assets. Flask v5/v6 + React SPA.</p>
               <div class="lab-card__foot">
-                <a class="lab-card__cta" href="/?product=GSD%20Launcher#contact">Inquire →</a>
-                <a class="lab-card__src" href="https://github.com/gtrajkovski/gsd-launcher" target="_blank" rel="noopener">Source ↗</a>
+                <a class="lab-card__cta" href="/?product=ScreencastHelper#contact">Inquire →</a>
+                <a class="lab-card__src" href="https://github.com/gtrajkovski/ScreencastHelper" target="_blank" rel="noopener">Source ↗</a>
               </div>
             </article>
-          </div>
         </div>
-
       </div>
     </section>
 
-      </main>
+  </main>
 
   <footer class="footer">
     <div class="container footer__inner">
@@ -320,6 +294,6 @@
     </div>
   </footer>
 
-  <script src="/js/main.js?v=16"></script>
+  <script src="/js/main.js?v=17"></script>
 </body>
 </html>
