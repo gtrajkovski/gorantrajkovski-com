@@ -866,9 +866,17 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
 }
 
 @media (prefers-reduced-motion: reduce) {
-  /* Keep horizontal layout — let the user scroll the strip manually */
-  .marquee { overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; }
-  .marquee__track { animation: none; }
+  /* Reduce-motion users get a wrapping static grid (no autoscroll) so all
+     logos are visible without horizontal scrolling. */
+  .marquee { -webkit-mask-image: none; mask-image: none; overflow: visible; }
+  .marquee__track {
+    animation: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    padding: 0 var(--gutter);
+    row-gap: 24px;
+  }
 }
 
 /* --- Track Record --- */
@@ -907,9 +915,10 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
 }
 .track-role {
   display: grid;
-  grid-template-columns: 130px 1fr;
-  gap: clamp(20px, 3vw, 36px);
+  grid-template-columns: 130px 18px 1fr;
+  column-gap: clamp(14px, 1.6vw, 24px);
   align-items: baseline;
+  position: relative;
 }
 .track-role__years {
   font-family: var(--font-mono);
@@ -918,6 +927,27 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
   color: var(--muted);
   white-space: nowrap;
   padding-top: 4px;
+  text-align: right;
+}
+.track-role__dot {
+  position: relative;
+  align-self: stretch;
+}
+.track-role__dot::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 12px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 2px solid var(--accent);
+  transform: translateX(-50%);
+  z-index: 1;
+}
+:root[data-theme="dark"] .track-role__dot::before {
+  background: var(--paper-2);
 }
 .track-role__title {
   font-family: var(--serif);
@@ -1041,8 +1071,6 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
 }
 
 @media (max-width: 720px) {
-  .track-role { grid-template-columns: 1fr; gap: 6px; }
-  .track-role__years { padding-top: 0; }
   .track-pubs li { grid-template-columns: 56px 1fr; gap: 12px; }
 }
 
@@ -2512,38 +2540,23 @@ body.is-locked .portfolio-body { opacity: .55; pointer-events: none; user-select
 /* ============================================
    Track Record — Selected Roles timeline
    ============================================ */
-.track-roles {
-  position: relative;
-}
+/* Connector line: vertical, in the dot column (col 2). 130px year + col-gap.
+   Position absolutely inside .track-roles spanning between dots. */
+.track-roles { position: relative; }
 .track-roles::before {
   content: "";
   position: absolute;
-  left: 64px;
-  top: 6px;
-  bottom: 6px;
+  /* year column 130px + col-gap (clamp 14-24px) + 9px (half of dot col 18) */
+  left: calc(130px + clamp(14px, 1.6vw, 24px) + 9px);
+  top: 16px;
+  bottom: 16px;
   width: 1px;
   background: var(--rule-strong);
-}
-.track-role {
-  position: relative;
-}
-.track-role::after {
-  content: "";
-  position: absolute;
-  left: 60px;
-  top: 9px;
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--paper);
-  border: 2px solid var(--accent);
-  box-shadow: 0 0 0 4px var(--paper);
-}
-:root[data-theme="dark"] .track-role::after {
-  background: var(--paper-2);
-  box-shadow: 0 0 0 4px var(--paper-2);
+  transform: translateX(-50%);
 }
 @media (max-width: 720px) {
+  .track-role { grid-template-columns: 1fr; column-gap: 0; }
+  .track-role__dot { display: none; }
+  .track-role__years { text-align: left; padding-top: 0; }
   .track-roles::before { display: none; }
-  .track-role::after { display: none; }
 }
