@@ -835,7 +835,7 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
   align-items: center;
   gap: clamp(40px, 5vw, 72px);
   width: max-content;
-  animation: marquee-scroll 60s linear infinite;
+  animation: marquee-scroll 45s linear infinite;
   will-change: transform;
 }
 .marquee:hover .marquee__track,
@@ -864,14 +864,9 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .marquee { -webkit-mask-image: none; mask-image: none; }
-  .marquee__track {
-    animation: none;
-    flex-wrap: wrap;
-    justify-content: center;
-    width: 100%;
-    padding: 0 var(--gutter);
-  }
+  /* Keep horizontal layout — let the user scroll the strip manually */
+  .marquee { overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; }
+  .marquee__track { animation: none; }
 }
 
 /* --- Track Record --- */

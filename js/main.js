@@ -6,19 +6,25 @@
 
 // ===== Logo marquee — duplicate track for seamless loop =====
 (function () {
-  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  document.querySelectorAll('[data-marquee] .marquee__track').forEach(track => {
-    if (reduce || track.dataset.cloned) return;
-    const clone = track.innerHTML;
-    track.insertAdjacentHTML('beforeend', clone);
-    // mark cloned children as decorative for screen readers
-    const total = track.children.length;
-    for (let i = total / 2; i < total; i++) {
-      track.children[i].setAttribute('aria-hidden', 'true');
-      track.children[i].setAttribute('tabindex', '-1');
-    }
-    track.dataset.cloned = '1';
-  });
+  function cloneTracks() {
+    document.querySelectorAll('[data-marquee] .marquee__track').forEach(track => {
+      if (track.dataset.cloned) return;
+      const clone = track.innerHTML;
+      track.insertAdjacentHTML('beforeend', clone);
+      // Mark cloned children as decorative so screen readers don't double-read.
+      const total = track.children.length;
+      for (let i = total / 2; i < total; i++) {
+        track.children[i].setAttribute('aria-hidden', 'true');
+        track.children[i].setAttribute('tabindex', '-1');
+      }
+      track.dataset.cloned = '1';
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', cloneTracks);
+  } else {
+    cloneTracks();
+  }
 })();
 
 // ===== Theme (light / dark) =====
