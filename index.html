@@ -14,9 +14,9 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500;1,8..60,600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500;1,8..60,600&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="/css/style.css?v=4" />
+  <link rel="stylesheet" href="/css/style.css?v=10" />
 
   <!-- Favicons (derived from headshot) -->
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -44,6 +44,7 @@
         <li><a href="#services">Services</a></li>
         <li><a href="#work">Work</a></li>
         <li><a href="/portfolio.html">Portfolio</a></li>
+        <li><a href="#track">CV</a></li>
         <li><a href="#insights">Insights</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#books">Books</a></li>
@@ -70,7 +71,14 @@
   <header class="hero" id="top">
     <div class="container hero__inner hero__inner--split">
       <div class="hero__main">
-        <p class="hero__eyebrow"><span class="hero__dot"></span> Available for new engagements · 2026</p>
+        <a class="hero__availability" href="#contact" aria-label="Availability — accepting new engagements for 2026">
+          <span class="hero__availability-pulse" aria-hidden="true"><span class="hero__availability-dot"></span></span>
+          <span class="hero__availability-text">
+            <span class="hero__availability-label">Availability · 2026</span>
+            <span class="hero__availability-status">Now booking new engagements</span>
+          </span>
+          <span class="hero__availability-arrow" aria-hidden="true">→</span>
+        </a>
         <h1 class="hero__title">
           I close gaps between<br />
           <em>what is</em> and <em>what should be</em>.
@@ -103,6 +111,8 @@
         <ul class="proof__list">
           <li><span class="num">35+</span><span class="label">Academic programs launched</span></li>
           <li><span class="num">350+</span><span class="label">Courses developed</span></li>
+          <li><span class="num">100K+</span><span class="label">Assessment items built</span></li>
+          <li><span class="num">337K+</span><span class="label">Assessment evaluations completed</span></li>
           <li><span class="num">20+</span><span class="label">Books authored</span></li>
           <li><span class="num">300+</span><span class="label">Scholarly publications</span></li>
           <li><span class="num">5</span><span class="label">Countries with active partnerships</span></li>
@@ -262,6 +272,54 @@
     </div>
   </section>
 
+  <!-- PROCESS BLOCK (dark inverse) -->
+  <section class="process" aria-label="How I work">
+    <div class="container process__inner">
+      <div class="process__head">
+        <p class="process__eyebrow">How I work</p>
+        <h2 class="process__title">Analysis to action,<br/><em>without the gap</em>.</h2>
+        <p class="process__lede">
+          Most consulting stops at the deck. I keep going. Four phases, run in tight loops, until the work ships and the metric moves.
+        </p>
+      </div>
+
+      <ol class="process__steps">
+        <li class="process-step">
+          <span class="process-step__num">01</span>
+          <h3 class="process-step__title">Diagnose</h3>
+          <p class="process-step__body">
+            Listen first. Map the real gap between where you are and where you need to be —
+            from the people doing the work, not just the people approving the budget.
+          </p>
+        </li>
+        <li class="process-step">
+          <span class="process-step__num">02</span>
+          <h3 class="process-step__title">Design</h3>
+          <p class="process-step__body">
+            Build the operating plan. Milestones tied to outcomes that matter,
+            not deliverables that feel productive.
+          </p>
+        </li>
+        <li class="process-step">
+          <span class="process-step__num">03</span>
+          <h3 class="process-step__title">Deliver</h3>
+          <p class="process-step__body">
+            Ship in increments. Working curriculum, assessments, governance — every week,
+            not at the end of the engagement.
+          </p>
+        </li>
+        <li class="process-step">
+          <span class="process-step__num">04</span>
+          <h3 class="process-step__title">Measure</h3>
+          <p class="process-step__body">
+            Track real signals — adoption, completion, outcomes.
+            Iterate on data, not opinion. Hand off something the team can run without me.
+          </p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
   <!-- SELECTED WORK -->
   <section class="section" id="work">
     <div class="container">
@@ -270,67 +328,100 @@
         <h2 class="section__title">A portfolio you can <em>verify</em>.</h2>
       </div>
 
-      <div class="cases">
-        <article class="case">
-          <p class="case__tag">Founder · 0→1 → Exit</p>
-          <h3 class="case__title">enlAIten AI</h3>
-          <p class="case__body">
-            Founded an AI-powered EdTech SaaS startup. Built proprietary algorithms for content similarity
-            detection and institutional effectiveness measurement. <strong>Successful acquisition in 18 months.</strong>
-          </p>
+      <div class="cases cases--editorial">
+        <article class="case-row">
+          <div class="case-row__main">
+            <p class="case-row__tag">Founder · 0→1 → Exit</p>
+            <h3 class="case-row__title">enlAIten AI</h3>
+            <p class="case-row__body">
+              Founded an AI-powered EdTech SaaS startup. Built proprietary algorithms for content similarity
+              detection and institutional effectiveness measurement.
+            </p>
+          </div>
+          <div class="case-row__metric">
+            <span class="case-row__metric-num">18<span class="case-row__metric-unit">mo</span></span>
+            <span class="case-row__metric-label">to acquisition</span>
+          </div>
         </article>
 
-        <article class="case">
-          <p class="case__tag">University AI Governance</p>
-          <h3 class="case__title">Touro University — AI Council</h3>
-          <p class="case__body">
-            Founding member of the AI Council for a 19,000-student institution.
-            Architected ethics framework, governance policies, and a $3M+ program portfolio
-            (MS Data Analytics for Healthcare, Executive MS in AI Strategy).
-            <strong>98% regulatory approval rate.</strong>
-          </p>
+        <article class="case-row">
+          <div class="case-row__main">
+            <p class="case-row__tag">University AI Governance</p>
+            <h3 class="case-row__title">Touro University — AI Council</h3>
+            <p class="case-row__body">
+              Founding member of the AI Council for a 19,000-student institution.
+              Architected ethics framework, governance policies, and a $3M+ program portfolio
+              (MS Data Analytics for Healthcare, Executive MS in AI Strategy).
+            </p>
+          </div>
+          <div class="case-row__metric">
+            <span class="case-row__metric-num">98<span class="case-row__metric-unit">%</span></span>
+            <span class="case-row__metric-label">regulatory approval</span>
+          </div>
         </article>
 
-        <article class="case">
-          <p class="case__tag">Corporate L&amp;D at scale</p>
-          <h3 class="case__title">Visa — Data Science Curriculum</h3>
-          <p class="case__body">
-            Pioneered corporate AI education strategy for a global technology workforce.
-            Designed comprehensive Data Science curriculum on a $2M budget.
-            <strong>Achieved 90%+ Net Promoter Score.</strong>
-          </p>
+        <article class="case-row">
+          <div class="case-row__main">
+            <p class="case-row__tag">Corporate L&amp;D at scale</p>
+            <h3 class="case-row__title">Visa — Data Science Curriculum</h3>
+            <p class="case-row__body">
+              Pioneered corporate AI education strategy for a global technology workforce.
+              Designed comprehensive Data Science curriculum on a $2M budget.
+            </p>
+          </div>
+          <div class="case-row__metric">
+            <span class="case-row__metric-num">90<span class="case-row__metric-unit">+ NPS</span></span>
+            <span class="case-row__metric-label">learner satisfaction</span>
+          </div>
         </article>
 
-        <article class="case">
-          <p class="case__tag">Portfolio Transformation</p>
-          <h3 class="case__title">Western Governors University</h3>
-          <p class="case__body">
-            Led academic portfolio for 130,000+ students across business and technology programs.
-            $2M+ annual budget, 125+ team members. Reduced time-to-degree by 20%.
-            <strong>35% enrollment growth · 100% accreditation approval rate.</strong>
-          </p>
+        <article class="case-row">
+          <div class="case-row__main">
+            <p class="case-row__tag">Portfolio Transformation</p>
+            <h3 class="case-row__title">Western Governors University</h3>
+            <p class="case-row__body">
+              Led academic portfolio across business and technology programs.
+              $2M+ annual budget, 125+ team members. Reduced time-to-degree by 20%.
+              35% enrollment growth · 100% accreditation approval rate.
+            </p>
+          </div>
+          <div class="case-row__metric">
+            <span class="case-row__metric-num">130K<span class="case-row__metric-unit">+</span></span>
+            <span class="case-row__metric-label">students served</span>
+          </div>
         </article>
 
-        <article class="case">
-          <p class="case__tag">Active Courseware</p>
-          <h3 class="case__title">Authoring Across Top EdTech Platforms</h3>
-          <p class="case__body">
-            Currently authoring courses and certifications for <strong>Coursera</strong>
-            (financial analytics series), <strong>UC Berkeley Extension</strong>
-            (10-module Biostatistics, 135 contact hours), <strong>Forbes</strong>
-            (Data Science Bootcamp), and <strong>Arizona State University</strong>
-            (DS &amp; Analytics certificate).
-          </p>
+        <article class="case-row">
+          <div class="case-row__main">
+            <p class="case-row__tag">Active Courseware</p>
+            <h3 class="case-row__title">Authoring Across Top EdTech Platforms</h3>
+            <p class="case-row__body">
+              Currently authoring courses and certifications for <strong>Pluralsight</strong>
+              (Adversarial AI series, Claude, R causal inference), <strong>Coursera</strong>
+              (financial analytics series), <strong>UC Berkeley Extension</strong>
+              (10-module Biostatistics, 135 contact hours), and <strong>Arizona State University</strong>.
+            </p>
+          </div>
+          <div class="case-row__metric">
+            <span class="case-row__metric-num">25<span class="case-row__metric-unit">+</span></span>
+            <span class="case-row__metric-label">tech domains active</span>
+          </div>
         </article>
 
-        <article class="case">
-          <p class="case__tag">International Expansion</p>
-          <h3 class="case__title">Cross-border Programs</h3>
-          <p class="case__body">
-            University partnerships and program localization across <strong>Mongolia, Indonesia,
-            Ghana, Brazil, and Saudi Arabia.</strong> Regulatory navigation across jurisdictions.
-            Cross-cultural curriculum that actually lands.
-          </p>
+        <article class="case-row">
+          <div class="case-row__main">
+            <p class="case-row__tag">International Expansion</p>
+            <h3 class="case-row__title">Cross-border Programs</h3>
+            <p class="case-row__body">
+              University partnerships and program localization across <strong>Mongolia, Indonesia,
+              Ghana, Brazil, and Saudi Arabia.</strong> Regulatory navigation across jurisdictions.
+              Cross-cultural curriculum that actually lands.
+            </p>
+          </div>
+          <div class="case-row__metric">
+            <span class="case-row__metric-num">5</span>
+            <span class="case-row__metric-label">continents reached</span>
+          </div>
         </article>
       </div>
     </div>
@@ -429,6 +520,172 @@
     </div>
   </section>
 
+  <!-- TRACK RECORD -->
+  <section class="section section--alt section--track" id="track">
+    <div class="container">
+      <div class="section__head">
+        <p class="section__eyebrow">Track Record</p>
+        <h2 class="section__title">Three decades of <em>building</em>.</h2>
+        <p class="section__lede">
+          Roles, recognition, service, and selected publications — a condensed view.
+          The full CV (publications, grants, accreditation work) is downloadable below.
+        </p>
+      </div>
+
+      <div class="track">
+
+        <!-- Roles -->
+        <div class="track__block">
+          <h3 class="track__heading">Selected Roles</h3>
+          <ol class="track-roles">
+            <li class="track-role">
+              <span class="track-role__years">2024 – 2025</span>
+              <div class="track-role__body">
+                <p class="track-role__title">Founder &amp; CEO</p>
+                <p class="track-role__org">enlAIten AI · Remote</p>
+                <p class="track-role__note">Built an assessment quality-assurance platform — 7 similarity algorithms, AI-powered item review. Successful exit, 2025.</p>
+              </div>
+            </li>
+            <li class="track-role">
+              <span class="track-role__years">2023 – 2025</span>
+              <div class="track-role__body">
+                <p class="track-role__title">Director, Data Analytics &amp; AI Council Founding Member</p>
+                <p class="track-role__org">Touro University Illinois</p>
+                <p class="track-role__note">AI governance for a 19,000-student global system. $3M program portfolio · 98% regulatory approval · international enrollment +45%.</p>
+              </div>
+            </li>
+            <li class="track-role">
+              <span class="track-role__years">2014 – 2024</span>
+              <div class="track-role__body">
+                <p class="track-role__title">Lead Academic Program Manager <em>(7 roles in 10 years)</em></p>
+                <p class="track-role__org">Western Governors University</p>
+                <p class="track-role__note">130,000+ students · $2M annual budget · 125-person team. Course completion +25%, support tickets −40%, 100% accreditation approval across 15+ programs.</p>
+              </div>
+            </li>
+            <li class="track-role">
+              <span class="track-role__years">2021 – 2022</span>
+              <div class="track-role__body">
+                <p class="track-role__title">Lead Learning Experience Producer — Technology</p>
+                <p class="track-role__org">Visa, Inc.</p>
+                <p class="track-role__note">Built Visa's data-science curriculum for the global tech workforce. $2M budget, NPS &gt; 90.</p>
+              </div>
+            </li>
+            <li class="track-role">
+              <span class="track-role__years">2011 – 2013</span>
+              <div class="track-role__body">
+                <p class="track-role__title">CTO &amp; Dean, School of Engineering</p>
+                <p class="track-role__org">World Education University</p>
+                <p class="track-role__note">Built proprietary LMS from scratch. Devised the MOOC process. Established the School of Engineering.</p>
+              </div>
+            </li>
+            <li class="track-role">
+              <span class="track-role__years">2008 – 2010</span>
+              <div class="track-role__body">
+                <p class="track-role__title">Director, Product Strategy &amp; Development</p>
+                <p class="track-role__org">Laureate Education</p>
+                <p class="track-role__note">IT/Engineering vertical across 40+ institutions, 500,000 students. Built ACE (Academic Computing Environment).</p>
+              </div>
+            </li>
+            <li class="track-role">
+              <span class="track-role__years">2002 – 2007</span>
+              <div class="track-role__body">
+                <p class="track-role__title">Asst. Professor &amp; Director, Cognitive Agency &amp; Robotics Lab</p>
+                <p class="track-role__org">Towson University</p>
+                <p class="track-role__note">NSF-funded research lab. Chaired 15 PhD dissertations and 57 master's theses. NSF REU: 15 summer interns.</p>
+              </div>
+            </li>
+            <li class="track-role">
+              <span class="track-role__years">2000 – present</span>
+              <div class="track-role__body">
+                <p class="track-role__title">CEO</p>
+                <p class="track-role__org">The Art of Living Large · Baltimore</p>
+                <p class="track-role__note">25-year independent practice. High-risk, emerging-tech educational products.</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+
+        <!-- Concurrent / Course Authoring -->
+        <div class="track__block">
+          <h3 class="track__heading">Course &amp; Assessment Authoring <span class="track__heading-sub">(concurrent)</span></h3>
+          <ul class="track-list track-list--two-col">
+            <li><strong>Pluralsight</strong> — Adversarial AI series · Practical Applications of Claude · Experimental Design &amp; Causal Inference in R · Skill IQ assessments and practice exams across 25+ technology domains.</li>
+            <li><strong>Coursera</strong> — Financial Analytics series (Alpha &amp; Beta with Regression, Transform Financial Data, Regression Assumptions &amp; Models).</li>
+            <li><strong>UC Berkeley Extension</strong> — MCELLBI X471 Biostatistics, 10 modules · 135 contact hours · R programming.</li>
+            <li><strong>Hurix Digital · ansrSource · WGU SuperSME</strong> — Assessment development, AI in nursing programs, Fortune 500 data-science programs.</li>
+            <li><strong>SNHU · UMGC · Grand Canyon · Colorado Tech · Rasmussen</strong> — Active teaching: AI applications, Data Analytics, AI Ethics, ML, Data Science.</li>
+          </ul>
+        </div>
+
+        <!-- Honors -->
+        <div class="track__block">
+          <h3 class="track__heading">Honors &amp; Recognition</h3>
+          <ul class="track-list">
+            <li>Fulbright Scholar</li>
+            <li>NSF Grant Recipient</li>
+            <li>Senior Member, IEEE</li>
+            <li>Member, American Society for Public Administration</li>
+            <li>NASA Postdoctoral Program Reviewer</li>
+            <li>CODiE Awards Judge (2020 – present)</li>
+            <li>Featured Reviewer, ACM Computing Reviews</li>
+            <li>WGU — Rookie of the Year, Innovation Award, Academic Authenticity Partner Award, Student Obsession Award, Influencer Award</li>
+          </ul>
+        </div>
+
+        <!-- Service & Editorial -->
+        <div class="track__block">
+          <h3 class="track__heading">Service &amp; Editorial</h3>
+          <ul class="track-list">
+            <li>Founding Editor-in-Chief, <em>International Journal of Agent Technology &amp; Systems</em>, IGI Global (2008 – 2017)</li>
+            <li>Site Evaluator — ACCSC</li>
+            <li>Credit Recommendation — ACE</li>
+            <li>Review Team — MSCHE (Middle States)</li>
+            <li>Program Evaluator — ABET</li>
+            <li>Program Committee — AAAI symposia</li>
+            <li>Organizing Committee — AAAI Spring Symposium on Creativity &amp; Cognitive Development</li>
+            <li>Founding member, AI Council — Touro University Illinois</li>
+          </ul>
+        </div>
+
+        <!-- Selected Publications -->
+        <div class="track__block">
+          <h3 class="track__heading">Selected Publications <span class="track__heading-sub">(of 300+)</span></h3>
+          <ul class="track-pubs">
+            <li><span class="pub-year">2026</span> Trajkovski. <em>Adversarial AI threat response and secure model design</em> [under contract]. Apress / Springer.</li>
+            <li><span class="pub-year">2025</span> Trajkovski &amp; Hayes. <em>AI-assisted assessment in education: Transforming assessment and measuring learning</em>. Palgrave Macmillan.</li>
+            <li><span class="pub-year">2025</span> Trajkovski. <em>Mind meets machine: The evolution of learning from ancient wisdom to AI</em>.</li>
+            <li><span class="pub-year">2025</span> Trajkovski. <em>Principles of healthcare data analytics: A conceptual and practical approach</em>. Cognella.</li>
+            <li><span class="pub-year">2024</span> Trajkovski. <em>Prompt Engineering for Instructors: Revolutionizing Education with AI</em>. Cognella.</li>
+            <li><span class="pub-year">2024</span> Trajkovski. <em>Nurturing Bloom's garden: How AI transforms the educational landscape</em>.</li>
+            <li><span class="pub-year">2023</span> Braun &amp; Trajkovski (Eds.). <em>Designing context-rich learning by extending reality</em>. IGI Global.</li>
+            <li><span class="pub-year">2023</span> Hossain, Ho &amp; Trajkovski (Eds.). <em>Handbook of research on AI and ML applications in customer support and analytics</em>. IGI Global.</li>
+            <li><span class="pub-year">2022</span> Trajkovski, Demeter &amp; Hayes (Eds.). <em>Applying data science and learning analytics throughout a learner's lifespan</em>. IGI.</li>
+            <li><span class="pub-year">2021</span> Transparency of cognitive complexity in performance assessments: A validity study. <em>Journal of Competency-Based Education</em>.</li>
+            <li><span class="pub-year">2009</span> Trajkovski &amp; Collins (Eds.). <em>Handbook of research on agent-based societies: Social and cultural interactions</em>. IGI.</li>
+            <li><span class="pub-year">1995</span> First AI publication — establishing 30-year research heritage in agent &amp; AI systems.</li>
+          </ul>
+        </div>
+
+        <!-- Patent + Grants -->
+        <div class="track__block">
+          <h3 class="track__heading">Grants &amp; Patent</h3>
+          <ul class="track-list">
+            <li><strong>National Academies of Sciences (PI)</strong> — Federal contract: <em>Evolving concepts in humans inhabiting simple virtual environments</em></li>
+            <li><strong>Fulbright-Hays</strong> — Short-term studies in Bulgaria</li>
+            <li><strong>OWASP Spring of Code (PI)</strong> — Scholastic Application Security Assessment Project</li>
+            <li><strong>US Patent App.</strong> US20250077185A1 — Vaughn &amp; Trajkovski (2025). <em>Statistical output distribution modulation</em>.</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="track-cta">
+        <a href="/assets/cv/goran-trajkovski-cv.pdf" class="btn btn--primary" download>Download full CV (PDF)</a>
+        <a href="#contact" class="btn btn--ghost">Discuss an engagement →</a>
+      </div>
+    </div>
+  </section>
+
   <!-- INSIGHTS & TOOLS -->
   <section class="section" id="insights">
     <div class="container">
@@ -486,7 +743,8 @@
   <section class="section section--logos">
     <div class="container">
       <p class="section__eyebrow section__eyebrow--center">Selected clients &amp; collaborators</p>
-      <div class="logos">
+      <div class="marquee" data-marquee>
+        <div class="marquee__track">
         <a href="https://www.touro.edu" target="_blank" rel="noopener" aria-label="Touro University"><img src="/assets/img/logos/touro.jpg" alt="Touro University" loading="lazy" /></a>
         <a href="https://www.wgu.edu" target="_blank" rel="noopener" aria-label="Western Governors University"><img src="/assets/img/logos/wgu.jpg" alt="Western Governors University" loading="lazy" /></a>
         <a href="https://umassglobal.edu" target="_blank" rel="noopener" aria-label="UMass Global"><img src="/assets/img/logos/umassglobal.png" alt="University of Massachusetts Global" loading="lazy" /></a>
@@ -505,6 +763,7 @@
         <a href="https://febr.is" target="_blank" rel="noopener" aria-label="FEBRIS"><img src="/assets/img/logos/febris.jpg" alt="FEBRIS" loading="lazy" /></a>
         <a href="https://cemcollege.edu" target="_blank" rel="noopener" aria-label="CEM"><img src="/assets/img/logos/cem.jpg" alt="CEM" loading="lazy" /></a>
         <a href="https://universum-ks.org" target="_blank" rel="noopener" aria-label="UNI"><img src="/assets/img/logos/uni.jpg" alt="UNI" loading="lazy" /></a>
+        </div>
       </div>
     </div>
   </section>
@@ -669,13 +928,78 @@
         <p class="section__eyebrow">Speaking &amp; media</p>
         <h2 class="section__title">Recent stages.</h2>
       </div>
-      <ul class="speaking">
-        <li><strong>AI4 2025</strong> · Keynote, <em>AI-Enhanced Education</em> · Las Vegas, January 2025</li>
-        <li><strong>Cayuse Connect Conference</strong> · <em>AI Research Regulations</em> · September 2024</li>
-        <li><strong>Training Industry Webinar</strong> · <em>AI Adoption in L&amp;D</em> · October 2024</li>
-        <li><strong>Grand Canyon University</strong> · Keynote, <em>AI-Enhanced Pedagogy</em> · June 2024</li>
-        <li><strong>The evoLLLution</strong> · Regular contributor on AI in higher education</li>
-      </ul>
+      <table class="speaking-table">
+        <thead>
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Venue</th>
+            <th scope="col">Talk</th>
+            <th scope="col">Format</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="speaking-table__date">2025</td>
+            <td class="speaking-table__venue">AI4 Conference · Las Vegas</td>
+            <td class="speaking-table__talk">The agent and the assistant: Cultivating AI literacy</td>
+            <td class="speaking-table__format">Conference</td>
+          </tr>
+          <tr>
+            <td class="speaking-table__date">2025</td>
+            <td class="speaking-table__venue">RNL National Conference · Atlanta</td>
+            <td class="speaking-table__talk">Build-a-Future: Redefining academic writing &amp; admissions in the AI era</td>
+            <td class="speaking-table__format">Conference</td>
+          </tr>
+          <tr>
+            <td class="speaking-table__date">2025</td>
+            <td class="speaking-table__venue">RNL National Conference · Atlanta</td>
+            <td class="speaking-table__talk">Embracing the future: AI as a catalyst for connectivism learning ecosystems</td>
+            <td class="speaking-table__format">Conference</td>
+          </tr>
+          <tr>
+            <td class="speaking-table__date">2024</td>
+            <td class="speaking-table__venue">Grand Canyon University</td>
+            <td class="speaking-table__talk">AI-enhanced pedagogy: Guiding emerging technologies in higher ed</td>
+            <td class="speaking-table__format">Keynote</td>
+          </tr>
+          <tr>
+            <td class="speaking-table__date">2024</td>
+            <td class="speaking-table__venue">Cayuse Connect</td>
+            <td class="speaking-table__talk">The compliance compass: Navigating AI research regulations</td>
+            <td class="speaking-table__format">Conference</td>
+          </tr>
+          <tr>
+            <td class="speaking-table__date">2024</td>
+            <td class="speaking-table__venue">Training Industry</td>
+            <td class="speaking-table__talk">Where is your L&amp;D team on the AI adoption curve?</td>
+            <td class="speaking-table__format">Webinar</td>
+          </tr>
+          <tr>
+            <td class="speaking-table__date">2024</td>
+            <td class="speaking-table__venue">Cengage</td>
+            <td class="speaking-table__talk">CTRL+ALT_TRANSFORM: Your role in the AI era</td>
+            <td class="speaking-table__format">Keynote</td>
+          </tr>
+          <tr>
+            <td class="speaking-table__date">2024</td>
+            <td class="speaking-table__venue">SHRM / HR Professionals Magazine</td>
+            <td class="speaking-table__talk">HEART: Charting a humane AI course for HR professionals</td>
+            <td class="speaking-table__format">Feature</td>
+          </tr>
+          <tr>
+            <td class="speaking-table__date">2022</td>
+            <td class="speaking-table__venue">Assessment Institute · IUPUI</td>
+            <td class="speaking-table__talk">Identifying biases in performance assessments: Differential item functioning</td>
+            <td class="speaking-table__format">Conference</td>
+          </tr>
+          <tr>
+            <td class="speaking-table__date">Ongoing</td>
+            <td class="speaking-table__venue">The evoLLLution</td>
+            <td class="speaking-table__talk">Regular contributor on AI in higher education</td>
+            <td class="speaking-table__format">Column</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </section>
 
@@ -776,6 +1100,6 @@
     </div>
   </footer>
 
-  <script src="/js/main.js?v=4"></script>
+  <script src="/js/main.js?v=10"></script>
 </body>
 </html>
