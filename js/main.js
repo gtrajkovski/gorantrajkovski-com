@@ -4,6 +4,77 @@
   if (yr) yr.textContent = new Date().getFullYear();
 })();
 
+// ===== Inquiry: pre-fill from ?product= URL param (Labs cards) =====
+(function () {
+  function init() {
+    const params = new URLSearchParams(window.location.search);
+    const product = params.get('product');
+    if (!product) return;
+
+    const form = document.getElementById('inquiry-form');
+    if (!form) return;
+
+    const ctx = document.getElementById('inquiry-context');
+    const ctxProduct = document.getElementById('inquiry-context-product');
+    const ctxClear = document.getElementById('inquiry-context-clear');
+    const subject = form.querySelector('input[name="_subject"]');
+    const message = form.querySelector('textarea[name="message"]');
+    const service = form.querySelector('select[name="service"]');
+
+    // Show the badge
+    if (ctx && ctxProduct) {
+      ctxProduct.textContent = product;
+      ctx.classList.add('is-visible');
+    }
+    if (ctxClear) {
+      ctxClear.addEventListener('click', () => {
+        ctx.classList.remove('is-visible');
+        if (subject) subject.value = 'New inquiry from gorantrajkovski.com';
+        if (message && message.value.startsWith('Product inquiry: ' + product)) {
+          message.value = '';
+        }
+        // Strip ?product from URL without reload
+        const u = new URL(window.location.href);
+        u.searchParams.delete('product');
+        history.replaceState({}, '', u.pathname + u.hash);
+      });
+    }
+
+    // Update subject for this inquiry
+    if (subject) subject.value = 'Product inquiry: ' + product;
+
+    // Prefill message with product header (only if textarea is empty)
+    if (message && !message.value) {
+      message.value = 'Product inquiry: ' + product + '\n\n';
+      // place caret at end
+      message.focus();
+      const len = message.value.length;
+      message.setSelectionRange(len, len);
+    }
+
+    // Select "Other" so backend categorization is sane
+    if (service) {
+      for (const opt of service.options) {
+        if (opt.value === 'Other' || opt.textContent.trim() === 'Other') {
+          service.value = opt.value;
+          break;
+        }
+      }
+    }
+
+    // Smooth scroll to contact if not already there
+    if (!window.location.hash || window.location.hash === '#contact') {
+      const contact = document.getElementById('contact');
+      if (contact) contact.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+
 // ===== Logo marquee — duplicate track for seamless loop =====
 (function () {
   function cloneTracks() {

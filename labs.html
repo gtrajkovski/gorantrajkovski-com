@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Labs · Goran Trajkovski, Ph.D.</title>
+  <meta name="description" content="Side projects, prototypes, and product experiments. Things I'm building." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500;1,8..60,600&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/css/style.css?v=14" />
+
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#0E0E0C" />
+
+  <script>
+    (function(){var t=localStorage.getItem('gt-theme')||(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);})();
+  </script>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="nav__wrap">
+      <a href="/" class="nav__brand">
+        <span class="nav__brand-mark">GT</span>
+        <span class="nav__brand-name">Goran Trajkovski</span>
+      </a>
+      <ul class="nav__links">
+        <li><a href="/#services">Services</a></li>
+        <li><a href="/#work">Work</a></li>
+        <li><a href="/portfolio.html">Portfolio</a></li>
+        <li><a href="/labs.html" class="is-active">Labs</a></li>
+        <li><a href="/#track">CV</a></li>
+        <li><a href="/#about">About</a></li>
+        <li><a href="/#books">Books</a></li>
+        <li>
+          <div class="lang-switch" role="group" aria-label="Language">
+            <a href="/labs.html" class="is-active" hreflang="en">EN</a>
+            <a href="/es/labs.html" hreflang="es">ES</a>
+            <a href="/mk/labs.html" hreflang="mk">MK</a>
+          </div>
+        </li>
+        <li><a href="/#contact" class="nav__cta">Get in touch</a></li>
+      </ul>
+      <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <header class="labs-hero">
+    <div class="container">
+      <p class="section__eyebrow">Labs</p>
+      <h1 class="labs-hero__title">Things I'm <em>building</em>.</h1>
+      <p class="labs-hero__lede">
+        Side projects, prototypes, and product experiments — most live in public on
+        <a href="https://github.com/gtrajkovski" target="_blank" rel="noopener">GitHub</a>.
+        Some are stable enough to use today; others are in early development.
+        Tell me which interests you and I'll get back.
+      </p>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- IN DEVELOPMENT -->
+    <section class="section section--alt" id="in-development">
+      <div class="container">
+        <div class="section__head">
+          <p class="section__eyebrow">In development</p>
+          <h2 class="section__title">Public — and ready to <em>show</em>.</h2>
+        </div>
+
+        <!-- Generations Suite cluster -->
+        <div class="lab-cluster">
+          <div class="lab-cluster__head">
+            <p class="lab-cluster__eyebrow">Suite · 8 products</p>
+            <h3 class="lab-cluster__title">Generations Suite</h3>
+            <p class="lab-cluster__lede">
+              Eight productizations of my <em>Bridging Generations</em> talk —
+              AI-powered tools for multigenerational teams.
+              <a href="/talks/bridging-generations.html">See the talk →</a>
+            </p>
+          </div>
+
+          <div class="lab-grid">
+            <article class="lab-card">
+              <p class="lab-card__num">01</p>
+              <h4 class="lab-card__title">Mirror Mode</h4>
+              <p class="lab-card__tagline">See yourself the way other generations see you.</p>
+              <p class="lab-card__body">Multigenerational self-perception tool that reframes your communication style through the lens of every other cohort on your team.</p>
+              <div class="lab-card__foot">
+                <a class="lab-card__cta" href="/?product=Mirror%20Mode#contact">Inquire →</a>
+                <a class="lab-card__src" href="https://github.com/gtrajkovski/cokegen-mirror-mode" target="_blank" rel="noopener">Source ↗</a>
+              </div>
+            </article>
+
+            <article class="lab-card">
+              <p class="lab-card__num">02</p>
+              <h4 class="lab-card__title">GenBridge Live</h4>
+              <p class="lab-card__tagline">The right words, for the right person, at the right moment.</p>
+              <p class="lab-card__body">AI-powered intergenerational communication coach. Real-time phrasing assist for messages that land across age cohorts.</p>
+              <div class="lab-card__foot">
+                <a class="lab-card__cta" href="/?product=GenBridge%20Live#contact">Inquire →</a>
+                <a class="lab-card__src" href="https://github.com/gtrajkovski/cokegen-genbridge-live" target="_blank" rel="noopener">Source ↗</a>
+              </div>
+            </article>
+
+            <article class="lab-card">
+              <p class="lab-card__num">03</p>
+              <h4 class="lab-card__title">The Whisperer</h4>
+              <p class="lab-card__tagline">Your AI coach, live in your ear.</p>
+              <p class="lab-card__body">Real-time meeting coaching — earpiece prompts that catch generational mismatches and surface the next right move.</p>
+              <div class="lab-card__foot">
+                <a class="lab-card__cta" href="/?product=The%20Whisperer#contact">Inquire →</a>
+                <a class="lab-card__src" href="https://github.com/gtrajkovski/cokegen-the-whisperer" target="_blank" rel="noopener">Source ↗</a>
+              </div>
+            </article>
+
+            <article class="lab-card">
+              <p class="lab-card__num">04</p>
+              <h4 class="lab-card__title">GenGames</h4>
+              <p class="lab-card__tagline">Play together, work better.</p>
+              <p class="lab-card__body">Gamified multigenerational team challenges. Short-form games that build cross-cohort fluency without the workshop fatigue.</p>
+              <div class="lab-card__foot">
+                <a class="lab-card__cta" href="/?product=GenGames#contact">Inquire →</a>
+                <a class="lab-card__src" href="https://github.com/gtrajkovski/cokegen-gengames" target="_blank" rel="noopener">Source ↗</a>
+              </div>
+            </article>
+
+            <article class="lab-card">
+              <p class="lab-card__num">05</p>
+              <h4 class="lab-card__title">The Recipe</h4>
+              <p class="lab-card__tagline">Every great team is a formula.</p>
+              <p class="lab-card__body">Generational team-composition optimizer. Tells you which cohort blends produce the outcomes you actually want.</p>
+              <div class="lab-card__foot">
+                <a class="lab-card__cta" href="/?product=The%20Recipe#contact">Inquire →</a>
+                <a class="lab-card__src" href="https://github.com/gtrajkovski/cokegen-the-recipe" target="_blank" rel="noopener">Source ↗</a>
+              </div>
+            </article>
+
+            <article class="lab-card">
+              <p class="lab-card__num">06</p>
+              <h4 class="lab-card__title">Generation Swap</h4>
+              <p class="lab-card__tagline">Walk a mile in their workflow.</p>
+              <p class="lab-card__body">AI-driven generational simulation — feel what it's like to do your job from another cohort's tooling, expectations, and norms.</p>
+              <div class="lab-card__foot">
+                <a class="lab-card__cta" href="/?product=Generation%20Swap#contact">Inquire →</a>
+                <a class="lab-card__src" href="https://github.com/gtrajkovski/cokegen-generation-swap" target="_blank" rel="noopener">Source ↗</a>
+              </div>
+            </article>
+
+            <article class="lab-card">
+              <p class="lab-card__num">07</p>
+              <h4 class="lab-card__title">Generations Unplugged</h4>
+              <p class="lab-card__tagline">The most powerful technology is a human story.</p>
+              <p class="lab-card__body">AI-powered story-collection format that turns lived experience across generations into shared organizational memory.</p>
+              <div class="lab-card__foot">
+                <a class="lab-card__cta" href="/?product=Generations%20Unplugged#contact">Inquire →</a>
+                <a class="lab-card__src" href="https://github.com/gtrajkovski/cokegen-generations-unplugged" target="_blank" rel="noopener">Source ↗</a>
+              </div>
+            </article>
+
+            <article class="lab-card">
+              <p class="lab-card__num">08</p>
+              <h4 class="lab-card__title">Competency Predictor</h4>
+              <p class="lab-card__tagline">Predict the gap, close it before it costs you.</p>
+              <p class="lab-card__body">AI prediction model for upcoming competency gaps in your team — by role, cohort, and trajectory.</p>
+              <div class="lab-card__foot">
+                <a class="lab-card__cta" href="/?product=Competency%20Predictor#contact">Inquire →</a>
+                <a class="lab-card__src" href="https://github.com/gtrajkovski/cokegen-competency-predictor" target="_blank" rel="noopener">Source ↗</a>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- Education tooling cluster -->
+        <div class="lab-cluster">
+          <div class="lab-cluster__head">
+            <p class="lab-cluster__eyebrow">Cluster · Education tooling</p>
+            <h3 class="lab-cluster__title">Things that help courses ship.</h3>
+            <p class="lab-cluster__lede">
+              Tools I built for the recurring problems in course development, assessment,
+              and accreditation — most started as scratch-my-own-itch and grew up.
+            </p>
+          </div>
+
+          <div class="lab-grid">
+            <article class="lab-card">
+              <p class="lab-card__num">09</p>
+              <h4 class="lab-card__title">TalkTrack</h4>
+              <p class="lab-card__tagline">Voice-first rehearsal coach.</p>
+              <p class="lab-card__body">Rehearse presentations, speeches, and pitches hands-free. Real-time pacing, fillers, and clarity feedback.</p>
+              <div class="lab-card__foot">
+                <a class="lab-card__cta" href="/?product=TalkTrack#contact">Inquire →</a>
+                <a class="lab-card__src" href="https://github.com/gtrajkovski/talktrack" target="_blank" rel="noopener">Source ↗</a>
+              </div>
+            </article>
+
+            <article class="lab-card">
+              <p class="lab-card__num">10</p>
+              <h4 class="lab-card__title">CBE Course Generator</h4>
+              <p class="lab-card__tagline">13-phase wizard for competency-based education.</p>
+              <p class="lab-card__body">From CCW to draft course in a structured pipeline. Built on the workflow I used at WGU and refined since.</p>
+              <div class="lab-card__foot">
+                <a class="lab-card__cta" href="/?product=CBE%20Course%20Generator#contact">Inquire →</a>
+                <a class="lab-card__src" href="https://github.com/gtrajkovski/cbe-course-generator" target="_blank" rel="noopener">Source ↗</a>
+              </div>
+            </article>
+
+            <article class="lab-card">
+              <p class="lab-card__num">11</p>
+              <h4 class="lab-card__title">WonderCourse</h4>
+              <p class="lab-card__tagline">AI-powered course authoring (v2).</p>
+              <p class="lab-card__body">Adaptive learning, UDL support, content scaffolding. End-to-end authoring for institutions that need volume without losing rigor.</p>
+              <div class="lab-card__foot">
+                <a class="lab-card__cta" href="/?product=WonderCourse#contact">Inquire →</a>
+                <a class="lab-card__src" href="https://github.com/gtrajkovski/WonderCourse" target="_blank" rel="noopener">Source ↗</a>
+              </div>
+            </article>
+
+            <article class="lab-card">
+              <p class="lab-card__num">12</p>
+              <h4 class="lab-card__title">AccreditationStudio</h4>
+              <p class="lab-card__tagline">The accreditation grind, instrumented.</p>
+              <p class="lab-card__body">Tooling for evidence collection, narrative drafting, and review prep — for institutions in active accreditation cycles.</p>
+              <div class="lab-card__foot">
+                <a class="lab-card__cta" href="/?product=AccreditationStudio#contact">Inquire →</a>
+                <a class="lab-card__src" href="https://github.com/gtrajkovski/accreditationStudio" target="_blank" rel="noopener">Source ↗</a>
+              </div>
+            </article>
+
+            <article class="lab-card">
+              <p class="lab-card__num">13</p>
+              <h4 class="lab-card__title">My Scattered Brain</h4>
+              <p class="lab-card__tagline">Personal project &amp; idea organizer.</p>
+              <p class="lab-card__body">Mindmaps, Claude Code session imports, calendar integration. The tool I needed before I built it.</p>
+              <div class="lab-card__foot">
+                <a class="lab-card__cta" href="/?product=My%20Scattered%20Brain#contact">Inquire →</a>
+                <a class="lab-card__src" href="https://github.com/gtrajkovski/my-scattered-brain" target="_blank" rel="noopener">Source ↗</a>
+              </div>
+            </article>
+
+            <article class="lab-card">
+              <p class="lab-card__num">14</p>
+              <h4 class="lab-card__title">GSD Launcher</h4>
+              <p class="lab-card__tagline">Desktop launcher for Claude Code projects.</p>
+              <p class="lab-card__body">A small front door for managing GSD (Get Shit Done) project workspaces with Claude Code. For developers, mostly.</p>
+              <div class="lab-card__foot">
+                <a class="lab-card__cta" href="/?product=GSD%20Launcher#contact">Inquire →</a>
+                <a class="lab-card__src" href="https://github.com/gtrajkovski/gsd-launcher" target="_blank" rel="noopener">Source ↗</a>
+              </div>
+            </article>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- COMING SOON -->
+    <section class="section" id="coming-soon">
+      <div class="container">
+        <div class="section__head">
+          <p class="section__eyebrow">Coming soon</p>
+          <h2 class="section__title">In private development.</h2>
+          <p class="section__lede">
+            These are in private beta — early-access inquiries welcome if you have
+            a real use case. I'll send a brief and a NDA if it makes sense.
+          </p>
+        </div>
+
+        <ul class="lab-soon">
+          <li>
+            <h3 class="lab-soon__title">CBE Pipeline</h3>
+            <p class="lab-soon__body">AI-powered 14-phase CBE course development pipeline. From CCW to final delivery, instrumented end to end.</p>
+            <a class="lab-card__cta" href="/?product=CBE%20Pipeline#contact">Request access →</a>
+          </li>
+          <li>
+            <h3 class="lab-soon__title">CourseBuilder</h3>
+            <p class="lab-soon__body">Course-design environment focused on the build phase — drafts, branching, accessibility, alignment.</p>
+            <a class="lab-card__cta" href="/?product=CourseBuilder#contact">Request access →</a>
+          </li>
+          <li>
+            <h3 class="lab-soon__title">Classroom of Tomorrow</h3>
+            <p class="lab-soon__body">An AI-powered learning platform that rethinks the synchronous classroom around the actual learner.</p>
+            <a class="lab-card__cta" href="/?product=Classroom%20of%20Tomorrow#contact">Request access →</a>
+          </li>
+          <li>
+            <h3 class="lab-soon__title">CalendarHub</h3>
+            <p class="lab-soon__body">Unified calendar management — Google, Office 365, and others — with AI scheduling that actually respects context.</p>
+            <a class="lab-card__cta" href="/?product=CalendarHub#contact">Request access →</a>
+          </li>
+          <li>
+            <h3 class="lab-soon__title">SurveyStudio</h3>
+            <p class="lab-soon__body">AI-powered survey and assessment tool. Item generation, validity checks, and analysis baked in.</p>
+            <a class="lab-card__cta" href="/?product=SurveyStudio#contact">Request access →</a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <p>© <span id="year">2026</span> The Art of Living Large LLC. All rights reserved. · <a href="/privacy.html" style="color:inherit;">Privacy</a></p>
+      <p class="footer__quote">
+        <em>"The price of light is less than the cost of darkness."</em> — Arthur C. Nielsen
+      </p>
+    </div>
+  </footer>
+
+  <script src="/js/main.js?v=14"></script>
+</body>
+</html>
