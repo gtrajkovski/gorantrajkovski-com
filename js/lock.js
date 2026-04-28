@@ -86,10 +86,14 @@
     if (overlay) overlay.style.display = 'none';
   }
 
-  // ---- Init ----
+  // ---- Init (full-page lock — only on portfolio pages) ----
   async function init() {
-    body.classList.add('is-locked');
     const overlay = document.getElementById('lock-overlay');
+    // Homepages have __lockData for the CV button only — they don't have
+    // a #lock-overlay element. Skip the page-level lock there so the page
+    // remains scrollable.
+    if (!overlay) return;
+    body.classList.add('is-locked');
     const form = document.getElementById('lock-form');
     const input = document.getElementById('lock-input');
     const error = document.getElementById('lock-error');
