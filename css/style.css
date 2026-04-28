@@ -12,11 +12,23 @@ body {
   font-size: clamp(16px, 1.05vw, 18px);
   line-height: 1.6;
   color: var(--ink);
-  background: var(--paper);
+  background-color: var(--paper);
+  /* Subtle dot-grid texture — adapted from the Living Large design system.
+     Two offset radial gradients at low opacity give a quiet paper-grain feel
+     without competing with content. */
+  background-image:
+    radial-gradient(circle at 14% 22%, rgba(200,51,30,.045) 1px, transparent 1.5px),
+    radial-gradient(circle at 86% 78%, rgba(21,22,26,.04) 1px, transparent 1.5px);
+  background-size: 64px 64px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
+}
+:root[data-theme="dark"] body {
+  background-image:
+    radial-gradient(circle at 14% 22%, rgba(232,226,210,.05) 1px, transparent 1.5px),
+    radial-gradient(circle at 86% 78%, rgba(226,122,101,.06) 1px, transparent 1.5px);
 }
 img { max-width: 100%; height: auto; display: block; }
 a { color: inherit; text-decoration: none; transition: color .2s ease; }
