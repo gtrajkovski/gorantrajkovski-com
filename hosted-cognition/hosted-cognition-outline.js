@@ -46,7 +46,6 @@
           <span class="word">${item.word}</span>
           № ${item.n}
         </div>
-        <div class="chap-glyph" aria-hidden="true">${item.glyph}</div>
         <div class="chap-body">
           <h3 class="chap-title">${item.title}</h3>
           <p class="chap-thesis">${item.thesis}</p>
