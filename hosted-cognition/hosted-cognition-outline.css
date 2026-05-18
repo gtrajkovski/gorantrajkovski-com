@@ -70,6 +70,16 @@ em.accent { font-style: italic; color: var(--orange-2); font-weight: 500; }
   font-size: 12px;
   letter-spacing: 0.04em;
 }
+.topbar .home-mark {
+  display: inline-grid; place-items: center;
+  width: 32px; height: 32px;
+  background: var(--ink); color: var(--orange-2);
+  font-family: var(--font-display); font-style: italic; font-weight: 600;
+  font-size: 15px; letter-spacing: -0.04em;
+  text-decoration: none;
+  transition: background 200ms ease, color 200ms ease, transform 200ms ease;
+}
+.topbar .home-mark:hover { background: var(--orange-2); color: var(--paper); transform: scale(1.05); }
 .topbar .mark { font-family: var(--font-display); font-weight: 600; font-size: 16px; letter-spacing: -0.005em; color: var(--ink); }
 .topbar nav { display: flex; gap: 24px; margin-left: auto; color: var(--ink-3); }
 .topbar nav a { color: var(--ink-3); text-decoration: none; font-size: 11.5px; letter-spacing: 0.16em; text-transform: uppercase; transition: color 150ms ease; }
