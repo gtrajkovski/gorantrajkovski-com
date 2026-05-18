@@ -1163,10 +1163,12 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
 .book {
   display: block;
   text-align: left;
+  transform-origin: center bottom;
   transition: transform .35s cubic-bezier(.2,.7,.2,1);
 }
-.book:hover {
-  transform: translateY(-10px) scale(1.03) rotate(-0.5deg);
+.book:hover,
+.book:focus-visible {
+  transform: translateY(-14px) scale(1.05) rotate(-1.2deg);
 }
 .book img {
   width: 100%;
@@ -1178,8 +1180,9 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
   background: var(--paper);
   transition: box-shadow .35s cubic-bezier(.2,.7,.2,1);
 }
-.book:hover img {
-  box-shadow: 0 22px 44px rgba(21,22,26,.18), 0 6px 14px rgba(21,22,26,.10);
+.book:hover img,
+.book:focus-visible img {
+  box-shadow: 0 28px 56px rgba(21,22,26,.22), 0 8px 18px rgba(21,22,26,.12);
 }
 .book__title {
   font-family: var(--serif);
@@ -1196,9 +1199,11 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
 }
 .book--actions { cursor: default; }
 .book--actions:hover { transform: none; }
-.book__media { display: block; transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s cubic-bezier(.2,.7,.2,1); }
-.book__media:hover { transform: translateY(-10px) scale(1.03) rotate(-0.5deg); }
-.book__media:hover img { box-shadow: 0 22px 44px rgba(21,22,26,.18), 0 6px 14px rgba(21,22,26,.10); }
+.book__media { display: block; transform-origin: center bottom; transition: transform .35s cubic-bezier(.2,.7,.2,1); }
+.book__media:hover,
+.book__media:focus-visible { transform: translateY(-14px) scale(1.05) rotate(-1.2deg); }
+.book__media:hover img,
+.book__media:focus-visible img { box-shadow: 0 28px 56px rgba(21,22,26,.22), 0 8px 18px rgba(21,22,26,.12); }
 .book__ctas {
   display: flex;
   flex-wrap: wrap;
@@ -2616,7 +2621,7 @@ body.is-locked .portfolio-body { opacity: .55; pointer-events: none; user-select
 }
 .book-feature__media {
   display: block;
-  aspect-ratio: 773 / 1000;
+  aspect-ratio: 5 / 8;
   background: #f3ede2;
   width: 100%;
   overflow: hidden;
