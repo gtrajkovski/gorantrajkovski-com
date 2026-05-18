@@ -1189,6 +1189,8 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
 }
 .book--actions { cursor: default; }
 .book--actions:hover { transform: none; }
+.book__media { display: block; transition: transform .25s var(--t); }
+.book__media:hover { transform: translateY(-4px); }
 .book__ctas {
   display: flex;
   flex-wrap: wrap;
