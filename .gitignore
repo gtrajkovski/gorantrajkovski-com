@@ -7,3 +7,10 @@ node_modules/
 
 # Plaintext portfolio source files (URLs encrypted in deployed .html)
 *.source.html
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+.env*
+!.env.example
