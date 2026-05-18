@@ -140,6 +140,17 @@
     padding: 14px 36px;
     display: flex; align-items: center; gap: 24px;
   }
+  .topbar .home-mark {
+    display: inline-grid; place-items: center;
+    width: 32px; height: 32px;
+    background: var(--txt); color: var(--accent);
+    font-family: var(--font-display); font-style: italic; font-weight: 600;
+    font-size: 15px; letter-spacing: -0.04em;
+    text-decoration: none;
+    transition: background 200ms ease, color 200ms ease, transform 200ms ease;
+    flex-shrink: 0;
+  }
+  .topbar .home-mark:hover { background: var(--accent); color: var(--bg); transform: scale(1.05); }
   .topbar .brand {
     display: flex; align-items: baseline; gap: 12px;
     font-family: var(--font-display);
@@ -859,6 +870,7 @@
 <!-- topbar -->
 <header class="topbar">
   <div class="row">
+    <a href="/" class="home-mark" aria-label="Back to gorantrajkovski.com" title="Back to gorantrajkovski.com">GT</a>
     <a class="brand" href="../">
       <span>Hosted Cognition</span>
       <span class="ch">· Introduction</span>

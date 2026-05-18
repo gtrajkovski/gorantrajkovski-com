@@ -1,6 +1,6 @@
 /* ───────── Hosted Cognition · Interactive Outline · behavior ───────── */
 (function () {
-  const { PARTS, CHAPTERS, TERMS, EVENTS, SCAFFOLD } = window.HCO;
+  const { PARTS, CHAPTERS, TERMS, EVENTS } = window.HCO;
 
   /* ─────────────── ARGUMENT ARC ─────────────── */
   const arcParts = document.querySelectorAll(".arc-part");
@@ -113,83 +113,6 @@
   });
   // open on Replit deletion (the book's own opening case)
   renderEvent(EVENTS.findIndex(e => e.short === "Jul ’25"));
-
-  /* ─────────────── SCAFFOLD DEMO ─────────────── */
-  const ta = document.getElementById("scaffoldText");
-  const ghost = document.getElementById("scaffoldGhost");
-  const toggle = document.getElementById("scaffoldToggle");
-  const enabledInput = document.getElementById("scaffoldEnabled");
-  const acceptCount = document.getElementById("acceptCount");
-  const writtenCount = document.getElementById("writtenCount");
-
-  let accepted = 0;
-  let written = 0;
-  let lastValue = ta.value;
-
-  function escapeHtml(s) {
-    return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  }
-
-  function findCompletion(text) {
-    if (!enabledInput.checked) return "";
-    const t = text.toLowerCase();
-    // longest prefix that we have a completion for
-    const keys = Object.keys(SCAFFOLD).sort((a, b) => b.length - a.length);
-    for (const k of keys) {
-      if (k === "") continue;
-      if (t.endsWith(k)) return SCAFFOLD[k];
-    }
-    // fallback: empty seed completion
-    if (t.trim() === "") return SCAFFOLD[""];
-    return "";
-  }
-
-  function render() {
-    const text = ta.value;
-    const completion = findCompletion(text);
-    ghost.innerHTML =
-      `<span class="typed">${escapeHtml(text)}</span>` +
-      `<span class="ghost">${escapeHtml(completion)}</span>`;
-    ghost.dataset.completion = completion;
-  }
-
-  ta.addEventListener("input", (e) => {
-    const newValue = ta.value;
-    // count keystrokes added (positive delta)
-    const delta = newValue.length - lastValue.length;
-    if (delta > 0) written += delta;
-    lastValue = newValue;
-    writtenCount.textContent = written;
-    render();
-  });
-
-  ta.addEventListener("keydown", (e) => {
-    if (e.key === "Tab") {
-      const completion = ghost.dataset.completion || "";
-      if (completion) {
-        e.preventDefault();
-        ta.value += completion;
-        lastValue = ta.value;
-        accepted += completion.length;
-        acceptCount.textContent = accepted;
-        render();
-        // re-position caret to end
-        ta.setSelectionRange(ta.value.length, ta.value.length);
-      }
-    }
-  });
-
-  toggle.addEventListener("click", (e) => {
-    // label wraps input; click toggles input
-    setTimeout(() => {
-      toggle.classList.toggle("on", enabledInput.checked);
-      render();
-    }, 0);
-  });
-
-  render();
-  writtenCount.textContent = written;
-  acceptCount.textContent = accepted;
 
   /* ─────────────── reveal-on-scroll for arc & glyphs ─────────────── */
   if ("IntersectionObserver" in window && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
