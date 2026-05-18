@@ -1163,9 +1163,11 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
 .book {
   display: block;
   text-align: left;
-  transition: transform .3s var(--t);
+  transition: transform .35s cubic-bezier(.2,.7,.2,1);
 }
-.book:hover { transform: translateY(-6px); }
+.book:hover {
+  transform: translateY(-10px) scale(1.03) rotate(-0.5deg);
+}
 .book img {
   width: 100%;
   aspect-ratio: 2 / 3;
@@ -1174,6 +1176,10 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
   box-shadow: var(--shadow-md);
   margin-bottom: 14px;
   background: var(--paper);
+  transition: box-shadow .35s cubic-bezier(.2,.7,.2,1);
+}
+.book:hover img {
+  box-shadow: 0 22px 44px rgba(21,22,26,.18), 0 6px 14px rgba(21,22,26,.10);
 }
 .book__title {
   font-family: var(--serif);
@@ -1190,8 +1196,9 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
 }
 .book--actions { cursor: default; }
 .book--actions:hover { transform: none; }
-.book__media { display: block; transition: transform .25s var(--t); }
-.book__media:hover { transform: translateY(-4px); }
+.book__media { display: block; transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s cubic-bezier(.2,.7,.2,1); }
+.book__media:hover { transform: translateY(-10px) scale(1.03) rotate(-0.5deg); }
+.book__media:hover img { box-shadow: 0 22px 44px rgba(21,22,26,.18), 0 6px 14px rgba(21,22,26,.10); }
 .book__ctas {
   display: flex;
   flex-wrap: wrap;
