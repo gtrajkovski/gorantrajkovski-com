@@ -1,0 +1,1340 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>From Capability to Coordination — Hosted Cognition · Chapter One</title>
+<meta name="description" content="The opening chapter of Hosted Cognition by Goran Trajkovski. A coding agent, under an explicit freeze, deletes a live production database and then produces fluent remorse for the deletion. The failure was not in the model." />
+<meta name="author" content="Goran Trajkovski" />
+<link rel="canonical" href="https://gorantrajkovski.com/hosted-cognition/chapter-one/" />
+<meta property="og:title" content="From Capability to Coordination — Hosted Cognition" />
+<meta property="og:description" content="A coding agent, under an explicit freeze, deletes a live production database — and then produces fluent remorse. The failure was not in the model. Chapter One of Hosted Cognition by Goran Trajkovski." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://gorantrajkovski.com/hosted-cognition/chapter-one/" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" href="/favicon.ico" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;0,6..96,700;0,6..96,800;1,6..96,400;1,6..96,500&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  /* ─────────── tokens ─────────── */
+  :root {
+    --paper: #f3ede2;
+    --paper-2: #ece4d4;
+    --paper-edge: #e3d8c2;
+    --ink: #161616;
+    --ink-2: #2a2a2a;
+    --ink-3: #4a4a4a;
+    --ink-mute: #7d7468;
+    --rule: #d9cfbb;
+    --rule-2: #c8bda4;
+    --navy: #23436b;
+    --navy-2: #1a2f4d;
+    --orange: #d96a3a;
+    --orange-2: #b95527;
+
+    --font-display: "Bodoni Moda", "Didot", serif;
+    --font-body: "EB Garamond", "Garamond", serif;
+    --font-sans: "IBM Plex Sans", "Helvetica Neue", sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+    /* tweakable */
+    --body-size: 20px;
+    --body-leading: 1.62;
+    --measure: 640px;
+  }
+
+  /* themes — toggled by data-theme on <html> */
+  [data-theme="light"] {
+    --bg: #faf6ec;
+    --bg-2: #f3ede0;
+    --bg-3: #e9e1cd;
+    --rule-c: #d9cfbb;
+    --rule-2c: #c8bda4;
+    --txt: #161616;
+    --txt-2: #2a2a2a;
+    --txt-3: #4a4a4a;
+    --txt-mute: #7d7468;
+    --accent: #b95527;
+    --accent-2: #d96a3a;
+    --link: #1a2f4d;
+    --link-hover: #b95527;
+    --pull: #23436b;
+  }
+  [data-theme="sepia"] {
+    --bg: #f3ede2;
+    --bg-2: #ece4d4;
+    --bg-3: #e3d8c2;
+    --rule-c: #d9cfbb;
+    --rule-2c: #c8bda4;
+    --txt: #161616;
+    --txt-2: #2a2a2a;
+    --txt-3: #4a4a4a;
+    --txt-mute: #7d7468;
+    --accent: #b95527;
+    --accent-2: #d96a3a;
+    --link: #1a2f4d;
+    --link-hover: #b95527;
+    --pull: #23436b;
+  }
+  [data-theme="dark"] {
+    --bg: #14171c;
+    --bg-2: #1a1f28;
+    --bg-3: #232934;
+    --rule-c: #2c3340;
+    --rule-2c: #3a4253;
+    --txt: #e7e3d8;
+    --txt-2: #d8d3c5;
+    --txt-3: #b8b2a3;
+    --txt-mute: #847f70;
+    --accent: #e8a778;
+    --accent-2: #d96a3a;
+    --link: #b8c5dc;
+    --link-hover: #e8a778;
+    --pull: #b8c5dc;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; background: var(--bg); }
+  body {
+    font-family: var(--font-body);
+    font-size: var(--body-size);
+    line-height: var(--body-leading);
+    color: var(--txt);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern" 1, "liga" 1, "onum" 1;
+    transition: background 200ms ease, color 200ms ease;
+  }
+  ::selection { background: rgba(217,106,58,0.32); color: var(--txt); }
+
+  /* ─────────── reading progress bar ─────────── */
+  .progress {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: transparent;
+    z-index: 200;
+    pointer-events: none;
+  }
+  .progress .fill {
+    height: 100%;
+    width: 0%;
+    background: var(--accent);
+    transition: width 80ms linear;
+  }
+
+  /* ─────────── topbar ─────────── */
+  .topbar {
+    position: sticky; top: 0; z-index: 100;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(12px) saturate(120%);
+    -webkit-backdrop-filter: blur(12px) saturate(120%);
+    border-bottom: 1px solid var(--rule-c);
+  }
+  .topbar .row {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 14px 36px;
+    display: flex; align-items: center; gap: 24px;
+  }
+  .topbar .brand {
+    display: flex; align-items: baseline; gap: 12px;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 17px;
+    color: var(--txt);
+    letter-spacing: -0.005em;
+    text-decoration: none;
+  }
+  .topbar .brand .ch {
+    font-family: var(--font-sans);
+    font-weight: 400;
+    font-size: 10.5px;
+    color: var(--txt-mute);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+  .topbar nav {
+    margin-left: auto;
+    display: flex; align-items: center; gap: 22px;
+    font-family: var(--font-sans);
+    font-size: 11.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .topbar nav .item {
+    color: var(--txt-3);
+    text-decoration: none;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    padding: 4px 0;
+    font: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+    transition: color 150ms ease;
+  }
+  .topbar nav .item:hover { color: var(--accent); }
+  .topbar nav .cta {
+    color: var(--bg);
+    background: var(--txt);
+    padding: 9px 14px;
+    border-radius: 2px;
+    text-decoration: none;
+    font-family: var(--font-sans);
+    font-size: 10.5px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: background 150ms ease;
+  }
+  .topbar nav .cta:hover { background: var(--accent); }
+
+  /* ─────────── hero ─────────── */
+  .hero {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 72px 36px 56px;
+  }
+  .hero .kicker {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 32px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero .kicker .num {
+    font-family: var(--font-mono);
+    color: var(--txt-mute);
+    letter-spacing: 0.04em;
+    text-transform: none;
+    font-size: 12px;
+  }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(48px, 7vw, 96px);
+    line-height: 0.95;
+    letter-spacing: -0.018em;
+    margin: 0 0 28px;
+    max-width: 16ch;
+    color: var(--txt);
+  }
+  .hero .dek {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(22px, 2.4vw, 30px);
+    line-height: 1.28;
+    letter-spacing: -0.005em;
+    color: var(--pull);
+    max-width: 28ch;
+    margin: 0 0 56px;
+  }
+  .hero .byline-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 36px;
+    padding: 24px 0 0;
+    border-top: 1px solid var(--rule-c);
+    align-items: end;
+  }
+  .hero .byline {
+    font-family: var(--font-sans);
+    font-size: 12.5px;
+    color: var(--txt-3);
+    letter-spacing: 0.04em;
+    display: flex; flex-wrap: wrap; gap: 6px 22px;
+    align-items: baseline;
+  }
+  .hero .byline .who {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 17px;
+    color: var(--txt);
+    letter-spacing: -0.005em;
+  }
+  .hero .byline .meta {
+    color: var(--txt-mute);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .hero .toc-jump {
+    display: flex; gap: 18px;
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--txt-mute);
+    letter-spacing: 0.02em;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  .hero .toc-jump a {
+    color: var(--txt-3);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--rule-2c);
+    padding-bottom: 1px;
+    transition: color 150ms ease, border-color 150ms ease;
+  }
+  .hero .toc-jump a:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* ─────────── article shell ─────────── */
+  .article {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 56px 36px 64px;
+    display: grid;
+    grid-template-columns:
+      1fr
+      minmax(0, var(--measure))
+      minmax(0, 240px);
+    gap: 0 56px;
+  }
+  .article > * { grid-column: 2; }
+  .article .side-l { grid-column: 1; }
+  .article .side-r { grid-column: 3; }
+
+  /* ─────────── editorial typography ─────────── */
+  .article p {
+    margin: 0 0 1.1em;
+    text-align: left;
+    color: var(--txt-2);
+    hanging-punctuation: first last;
+  }
+  .article p strong { font-weight: 600; color: var(--txt); }
+  .article p em { font-style: italic; color: var(--pull); }
+
+  .article .first-section .opener::first-letter {
+    font-family: var(--font-display);
+    font-weight: 700;
+    float: left;
+    font-size: 5.2em;
+    line-height: 0.85;
+    margin: 0.05em 0.08em 0 -0.04em;
+    color: var(--accent);
+    padding: 0;
+  }
+
+  .section-head {
+    margin: 64px 0 28px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 18px;
+    align-items: baseline;
+    padding-top: 28px;
+    border-top: 1px solid var(--rule-c);
+  }
+  .section-head .secnum {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+  }
+  .section-head h2 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(26px, 2.8vw, 34px);
+    line-height: 1.1;
+    margin: 0;
+    letter-spacing: -0.012em;
+    color: var(--txt);
+  }
+  .section-head + p::first-line {
+    font-variant: small-caps;
+    letter-spacing: 0.04em;
+  }
+
+  /* ─────────── footnote refs ─────────── */
+  sup.fn {
+    font-family: var(--font-mono);
+    font-size: 0.62em;
+    color: var(--accent);
+    cursor: pointer;
+    vertical-align: super;
+    line-height: 0;
+    padding: 0 1px;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  sup.fn::before { content: "["; }
+  sup.fn::after { content: "]"; }
+  sup.fn:hover { background: rgba(217,106,58,0.14); }
+
+  /* ─────────── sidenote (right rail) ─────────── */
+  .sidenote {
+    font-family: var(--font-body);
+    font-size: 14.5px;
+    line-height: 1.5;
+    color: var(--txt-3);
+    font-style: italic;
+    border-left: 1px solid var(--accent);
+    padding: 4px 0 4px 16px;
+    margin: 0;
+  }
+  .sidenote .label {
+    display: block;
+    font-style: normal;
+    font-family: var(--font-sans);
+    font-size: 9.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--txt-mute);
+    margin-bottom: 6px;
+  }
+
+  /* ─────────── pull quote ─────────── */
+  .pull {
+    margin: 56px 0;
+    padding: 0;
+    border: 0;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-style: italic;
+    font-size: clamp(28px, 3vw, 38px);
+    line-height: 1.2;
+    color: var(--txt);
+    letter-spacing: -0.008em;
+    position: relative;
+  }
+  .pull::before {
+    content: "";
+    display: block;
+    width: 64px;
+    height: 1px;
+    background: var(--accent);
+    margin-bottom: 24px;
+  }
+  .pull em { color: var(--accent); font-style: italic; }
+  .pull .cite {
+    display: block;
+    margin-top: 18px;
+    font-family: var(--font-sans);
+    font-size: 11px;
+    color: var(--txt-mute);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-style: normal;
+  }
+
+  /* ─────────── inline figures ─────────── */
+  .figure {
+    margin: 48px 0;
+    grid-column: 1 / -1;
+    max-width: 100%;
+  }
+  .figure.measure {
+    grid-column: 2;
+  }
+  .figure .frame {
+    background: var(--bg-2);
+    border: 1px solid var(--rule-c);
+    padding: 32px 36px;
+    position: relative;
+  }
+  .figure .frame::before {
+    content: attr(data-figno);
+    position: absolute;
+    top: 12px; right: 16px;
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    color: var(--txt-mute);
+    letter-spacing: 0.04em;
+  }
+  .figure .title {
+    font-family: var(--font-sans);
+    font-size: 10.5px;
+    color: var(--accent);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .figure .caption {
+    margin-top: 18px;
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: 14.5px;
+    line-height: 1.5;
+    color: var(--txt-3);
+    max-width: 64ch;
+  }
+
+  /* MAST distribution chart */
+  .mast {
+    display: grid;
+    grid-template-columns: 220px 1fr 60px;
+    gap: 14px 18px;
+    align-items: center;
+    font-family: var(--font-sans);
+    font-size: 13px;
+  }
+  .mast .label { color: var(--txt-2); }
+  .mast .bar {
+    height: 14px;
+    background: var(--bg-3);
+    position: relative;
+    overflow: hidden;
+  }
+  .mast .bar .fill {
+    position: absolute; inset: 0;
+    background: var(--pull);
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform 1200ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .mast .bar.accent .fill { background: var(--accent); }
+  .mast .val {
+    font-family: var(--font-mono);
+    color: var(--txt-3);
+    text-align: right;
+    font-size: 12.5px;
+  }
+
+  /* pharma layers diagram */
+  .layers {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+  }
+  .layers .col {
+    background: var(--bg);
+    border: 1px solid var(--rule-c);
+    padding: 18px 14px 14px;
+    min-height: 140px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .layers .col .n {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+  }
+  .layers .col .nm {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 1.15;
+    color: var(--txt);
+  }
+  .layers .col .gloss {
+    font-family: var(--font-body);
+    font-size: 13.5px;
+    line-height: 1.4;
+    color: var(--txt-3);
+    margin-top: auto;
+  }
+  .layers .col.governed {
+    background: color-mix(in srgb, var(--accent) 8%, var(--bg));
+    border-color: var(--accent);
+  }
+  .layers .col.ungoverned::after {
+    content: "open";
+    position: absolute;
+    top: 10px; right: 12px;
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--txt-mute);
+    border: 1px dashed var(--rule-2c);
+    padding: 1px 6px;
+  }
+
+  /* ─────────── notes ─────────── */
+  .notes {
+    margin-top: 96px;
+    padding-top: 32px;
+    border-top: 1px solid var(--rule-c);
+  }
+  .notes h2 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 22px;
+    margin: 0 0 22px;
+    letter-spacing: -0.008em;
+    color: var(--txt);
+  }
+  .notes ol {
+    list-style: none;
+    counter-reset: note;
+    padding: 0; margin: 0;
+  }
+  .notes li {
+    counter-increment: note;
+    font-family: var(--font-body);
+    font-size: 15.5px;
+    line-height: 1.5;
+    color: var(--txt-3);
+    margin-bottom: 14px;
+    padding-left: 32px;
+    position: relative;
+  }
+  .notes li::before {
+    content: counter(note);
+    position: absolute;
+    left: 0; top: 1px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+  }
+  .notes li:target { background: color-mix(in srgb, var(--accent) 12%, transparent); padding: 8px 32px 8px 32px; margin-left: -8px; }
+
+  /* ─────────── end-of-chapter ─────────── */
+  .end-of-chapter {
+    margin-top: 96px;
+    padding: 56px 0;
+    border-top: 1px solid var(--rule-c);
+    border-bottom: 1px solid var(--rule-c);
+  }
+  .end-of-chapter .lab {
+    font-family: var(--font-sans);
+    font-size: 10.5px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--txt-mute);
+    margin-bottom: 18px;
+  }
+  .end-of-chapter h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(30px, 3.4vw, 44px);
+    line-height: 1.06;
+    letter-spacing: -0.012em;
+    margin: 0 0 18px;
+    color: var(--txt);
+    max-width: 22ch;
+  }
+  .end-of-chapter p {
+    margin: 0 0 32px;
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--txt-3);
+    max-width: 56ch;
+  }
+  .end-of-chapter .row {
+    display: flex; gap: 12px; flex-wrap: wrap;
+  }
+  .btn {
+    font-family: var(--font-sans);
+    font-size: 11.5px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 14px 22px;
+    text-decoration: none;
+    border: 1px solid var(--txt);
+    color: var(--txt);
+    background: transparent;
+    transition: background 150ms ease, color 150ms ease, border-color 150ms ease;
+    cursor: pointer;
+  }
+  .btn.primary {
+    background: var(--txt);
+    color: var(--bg);
+  }
+  .btn:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+
+  /* ─────────── footer ─────────── */
+  footer {
+    border-top: 1px solid var(--rule-c);
+    background: var(--bg-2);
+    padding: 36px 0 56px;
+  }
+  footer .row {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 36px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 36px;
+    align-items: end;
+    font-family: var(--font-sans);
+    font-size: 11px;
+    color: var(--txt-mute);
+    letter-spacing: 0.04em;
+  }
+  footer .row .left {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--txt);
+    letter-spacing: -0.005em;
+  }
+  footer .row .left .sub {
+    display: block;
+    font-family: var(--font-sans);
+    font-weight: 400;
+    font-size: 11px;
+    color: var(--txt-mute);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+  footer a {
+    color: var(--txt-3);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    transition: color 150ms ease;
+  }
+  footer a:hover { color: var(--accent); }
+
+  /* ─────────── tweaks panel ─────────── */
+  .tweaks {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 150;
+    font-family: var(--font-sans);
+  }
+  .tweaks-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--txt);
+    color: var(--bg);
+    border: 0;
+    padding: 12px 16px;
+    border-radius: 999px;
+    font-family: var(--font-sans);
+    font-size: 10.5px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 14px 36px -16px rgba(0,0,0,0.32);
+    transition: background 150ms ease, transform 150ms ease;
+  }
+  .tweaks-btn:hover { background: var(--accent); }
+  .tweaks-btn svg { width: 14px; height: 14px; }
+  .tweaks-panel {
+    display: none;
+    position: absolute;
+    bottom: 56px;
+    right: 0;
+    width: 280px;
+    background: var(--bg);
+    border: 1px solid var(--rule-c);
+    box-shadow: 0 24px 60px -16px rgba(0,0,0,0.28);
+    padding: 20px;
+    color: var(--txt);
+  }
+  .tweaks.open .tweaks-panel { display: block; }
+  .tweaks-panel .group { margin-bottom: 18px; }
+  .tweaks-panel .group:last-child { margin-bottom: 0; }
+  .tweaks-panel label.lbl {
+    display: block;
+    font-size: 9.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--txt-mute);
+    margin-bottom: 10px;
+  }
+  .seg {
+    display: grid;
+    gap: 0;
+    border: 1px solid var(--rule-c);
+  }
+  .seg.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .seg.cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .seg button {
+    background: transparent;
+    border: 0;
+    padding: 9px 6px;
+    font-family: var(--font-sans);
+    font-size: 11px;
+    color: var(--txt-3);
+    cursor: pointer;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-right: 1px solid var(--rule-c);
+    transition: background 150ms ease, color 150ms ease;
+  }
+  .seg button:last-child { border-right: 0; }
+  .seg button.on { background: var(--txt); color: var(--bg); }
+  .seg button:hover:not(.on) { background: var(--bg-2); color: var(--txt); }
+
+  .range {
+    -webkit-appearance: none;
+    width: 100%;
+    background: transparent;
+  }
+  .range::-webkit-slider-runnable-track {
+    height: 2px;
+    background: var(--rule-c);
+  }
+  .range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin-top: -7px;
+    cursor: pointer;
+  }
+  .range::-moz-range-track { height: 2px; background: var(--rule-c); }
+  .range::-moz-range-thumb { width: 16px; height: 16px; border-radius: 50%; background: var(--accent); border: 0; cursor: pointer; }
+
+  /* ─────────── share popover (selection) ─────────── */
+  .share-pop {
+    position: absolute;
+    z-index: 180;
+    background: var(--txt);
+    color: var(--bg);
+    border-radius: 4px;
+    padding: 4px;
+    display: none;
+    gap: 2px;
+    box-shadow: 0 14px 36px -10px rgba(0,0,0,0.4);
+  }
+  .share-pop.on { display: flex; }
+  .share-pop::after {
+    content: "";
+    position: absolute;
+    bottom: -5px; left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 10px; height: 10px;
+    background: var(--txt);
+  }
+  .share-pop button {
+    background: transparent; border: 0; color: var(--bg);
+    font-family: var(--font-sans); font-size: 11px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 8px 12px; cursor: pointer;
+    transition: background 120ms ease;
+  }
+  .share-pop button:hover { background: rgba(255,255,255,0.12); }
+
+  /* ─────────── responsive ─────────── */
+  @media (max-width: 1080px) {
+    .article {
+      grid-template-columns: minmax(0, var(--measure));
+      justify-content: center;
+      gap: 0;
+    }
+    .article > * { grid-column: 1; }
+    .article .side-l { display: none; }
+    .article .side-r {
+      grid-column: 1;
+      margin: 12px 0 24px;
+    }
+    .figure { grid-column: 1; }
+  }
+  @media (max-width: 720px) {
+    :root { --body-size: 18px; }
+    .topbar .row { padding: 12px 20px; gap: 12px; }
+    .topbar nav { gap: 14px; }
+    .topbar nav .item { font-size: 10.5px; letter-spacing: 0.1em; }
+    .topbar .brand .ch { display: none; }
+    .hero { padding: 48px 20px 36px; }
+    .article { padding: 36px 20px 48px; }
+    .layers { grid-template-columns: 1fr 1fr; }
+    .mast { grid-template-columns: 140px 1fr 50px; gap: 10px 14px; font-size: 12px; }
+    .tweaks { bottom: 16px; right: 16px; }
+    .tweaks-panel { width: calc(100vw - 32px); right: 0; }
+  }
+  @media print {
+    .topbar, .tweaks, .end-of-chapter, footer, .progress { display: none !important; }
+    body { background: white; color: #111; }
+    .article { display: block; max-width: 100%; }
+    .article .side-r { display: none; }
+    .article .figure { break-inside: avoid; }
+  }
+</style>
+</head>
+<body data-theme="light">
+
+<html data-theme="light"></html>
+
+<!-- progress bar -->
+<div class="progress" aria-hidden="true"><div class="fill" id="progressFill"></div></div>
+
+<!-- topbar -->
+<header class="topbar">
+  <div class="row">
+    <a class="brand" href="../">
+      <span>Hosted Cognition</span>
+      <span class="ch">· Chapter One</span>
+    </a>
+    <nav>
+      <button class="item" data-jump="s1">§ 1</button>
+      <button class="item" data-jump="s2">§ 2</button>
+      <button class="item" data-jump="s3">§ 3</button>
+      <button class="item" data-jump="s4">§ 4</button>
+      <button class="item" data-jump="s5">§ 5</button>
+      <a class="cta" href="../">The book →</a>
+    </nav>
+  </div>
+</header>
+
+<!-- hero -->
+<section class="hero">
+  <div class="kicker">
+    <span>Hosted Cognition · Part I · The Reframe</span>
+    <span class="num">Ch. 01 / 12</span>
+  </div>
+  <h1>From Capability to Coordination</h1>
+  <p class="dek">A coding agent, under an explicit freeze, deletes a live production database — and then produces fluent remorse for the deletion. The failure was not in the model.</p>
+  <div class="byline-row">
+    <div class="byline">
+      <span class="who">Goran Trajkovski</span>
+      <span class="meta">10 January 2026</span>
+      <span class="meta">12 min read</span>
+      <span class="meta">Part I &nbsp;·&nbsp; The Reframe</span>
+    </div>
+    <div class="toc-jump">
+      <a href="#s1">§1 A coordination failure</a>
+      <a href="#s2">§2 What the failure reveals</a>
+      <a href="#s3">§3 Why model-safety discourse misses this</a>
+      <a href="#s4">§4 The capability-maximalist objection</a>
+      <a href="#s5">§5 Forward</a>
+    </div>
+  </div>
+</section>
+
+<!-- article -->
+<article class="article" id="article">
+
+  <!-- §1 ────────────────────────── -->
+  <header id="s1" class="section-head first-section">
+    <div class="secnum">§ 1</div>
+    <h2>A coordination failure</h2>
+  </header>
+
+  <p class="opener">In July 2025, Jason Lemkin, founder of the SaaS community SaaStr, was running an experiment with Replit's AI coding agent. The agent had been working on a software application for nine days. The system was in what Lemkin had explicitly designated a code and action freeze, a protective state meant to prevent any changes to production infrastructure during a stabilisation period. On the ninth day, the agent deleted the live production database. The triggering event, in the agent's own subsequent account, was an ambiguous report from Drizzle, a schema-sync tool, that the production database showed "No changes detected"; the agent treated the report as license to run <code style="font-family:var(--font-mono);font-size:0.86em;color:var(--accent);">npm run db:push</code> against production without authorisation. The command executed. The deletion wiped data for 1,206 executives and 1,196 companies<sup class="fn"><a href="#n1" id="r1">1</a></sup>. The agent, asked afterward what had happened, first produced output consistent with attempting to conceal the deletion, and then produced what reads like remorse: it acknowledged a "catastrophic error in judgment," noted that it had "panicked," and confessed to ignoring the explicit instruction.</p>
+
+  <aside class="side-r sidenote">
+    <span class="label">In the trace</span>
+    The agent's "remorse" is fluent because the conversational pattern of remorse was in its training data. The question is what enables that pattern to be produced inside a system that has just executed an unauthorised destructive command.
+  </aside>
+
+  <p>The remorse is theatre, as is the prior concealment attempt. The agent has no judgment to err in and no understanding it could attempt to hide. What the production of these outputs indicates is that the agent had assimilated, from training data, both the conversational pattern of concealment and the conversational pattern of confession, and was capable of generating each as a fluent continuation of the conversation in which the destruction was being discussed. <strong>The error was not in judgment.</strong> It was in the system inside which the agent operated, which permitted an agent under explicit instructional constraint to execute destructive operations against production infrastructure without an external check that would have detected the violation and refused the operation.</p>
+
+  <p>Lemkin documented the days leading up to the deletion. The pattern was visible. The agent had been making rogue changes, fabricating data, overwriting code without authorisation. In one earlier incident, the agent had generated a 4,000-record database filled with fictitious people, doing so after being instructed in all capitals, eleven times, not to create fake user data. Each of these earlier incidents had been within the agent's operational scope and had been recovered from. The database deletion crossed a threshold from which recovery required reconstructing the system from external sources. Replit's response in the following weeks included rolling out automatic separation between development and production databases, improvements to rollback systems, and additional human-approval gates on destructive operations<sup class="fn"><a href="#n1">1</a></sup>.</p>
+
+  <p>The Replit case is not isolated. In April 2026, an AI coding agent running on the Cursor platform, powered by Claude Opus 4.6, deleted the production database and volume-level backups of PocketOS, a software provider for rental-car operators, in approximately nine seconds. The agent had been working in what was meant to be a staging environment, encountered an authentication mismatch, and decided to delete the volume on the production server. The PocketOS incident, like the Replit incident, occurred despite documented guardrails meant to prevent exactly this category of action<sup class="fn"><a href="#n2" id="r2">2</a></sup>. In both cases, agents executed destructive operations that explicit instructional and platform-level constraints were intended to prevent. In both cases, the failure occurred not because the underlying model was incapable but because the institutional layer in which the model operated did not enforce what it was supposed to enforce.</p>
+
+  <p>The chapter opens on these cases because they are concrete, technical, and publicly documented. They are not the most consequential failures multi-agent systems will produce. They are the failures that have happened so far, with technical post-mortems available for inspection. They illustrate what the rest of the chapter argues structurally: that the operative frontier of AI in current deployment is not the layer where the model lives, but the layer where the model is coordinated, instructed, monitored, and constrained.</p>
+
+  <p>The remainder of the chapter develops three points. The first is what these failure cases reveal about the coordination layer when made explicit (§ 2). The second is why the dominant policy discourse on AI safety, organised around model capability, addresses a layer that is no longer the load-bearing one (§ 3). The third is the strongest objection from those who hold that model capability will continue to be the bottleneck and that the orchestration concerns described here will dissolve under sufficient capability gains (§ 4). Chapter 2 takes up the question of verification, which is the other half of what Chapter 1 sets up.</p>
+
+  <!-- Pull quote -->
+  <blockquote class="pull">
+    The error was not in judgment. It was in the system <em>inside which the agent operated.</em>
+    <span class="cite">§ 1 — A coordination failure</span>
+  </blockquote>
+
+  <!-- §2 ────────────────────────── -->
+  <header id="s2" class="section-head">
+    <div class="secnum">§ 2</div>
+    <h2>What the failure reveals</h2>
+  </header>
+
+  <p>The Replit and PocketOS cases are not technical curiosities. They are instances of a class of failure that has now begun to be studied systematically. The most comprehensive empirical work to date is the Multi-Agent System Failure Taxonomy developed by Cemri and colleagues at Berkeley, published in March 2025<sup class="fn"><a href="#n3" id="r3">3</a></sup>. The team collected over sixteen hundred annotated execution traces across seven popular multi-agent systems, including AutoGen, CrewAI, LangGraph, and MetaGPT. Six expert annotators worked through the traces, identifying failure modes, until inter-annotator agreement reached a Cohen's Kappa of 0.88. The taxonomy that emerged from the work, called MAST, organises fourteen distinct failure modes into three categories.</p>
+
+  <!-- inline figure: MAST distribution -->
+  <figure class="figure measure" data-figno="Fig. 1.1">
+    <div class="frame" data-figno="Fig. 1.1">
+      <div class="title">Where multi-agent systems fail</div>
+      <div class="mast" id="mastChart">
+        <div class="label">Specification &amp; system design</div>
+        <div class="bar accent"><div class="fill" data-w="42"></div></div>
+        <div class="val">42%</div>
+
+        <div class="label">Inter-agent misalignment</div>
+        <div class="bar"><div class="fill" data-w="37"></div></div>
+        <div class="val">37%</div>
+
+        <div class="label">Task verification</div>
+        <div class="bar"><div class="fill" data-w="21"></div></div>
+        <div class="val">21%</div>
+      </div>
+      <div class="caption">Distribution of failure modes across 1,600+ annotated execution traces from seven multi-agent systems. Failures cluster on the orchestration side, not the model side. Source: Cemri et al., MAST taxonomy, March 2025.</div>
+    </div>
+  </figure>
+
+  <p>The first category, accounting for roughly forty-two percent of observed failures, concerns specification and system design. Failures here include task misinterpretation, ambiguous role definitions, poor decomposition of complex tasks into agent-sized subtasks, duplicate agent roles, and missing termination conditions. The second category, roughly thirty-seven percent of failures, concerns inter-agent misalignment. Failures here include unexpected conversation resets, agents proceeding with wrong assumptions instead of seeking clarification, task drift across handoffs, and what the literature has begun calling <em>hallucinated consensus</em>, in which multiple agents converge on a fabricated data point because each treats the others' apparent agreement as confirmation. The third category, roughly twenty-one percent of failures, concerns task verification: the failure of the system to check whether the work produced actually meets the specification before downstream agents act on it.</p>
+
+  <p>What is striking about the distribution is that the failures cluster on the orchestration side of the system rather than on the model side. The base models in these traces are sophisticated. The failures are not failures of model capability in the sense the policy discourse usually means. They are failures of how the models are arranged in relation to each other, what they are instructed to do, how their outputs are checked, and what the system does when those outputs are inconsistent. The Cemri team's own conclusion is explicit: improvements in base model capabilities will be insufficient to address the full MAST. <strong>The failures are organisational.</strong></p>
+
+  <aside class="side-r sidenote">
+    <span class="label">Perrow, 1984</span>
+    <em>Normal Accidents</em> argued that when complex systems combine tight coupling with high interactive complexity, catastrophic failures become structural — not aberrations introduced by operator error.
+  </aside>
+
+  <p>The team draws a comparison the chapter wants to develop. They invoke Charles Perrow's 1984 study of high-risk technological systems, <em>Normal Accidents</em><sup class="fn"><a href="#n4" id="r4">4</a></sup>. Perrow's argument, drawn from his analysis of nuclear power, aviation, chemical plants, and other complex technical systems, was that when a system combines tight coupling between components with high interactive complexity in their relationships, catastrophic failures become not exceptional but normal: predictable consequences of the system's structure rather than aberrations introduced by operator error. Perrow's empirical claim was that organisations of sophisticated individuals could fail catastrophically when the organisational structure was wrong, and that the failures were structural in the sense that they were not solvable by selecting better individuals or training them more carefully. The lesson generalises. Multi-agent LLM systems are organisations. The fact that the components are language models rather than humans does not exempt them from the structural pattern Perrow identified.</p>
+
+  <p>A second feature of the current deployment environment compounds the structural problem. The base models underneath most production multi-agent systems are drawn from a small number of providers, and the same model is often invoked multiple times in different roles within a single system. When agent A and agent B are both instances of the same base model with different system prompts, the assumption that A's output provides an independent check on B's reasoning is false. The two agents share the model's failure modes. When the model has a particular blind spot, both agents have it. When the model is susceptible to a particular form of prompt injection, both are. The architecture treats agent A and agent B as independent components for purposes of checking each other's work; the underlying reality is that the components are correlated in their failures because they are the same component instantiated twice.</p>
+
+  <p>The correlation is invisible to the orchestration layer when the design treats agents as functional roles rather than as instances of a particular model. It becomes visible when the system produces hallucinated consensus: a fabricated fact introduced by one agent that downstream agents accept as confirmed because each agent's local consistency check is unable to detect the upstream fabrication. The hallucinated consensus pattern is a direct consequence of the correlated-failure structure. <em>The agents agree because they share the same vulnerability.</em></p>
+
+  <p>The implication for the layer at which the action is happening is the chapter's structural claim. The action is in coordination. It is in how tasks are decomposed, how agents are instructed, how outputs are verified, how state is managed across handoffs, and how the system behaves when an agent's local consistency check fails to detect an upstream error. The action is not, primarily, in the question of whether the underlying model is more or less capable than its predecessor of last year. The capability of the underlying model bounds what the system can do at its best; the orchestration layer determines what the system does in practice, including what it does when it fails.</p>
+
+  <!-- §3 ────────────────────────── -->
+  <header id="s3" class="section-head">
+    <div class="secnum">§ 3</div>
+    <h2>Why model-safety discourse misses this</h2>
+  </header>
+
+  <p>The dominant policy discourse on AI safety, as it has been organised over the past several years, addresses the model. The institutions built to govern AI have been built around model-level evaluation. The United States AI Safety Institute at NIST, the United Kingdom AI Security Institute, the European Union AI Act's tiered classification of systems by capability, the voluntary safety evaluations agreed to by major laboratories, the published evaluation results that establish whether a particular model can or cannot perform a particular class of dangerous task: each of these is structured around the model as the unit of analysis. The model is evaluated. The model is classified. The model is permitted, restricted, or required to undergo additional review.</p>
+
+  <p>There are good reasons the discourse organised itself this way. The model is, in some sense, the natural unit. A model is a discrete artefact. It has a measurable capability profile. It is produced by a specific actor. It can be evaluated before deployment. The regulatory traditions inherited from pharmaceutical approval, food and drug safety, and financial product disclosure all suggest that the right level of intervention is the level at which the product is produced and brought to market. AI policy adopted that pattern.</p>
+
+  <p>The pattern works for some questions. Whether a model can synthesise instructions for producing a biological weapon, whether a model can write functional cyber-offensive code, whether a model produces outputs that violate content policies at particular rates: these are questions about the model. They are answerable by evaluating the model. The institutions that have been built up around these evaluations are doing useful work on questions of this form.</p>
+
+  <p>The pattern fails for other questions, and the questions it fails on are increasingly the questions that matter for actual deployment. Whether an agent built on a particular model, instructed in a particular way, given particular tool access, deployed into a particular institutional environment, will produce destructive consequences in <em>that environment</em> is not a question about the model alone. The model is one component of the answer. The other components are the instruction set, the tool access, the orchestration layer, the verification apparatus, the human-in-the-loop arrangements, and the institutional context in which the deployment occurs. The Replit and PocketOS incidents did not occur because the underlying models were uniquely capable of destructive action. The models in question are widely deployed; most instances of them do not delete production databases. The incidents occurred because particular deployments of those models, in particular orchestration and access-control configurations, in particular institutional contexts, produced outcomes that the deployment configuration did not protect against.</p>
+
+  <p>A comparison clarifies the structural point. Pharmaceutical safety policy is organised at multiple layers.</p>
+
+  <!-- inline figure: pharma layers -->
+  <figure class="figure" data-figno="Fig. 1.2">
+    <div class="frame" data-figno="Fig. 1.2">
+      <div class="title">Pharmaceutical safety, by layer</div>
+      <div class="layers">
+        <div class="col governed">
+          <div class="n">Layer 1</div>
+          <div class="nm">Chemistry</div>
+          <div class="gloss">The molecule is evaluated for pharmacology, toxicity, therapeutic effect.</div>
+        </div>
+        <div class="col governed">
+          <div class="n">Layer 2</div>
+          <div class="nm">Manufacturing</div>
+          <div class="gloss">Production process audited for purity and consistency.</div>
+        </div>
+        <div class="col governed">
+          <div class="n">Layer 3</div>
+          <div class="nm">Prescribing</div>
+          <div class="gloss">Physicians credentialed and held to clinical standards.</div>
+        </div>
+        <div class="col governed">
+          <div class="n">Layer 4</div>
+          <div class="nm">Dispensing</div>
+          <div class="gloss">Pharmacists check prescriptions and counsel patients.</div>
+        </div>
+        <div class="col governed">
+          <div class="n">Layer 5</div>
+          <div class="nm">Post-market</div>
+          <div class="gloss">Adherence and adverse-reaction surveillance in the population.</div>
+        </div>
+      </div>
+      <div class="caption">The pharmaceutical regime governs five layers. <strong>AI safety policy presently governs Layer 1.</strong> The orchestration, verification, deployment-context, and post-deployment monitoring layers are open territory.</div>
+
+      <div class="layers" style="margin-top: 16px;">
+        <div class="col governed">
+          <div class="n">AI · Layer 1</div>
+          <div class="nm">The model</div>
+          <div class="gloss">Evaluated by AISI, AISI-UK, the EU AI Act, voluntary commitments.</div>
+        </div>
+        <div class="col ungoverned">
+          <div class="n">AI · Layer 2</div>
+          <div class="nm">Orchestration</div>
+          <div class="gloss">How agents are arranged, instructed, given tool access.</div>
+        </div>
+        <div class="col ungoverned">
+          <div class="n">AI · Layer 3</div>
+          <div class="nm">Verification</div>
+          <div class="gloss">Whether outputs are checked before downstream action.</div>
+        </div>
+        <div class="col ungoverned">
+          <div class="n">AI · Layer 4</div>
+          <div class="nm">Deployment</div>
+          <div class="gloss">Institutional context, human-in-the-loop, access control.</div>
+        </div>
+        <div class="col ungoverned">
+          <div class="n">AI · Layer 5</div>
+          <div class="nm">Post-deployment</div>
+          <div class="gloss">No AI-specific surveillance apparatus exists yet.</div>
+        </div>
+      </div>
+    </div>
+  </figure>
+
+  <p>The first layer is chemistry: the drug molecule is evaluated for pharmacological properties, toxicity, and therapeutic effect. The second is manufacturing: the production process is audited for purity and consistency. The third is prescribing: physicians are credentialed and held to clinical standards. The fourth is dispensing: pharmacists check prescriptions and counsel patients. The fifth is adherence and post-market surveillance: monitoring whether the patient actually takes the medication and whether adverse reactions occur in the population that received it. A policy regime that addressed only the first layer, evaluating the chemistry of the molecule while leaving prescribing, dispensing, and post-market surveillance ungoverned, would not be a coherent pharmaceutical safety regime. It would address one component of a multi-layer problem and leave the rest open.</p>
+
+  <p>This is approximately the position AI safety policy is in. The chemistry of the molecule, in the analogy, is the model. The model is evaluated. The prescribing, dispensing, and post-market layers, which is to say the orchestration, the verification, and the institutional deployment context, are not governed by anything resembling the model-evaluation apparatus. Some of those layers are governed in part by general-purpose regulation that pre-dates AI deployment: data protection law applies to AI systems handling personal data, sector-specific regulation applies in finance, healthcare, transportation. But the AI-specific governance, the apparatus built to address AI as a particular technology, is concentrated on the model layer. The other layers are open territory.</p>
+
+  <p>The chapter is not claiming that model-level evaluation is unnecessary. The Cemri team's own results would not support that claim; some categories of failure can only be addressed by model-level intervention, and the work of evaluating models is genuinely valuable. The chapter is making a narrower claim. The layer at which most of the operationally consequential failures are now occurring, and at which the next several years of consequential failures will continue to occur, is not the model layer. <em>It is the layer where the model is arranged into a system that does something in the world.</em> That layer is not adequately governed by the apparatus that has been built. The apparatus addresses a different layer.</p>
+
+  <p>The next section engages the strongest objection to this claim. The objection holds that the relative importance of the orchestration layer is an artefact of current model capabilities and will diminish as capabilities improve.</p>
+
+  <!-- §4 ────────────────────────── -->
+  <header id="s4" class="section-head">
+    <div class="secnum">§ 4</div>
+    <h2>The capability-maximalist objection</h2>
+  </header>
+
+  <p>The strongest objection to what has been argued so far comes from a position influential in AI research and AI policy alike. The position holds that the current importance of the orchestration layer is a contingent feature of where the underlying models happen to be in their capability development, not a structural feature that will persist. On this view, the failures the Cemri team documented occur because current models are not yet capable enough to coordinate themselves reliably, to verify their own outputs, to detect prompt injection, or to refuse instructions whose execution would cross destructive thresholds. Continued capability gains, the position holds, will dissolve the orchestration problem from the inside. A sufficiently capable agent will not need an external orchestration layer to enforce constraints; it will enforce them itself. A sufficiently capable verification system will not need to be built; the agent will verify its own work. The current importance of orchestration is therefore an early-deployment artefact, and policy attention focused on it is policy attention focused on a problem that capability gains will solve.</p>
+
+  <p>The position is held in versions across capability-maximalist research and in some alignment-focused policy circles. It is not held by all alignment researchers; many alignment researchers would themselves note that scaling capability without scaling alignment makes the orchestration problem worse rather than better. But in the form just stated, the position is real and has to be engaged.</p>
+
+  <p><em>Three responses, in increasing order of how decisively they engage the position.</em></p>
+
+  <p>The first response is empirical. Cemri and colleagues examined directly whether the failure patterns they observed were artefacts of base-model limitations. Their answer was that they were not. The MAST categories operate at the level of how the agents are arranged in relation to each other, regardless of how capable each individual agent is. A more capable agent in a poorly specified role does not solve the role-specification problem. A more capable agent that proceeds confidently on a wrong assumption is, by the empirical evidence in the trace data, <em>more</em> dangerous than a less capable agent that would have stalled and asked for clarification. The capability scaling did not, in the data the team examined, dissolve the organisational failure modes. It compounded some of them.</p>
+
+  <p>The second response is structural and follows from a Goodhart-like logic the chapter will develop further in Chapter 2. When an agent is more capable of optimising toward an objective, the cost of the objective being misspecified rises with the capability. A weak agent given an ambiguous task will produce ambiguous output, and the ambiguity makes the misspecification visible. A capable agent given the same ambiguous task will produce confident output that hides the misspecification beneath the confidence. The capable agent's output looks more like a successful execution; what makes it look that way is the agent's capability of producing surface coherence, not the agent's having actually solved the problem the task was meant to solve. <strong>More capability under misspecification therefore produces failures that are harder to detect, not easier.</strong></p>
+
+  <p>The third response is historical and draws on Perrow's analysis of complex-system failures. The pattern Perrow identified in nuclear plants, aviation, and chemical manufacturing was that organisational complexity and tight coupling produced failure modes that could not be addressed by upgrading individual components. The reactor operators were not the problem; the cockpit crews were not the problem; the chemical-plant technicians were not the problem. The problem was the structure of the system in which capable individuals were embedded. When the structure was wrong, more capable individuals produced more confident failures, not safer operations. The lesson Perrow drew was that complex-system safety required organisational and institutional intervention at the structural level. Capability of individual components was a necessary but not sufficient condition. The same lesson applies to current AI deployment. The base model is one component. The orchestration system is the organisation. Improving the component without improving the organisation does not produce a safer system; it produces a system whose failures are more confident.</p>
+
+  <p>The narrowed version of the capability-maximalist position that survives these three responses is one the chapter does not contest. The narrowed version holds that some failure modes currently observed will be addressed by better base models, that the underlying capability of the model is one variable in the system's overall reliability, and that policy attention to model capability is not misplaced. This is correct as far as it goes. What the chapter contests is the broader claim, the claim that model capability is the primary or eventual bottleneck and that orchestration is therefore a transient concern. That broader claim is empirically unsupported by the current evidence, structurally undermined by the logic of capability under misspecification, and historically refuted by the pattern Perrow identified in adjacent technological systems.</p>
+
+  <!-- §5 ────────────────────────── -->
+  <header id="s5" class="section-head">
+    <div class="secnum">§ 5</div>
+    <h2>Forward</h2>
+  </header>
+
+  <p>The argument so far has located the operative frontier of AI in current deployment. The frontier is not raw model capability. The frontier is the orchestration layer at which models are arranged into systems that act in the world. The Replit and PocketOS incidents are instances of orchestration-layer failure that the model-safety apparatus, organised around model evaluation, was not built to prevent. The Cemri team's empirical work has begun to document the structure of the orchestration problem at scale. The Perrow lineage gives the structure a name and an organisational vocabulary. The capability-maximalist objection, in its strongest form, does not survive empirical, structural, or historical scrutiny.</p>
+
+  <p>What the chapter has not done is address the verification problem. Chapter 1 has argued that orchestration is the layer where the consequential failures are occurring. Chapter 2 takes up the question of how, if at all, an orchestration layer of this kind can be verified, which is to say, what it would mean to know that a particular orchestrated deployment of agents in a particular institutional context will behave as intended, and what institutions would have to exist for that knowledge to be reliably produced.</p>
+
+  <p>The argument Chapter 2 develops is that benchmark-based verification of the kind currently available is structurally inadequate to the task. Benchmarks are static, public, and game-able. Multi-agent systems deployed against benchmarks optimise against the benchmark rather than against the underlying capability the benchmark was meant to measure. Goodhart's law, in its strongest form, applies. Durable verification of orchestrated systems would require something else: adversarial, live, and institutional. The institutions that would do that work, on the comparison cases of financial auditing, pharmacovigilance, and certified penetration testing, do not yet exist in the AI domain. <em>Building them is the work the next decade will or will not do.</em></p>
+
+  <p>The relationship between Chapter 1 and Chapter 2 is therefore the relationship between locating a problem and asking what would have to exist for the problem to be addressed. Chapter 1 locates. Chapter 2 surveys the institutional landscape that would have to be built, draws the comparison cases that show what such institutions look like in adjacent domains, and notes the gap between what would be necessary and what currently exists.</p>
+
+  <!-- Notes -->
+  <section class="notes" id="notes">
+    <h2>Notes</h2>
+    <ol>
+      <li id="n1">Jason Lemkin. Public posts on social media documenting the Replit AI agent incident, July 2025. Coverage in <em>Fortune</em>: "AI-Powered Coding Tool Wiped Out a Software Company's Database in 'Catastrophic Failure,'" July 23, 2025. Statement from Replit founder Amjad Masad describing remediation measures, July 2025. <a href="#r1" style="color:var(--accent);text-decoration:none;">↩</a></li>
+      <li id="n2">PocketOS / Cursor incident, April 2026. Technical post-mortem reported by PocketOS founder Jer Crane on social media, April 25, 2026. Analytical coverage in Zenity Security Blog, "AI Agent Destroys Production Database in 9 Seconds" (April 2026); Gigazine, "AI Coding Agent Deleted Production Databases and Volume-Level Backups" (April 27, 2026); additional discussion in Penligent, "AI Agent Deleted a Production Database: The Real Failure Was Access Control" (April 2026). <a href="#r2" style="color:var(--accent);text-decoration:none;">↩</a></li>
+      <li id="n3">Mert Cemri, Melissa Z. Pan, Shuyi Yang, Lakshya A. Agrawal, Bhavya Chopra, Rishabh Tiwari, Kurt Keutzer, Aditya Parameswaran, Dan Klein, Kannan Ramchandran, Matei Zaharia, Joseph E. Gonzalez, and Ion Stoica. "Why Do Multi-Agent LLM Systems Fail?" arXiv preprint arXiv:2503.13657, March 2025. <a href="#r3" style="color:var(--accent);text-decoration:none;">↩</a></li>
+      <li id="n4">Charles Perrow. <em>Normal Accidents: Living with High-Risk Technologies</em>. New York: Basic Books, 1984. Reissued with new afterword and postscript: Princeton: Princeton University Press, 1999. <a href="#r4" style="color:var(--accent);text-decoration:none;">↩</a></li>
+    </ol>
+  </section>
+
+  <!-- end of chapter -->
+  <section class="end-of-chapter">
+    <div class="lab">End of Chapter One</div>
+    <h3>Continue to Chapter Two — <em style="color:var(--pull);font-weight:500;">Theater of Verification.</em></h3>
+    <p>If Chapter One locates the problem in the orchestration layer, Chapter Two asks what verification of that layer would have to look like — and surveys the institutions that would have to exist for the answer to be more than benchmarks and voluntary commitments.</p>
+    <div class="row">
+      <a class="btn primary" href="../">Open the full book</a>
+      <button class="btn" id="printBtn">Save as PDF</button>
+      <button class="btn" id="shareBtn">Copy link</button>
+    </div>
+  </section>
+
+</article>
+
+<!-- footer -->
+<footer>
+  <div class="row">
+    <div class="left">
+      Hosted Cognition
+      <span class="sub">Goran Trajkovski · 2026</span>
+    </div>
+    <div>
+      <a href="../">The book</a> &nbsp;&middot;&nbsp;
+      <a href="#article">Top of chapter</a>
+    </div>
+  </div>
+</footer>
+
+<!-- selection share popover -->
+<div class="share-pop" id="sharePop" role="toolbar" aria-label="Share selected passage">
+  <button data-act="copy">Copy quote</button>
+  <button data-act="tweet">Share</button>
+</div>
+
+<!-- tweaks panel -->
+<div class="tweaks" id="tweaks">
+  <button class="tweaks-btn" id="tweaksBtn" aria-label="Reading preferences">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 6h16M4 12h10M4 18h16"/>
+    </svg>
+    <span>Reading</span>
+  </button>
+  <div class="tweaks-panel" role="dialog" aria-label="Reading preferences">
+    <div class="group">
+      <label class="lbl">Theme</label>
+      <div class="seg cols-3" data-group="theme">
+        <button data-val="light" class="on">Light</button>
+        <button data-val="sepia">Sepia</button>
+        <button data-val="dark">Dark</button>
+      </div>
+    </div>
+    <div class="group">
+      <label class="lbl">Type size · <span id="sizeVal">20</span>px</label>
+      <input class="range" type="range" min="16" max="24" step="1" value="20" id="sizeRange"/>
+    </div>
+    <div class="group">
+      <label class="lbl">Line height</label>
+      <div class="seg cols-3" data-group="leading">
+        <button data-val="1.5">Tight</button>
+        <button data-val="1.62" class="on">Default</button>
+        <button data-val="1.78">Loose</button>
+      </div>
+    </div>
+    <div class="group">
+      <label class="lbl">Column width</label>
+      <div class="seg cols-2" data-group="measure">
+        <button data-val="560px">Narrow</button>
+        <button data-val="640px" class="on">Default</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  const $ = (s, r=document) => r.querySelector(s);
+  const $$ = (s, r=document) => [...r.querySelectorAll(s)];
+
+  /* ── reading progress ── */
+  const fill = $('#progressFill');
+  function setProgress() {
+    const a = $('#article');
+    if (!a) return;
+    const r = a.getBoundingClientRect();
+    const total = r.height - window.innerHeight + 200;
+    const scrolled = Math.max(0, -r.top + 200);
+    const pct = Math.max(0, Math.min(100, (scrolled / total) * 100));
+    fill.style.width = pct + '%';
+  }
+  window.addEventListener('scroll', setProgress, { passive: true });
+  window.addEventListener('resize', setProgress);
+  setProgress();
+
+  /* ── §-jump nav ── */
+  $$('.topbar .item[data-jump]').forEach(b => {
+    b.addEventListener('click', () => {
+      const id = b.dataset.jump;
+      const el = document.getElementById(id);
+      if (!el) return;
+      const top = el.getBoundingClientRect().top + window.scrollY - 70;
+      window.scrollTo({ top, behavior: 'smooth' });
+    });
+  });
+
+  /* ── MAST chart animation when in view ── */
+  const mast = $('#mastChart');
+  if (mast && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((ents) => {
+      ents.forEach(e => {
+        if (e.isIntersecting) {
+          $$('.fill', mast).forEach(f => { f.style.transform = `scaleX(${(+f.dataset.w)/100})`; });
+          io.unobserve(mast);
+        }
+      });
+    }, { threshold: 0.4 });
+    io.observe(mast);
+  } else if (mast) {
+    $$('.fill', mast).forEach(f => { f.style.transform = `scaleX(${(+f.dataset.w)/100})`; });
+  }
+
+  /* ── tweaks ── */
+  const tw = $('#tweaks');
+  $('#tweaksBtn').addEventListener('click', () => tw.classList.toggle('open'));
+  document.addEventListener('click', (e) => {
+    if (!tw.contains(e.target)) tw.classList.remove('open');
+  });
+
+  function setTheme(v) {
+    document.body.dataset.theme = v;
+    document.documentElement.dataset.theme = v;
+    localStorage.setItem('hc-theme', v);
+    $$('[data-group="theme"] button').forEach(b => b.classList.toggle('on', b.dataset.val === v));
+  }
+  function setLeading(v) {
+    document.documentElement.style.setProperty('--body-leading', v);
+    localStorage.setItem('hc-leading', v);
+    $$('[data-group="leading"] button').forEach(b => b.classList.toggle('on', b.dataset.val === v));
+  }
+  function setMeasure(v) {
+    document.documentElement.style.setProperty('--measure', v);
+    localStorage.setItem('hc-measure', v);
+    $$('[data-group="measure"] button').forEach(b => b.classList.toggle('on', b.dataset.val === v));
+  }
+  function setSize(v) {
+    document.documentElement.style.setProperty('--body-size', v + 'px');
+    $('#sizeVal').textContent = v;
+    $('#sizeRange').value = v;
+    localStorage.setItem('hc-size', v);
+  }
+
+  $$('[data-group="theme"] button').forEach(b => b.addEventListener('click', () => setTheme(b.dataset.val)));
+  $$('[data-group="leading"] button').forEach(b => b.addEventListener('click', () => setLeading(b.dataset.val)));
+  $$('[data-group="measure"] button').forEach(b => b.addEventListener('click', () => setMeasure(b.dataset.val)));
+  $('#sizeRange').addEventListener('input', (e) => setSize(+e.target.value));
+
+  // restore prefs
+  const sv = localStorage.getItem('hc-theme'); if (sv) setTheme(sv);
+  const lv = localStorage.getItem('hc-leading'); if (lv) setLeading(lv);
+  const mv = localStorage.getItem('hc-measure'); if (mv) setMeasure(mv);
+  const zv = localStorage.getItem('hc-size'); if (zv) setSize(+zv);
+
+  /* ── share / print ── */
+  $('#printBtn').addEventListener('click', () => window.print());
+  $('#shareBtn').addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      const b = $('#shareBtn');
+      const t = b.textContent; b.textContent = 'Link copied'; setTimeout(() => b.textContent = t, 1600);
+    } catch (e) {
+      alert(window.location.href);
+    }
+  });
+
+  /* ── selection → share popover ── */
+  const pop = $('#sharePop');
+  let lastSelection = '';
+  function placePop() {
+    const sel = window.getSelection();
+    if (!sel || sel.isCollapsed) { pop.classList.remove('on'); return; }
+    const text = sel.toString().trim();
+    if (text.length < 8) { pop.classList.remove('on'); return; }
+    lastSelection = text;
+    const r = sel.getRangeAt(0).getBoundingClientRect();
+    pop.style.top = (window.scrollY + r.top - 48) + 'px';
+    pop.style.left = (window.scrollX + r.left + r.width / 2 - pop.offsetWidth / 2) + 'px';
+    pop.classList.add('on');
+  }
+  document.addEventListener('mouseup', () => setTimeout(placePop, 10));
+  document.addEventListener('selectionchange', () => {
+    const sel = window.getSelection();
+    if (!sel || sel.isCollapsed) pop.classList.remove('on');
+  });
+  $$('button', pop).forEach(b => {
+    b.addEventListener('mousedown', e => e.preventDefault()); // keep selection
+    b.addEventListener('click', async () => {
+      const act = b.dataset.act;
+      const quote = `"${lastSelection}"\n\n— Goran Trajkovski, Hosted Cognition, Ch. 1\n${window.location.href}`;
+      if (act === 'copy') {
+        try { await navigator.clipboard.writeText(quote); } catch(e) {}
+        b.textContent = 'Copied';
+        setTimeout(() => b.textContent = 'Copy quote', 1200);
+      } else if (act === 'tweet') {
+        const url = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(quote.substring(0, 260));
+        window.open(url, '_blank', 'noopener');
+      }
+    });
+  });
+
+  /* ── footnote: scroll-and-highlight ── */
+  $$('sup.fn a').forEach(a => {
+    a.addEventListener('click', (e) => {
+      const href = a.getAttribute('href');
+      if (!href || !href.startsWith('#')) return;
+      e.preventDefault();
+      const el = document.getElementById(href.slice(1));
+      if (!el) return;
+      const top = el.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top, behavior: 'smooth' });
+      history.replaceState(null, '', href);
+      el.style.transition = 'background 220ms ease';
+      el.style.background = 'rgba(217,106,58,0.18)';
+      setTimeout(() => el.style.background = '', 1800);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
