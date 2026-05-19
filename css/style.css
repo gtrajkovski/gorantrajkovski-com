@@ -223,6 +223,7 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
   gap: clamp(18px, 2.5vw, 36px);
 }
 .nav__links a {
+  display: inline-block;
   font-size: 14.5px;
   font-weight: 500;
   color: var(--ink-2);
@@ -234,8 +235,8 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -4px;
-  height: 2px;
+  bottom: -6px;
+  height: 3px;
   background: var(--accent);
   transform: scaleX(0);
   transform-origin: left center;
@@ -878,7 +879,7 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
   align-items: center;
   gap: clamp(40px, 5vw, 72px);
   width: max-content;
-  animation: marquee-scroll 60s linear infinite;
+  animation: marquee-scroll 90s linear infinite;
   will-change: transform;
 }
 .marquee:hover .marquee__track,
