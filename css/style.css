@@ -2066,6 +2066,18 @@ body.is-locked .portfolio-body { opacity: .55; pointer-events: none; user-select
   background-repeat: no-repeat;
   background-position: right 16px center;
   padding-right: 40px;
+  /* The contact form sits on a dark band, so the <select> itself is
+     styled dark. But the native option popup uses OS chrome by
+     default — which gave us light-gray text on white. Forcing
+     color-scheme: dark tells the browser to draw the popup in dark
+     chrome (Chrome/Firefox/Safari/Edge all respect this). The
+     explicit option { background, color } is a belt-and-braces
+     for browsers that still don't. */
+  color-scheme: dark;
+}
+.inquiry-field select option {
+  background: #1a1b1f;
+  color: #FAFAF5;
 }
 .inquiry-field input:focus,
 .inquiry-field select:focus,
