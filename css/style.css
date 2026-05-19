@@ -227,8 +227,30 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
   font-weight: 500;
   color: var(--ink-2);
   position: relative;
+  transition: color .25s var(--t);
 }
-.nav__links a:hover { color: var(--accent); }
+.nav__links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform .3s cubic-bezier(.2,.7,.2,1);
+}
+.nav__links a:hover {
+  color: var(--accent);
+}
+.nav__links a:hover::after,
+.nav__links a:focus-visible::after {
+  transform: scaleX(1);
+}
+/* Don't draw the swipe under the CTA pill or the lang switch */
+.nav__cta::after,
+.lang-switch a::after { display: none; }
 .nav__cta {
   background: var(--ink);
   color: var(--paper) !important;
@@ -856,7 +878,7 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
   align-items: center;
   gap: clamp(40px, 5vw, 72px);
   width: max-content;
-  animation: marquee-scroll 45s linear infinite;
+  animation: marquee-scroll 60s linear infinite;
   will-change: transform;
 }
 .marquee:hover .marquee__track,
@@ -865,6 +887,7 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
   display: inline-flex;
   align-items: center;
   flex: 0 0 auto;
+  cursor: pointer;
 }
 .marquee__track img {
   max-height: 46px;
@@ -874,9 +897,10 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
   filter: grayscale(100%) opacity(.55);
   transition: filter .3s var(--t), transform .3s var(--t);
 }
-.marquee__track img:hover {
+.marquee__track a:hover img,
+.marquee__track a:focus-visible img {
   filter: grayscale(0) opacity(1);
-  transform: scale(1.05);
+  transform: translateY(-4px) scale(1.08);
 }
 
 @keyframes marquee-scroll {
