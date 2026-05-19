@@ -303,6 +303,36 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
   color: var(--ink);
   border: 1.5px solid var(--ink);
 }
+
+/* ─── Attention-CTA: arrow-slide + one-time halo pulse ─── */
+.btn--pulse { position: relative; overflow: visible; }
+.btn--pulse .btn__arrow {
+  display: inline-block;
+  margin-left: 4px;
+  transition: transform .25s cubic-bezier(.2,.7,.2,1);
+}
+.btn--pulse:hover .btn__arrow,
+.btn--pulse:focus-visible .btn__arrow { transform: translateX(6px); }
+.btn--pulse::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow: 0 0 0 0 var(--accent);
+  opacity: 0;
+}
+.btn--pulse.is-pulsing::before {
+  animation: cta-halo 1.8s cubic-bezier(.2,.7,.2,1) 2;
+}
+@keyframes cta-halo {
+  0%   { box-shadow: 0 0 0 0   rgba(200,51,30,0.55); opacity: 1; }
+  100% { box-shadow: 0 0 0 18px rgba(200,51,30,0);    opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn--pulse.is-pulsing::before { animation: none; }
+  .btn--pulse .btn__arrow { transition: none; }
+}
 .btn--ghost:hover {
   background: var(--ink);
   color: var(--paper);
