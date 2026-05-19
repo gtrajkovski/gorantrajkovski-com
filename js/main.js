@@ -263,3 +263,23 @@
   }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
   targets.forEach(el => io.observe(el));
 })();
+
+// ===== CTA one-time halo pulse =====
+(function () {
+  const pulses = document.querySelectorAll('.btn--pulse');
+  if (!pulses.length) return;
+  if (!('IntersectionObserver' in window)) {
+    pulses.forEach(el => el.classList.add('is-pulsing'));
+    return;
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        // Slight stagger so multiple visible CTAs don't fire in lock-step
+        setTimeout(() => e.target.classList.add('is-pulsing'), 300);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.6 });
+  pulses.forEach(el => io.observe(el));
+})();
