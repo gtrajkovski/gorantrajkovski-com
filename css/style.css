@@ -535,9 +535,12 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
   transition: transform .4s var(--t);
 }
 .service:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-md);
+  transform: translateY(-7px) scale(1.012);
+  box-shadow: 0 22px 44px rgba(21,22,26,.10), 0 6px 14px rgba(21,22,26,.06);
   border-color: var(--ink);
+}
+.service.fade-up:hover {
+  transform: translateY(-7px) scale(1.012);
 }
 .service:hover::before { transform: scaleX(1); }
 .service__num {
@@ -619,8 +622,11 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
   transition: transform .3s var(--t), box-shadow .3s var(--t);
 }
 .case:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-md);
+  transform: translateY(-7px) scale(1.012);
+  box-shadow: 0 22px 44px rgba(21,22,26,.10), 0 6px 14px rgba(21,22,26,.06);
+}
+.case.fade-up:hover {
+  transform: translateY(-7px) scale(1.012);
 }
 .case__tag {
   display: inline-block;
@@ -1343,9 +1349,12 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
 }
 .section--alt .portfolio-card { background: var(--paper); }
 .portfolio-card:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-md);
+  transform: translateY(-7px) scale(1.012);
+  box-shadow: 0 22px 44px rgba(21,22,26,.10), 0 6px 14px rgba(21,22,26,.06);
   border-color: var(--ink);
+}
+.portfolio-card.fade-up:hover {
+  transform: translateY(-7px) scale(1.012);
 }
 .portfolio-card__num {
   font-family: var(--serif);
@@ -1419,9 +1428,13 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
   transition: transform .3s var(--t), background .3s var(--t), border-color .3s var(--t);
 }
 .contact-card:hover {
-  transform: translateY(-3px);
+  transform: translateY(-7px) scale(1.012);
   background: rgba(255,255,255,.07);
   border-color: var(--accent-soft);
+  box-shadow: 0 22px 44px rgba(0,0,0,.30), 0 6px 14px rgba(0,0,0,.18);
+}
+.contact-card.fade-up:hover {
+  transform: translateY(-7px) scale(1.012);
 }
 .contact-card--primary {
   background: var(--accent);
@@ -1553,9 +1566,12 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
   transition: transform .25s var(--t), box-shadow .25s var(--t), border-color .25s var(--t);
 }
 .artifact:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-sm);
+  transform: translateY(-5px) scale(1.01);
+  box-shadow: 0 16px 32px rgba(21,22,26,.08), 0 4px 10px rgba(21,22,26,.05);
   border-color: var(--ink);
+}
+.artifact.fade-up:hover {
+  transform: translateY(-5px) scale(1.01);
 }
 .artifact__title {
   font-weight: 600;
