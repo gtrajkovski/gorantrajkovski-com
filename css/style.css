@@ -1266,6 +1266,90 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
 }
 .book--actions { cursor: default; }
 .book--actions:hover { transform: none; }
+/* Companion-artifact links (Recommended Action) */
+.companion-links {
+  margin-top: clamp(36px, 5vw, 56px);
+  padding-top: clamp(24px, 3vw, 36px);
+  border-top: 1px solid var(--rule-strong);
+}
+.companion-links__eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+.companion-links__row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+.companion-link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  background: var(--paper);
+  border: 1px solid var(--rule-strong);
+  border-radius: 100px;
+  text-decoration: none;
+  color: var(--ink);
+  transition: transform .25s var(--t), border-color .25s var(--t), background .25s var(--t), box-shadow .25s var(--t);
+}
+.companion-link:hover {
+  transform: translateY(-3px);
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+  box-shadow: 0 14px 30px rgba(21,22,26,.16);
+}
+.companion-link__icon {
+  display: inline-grid;
+  place-items: center;
+  width: 36px; height: 36px;
+  background: rgba(0,0,0,.05);
+  border-radius: 50%;
+  color: var(--accent);
+  flex-shrink: 0;
+  transition: background .25s var(--t), color .25s var(--t);
+}
+.companion-link:hover .companion-link__icon {
+  background: rgba(255,255,255,.12);
+  color: var(--paper);
+}
+.companion-link__text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+.companion-link__kind {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 2px;
+}
+.companion-link:hover .companion-link__kind { color: rgba(255,255,255,.7); }
+.companion-link__title {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 1.25;
+}
+.companion-link__arrow {
+  font-size: 14px;
+  color: var(--muted);
+  transition: transform .25s var(--t), color .25s var(--t);
+}
+.companion-link:hover .companion-link__arrow {
+  color: var(--paper);
+  transform: translate(3px, -3px);
+}
+
 .book__media { display: block; transform-origin: center bottom; transition: transform .35s cubic-bezier(.2,.7,.2,1); }
 .book__media:hover,
 .book__media:focus-visible { transform: translateY(-14px) scale(1.05) rotate(-1.2deg); }
