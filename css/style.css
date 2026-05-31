@@ -109,6 +109,28 @@ em { font-style: italic; }
   --shadow-md: 0 8px 24px rgba(0,0,0,.5), 0 2px 6px rgba(0,0,0,.3);
 }
 
+/* Skip link (a11y) — visible on keyboard focus */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 16px;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  z-index: 1000;
+  transition: top .2s var(--t);
+}
+.skip-link:focus,
+.skip-link:focus-visible {
+  top: 16px;
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 /* Smooth theme transitions */
 body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speaking li, .book img, .about__portrait img {
   transition: background-color .25s var(--t), color .25s var(--t), border-color .25s var(--t), box-shadow .25s var(--t);
