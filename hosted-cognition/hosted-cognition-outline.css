@@ -132,6 +132,8 @@ section.band + section.band { border-top: 1px solid var(--rule); }
 /* ───────── thesis ───────── */
 /* ───────── podcast / audio overview ───────── */
 .podcast { padding: 56px 0 24px; }
+.podcast-grid { display: grid; gap: 20px; grid-template-columns: 1fr; }
+@media (min-width: 980px) { .podcast-grid { grid-template-columns: 1fr 1fr; } }
 .podcast-card {
   display: grid;
   grid-template-columns: 80px 1fr auto;
