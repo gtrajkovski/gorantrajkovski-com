@@ -130,10 +130,10 @@ section.band + section.band { border-top: 1px solid var(--rule); }
 .section-head .deck { font-family: var(--font-body); font-style: italic; font-size: 19px; line-height: 1.5; color: var(--navy-2); max-width: 56ch; margin: 0; }
 
 /* ───────── thesis ───────── */
-/* ───────── podcast / audio overview ───────── */
+/* ───────── podcast / audio overview / explainer ───────── */
 .podcast { padding: 56px 0 24px; }
 .podcast-grid { display: grid; gap: 20px; grid-template-columns: 1fr; }
-@media (min-width: 980px) { .podcast-grid { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 760px) { .podcast-grid { grid-template-columns: 1fr 1fr; } }
 .podcast-card {
   display: grid;
   grid-template-columns: 80px 1fr auto;
