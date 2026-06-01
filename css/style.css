@@ -148,6 +148,36 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
   position: relative;
 }
 .section--alt { background: var(--paper-2); }
+
+/* Narrow prose column used on landing/program pages */
+.prose-narrow {
+  max-width: 64ch;
+  margin: 0 auto;
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--ink-2);
+}
+.prose-narrow p { margin: 0 0 1.1em; }
+.prose-narrow p:last-child { margin-bottom: 0; }
+.prose-narrow strong { color: var(--ink); }
+
+/* Stacked content blocks within a single program section */
+.program-block {
+  max-width: 64ch;
+  margin: 0 auto;
+  padding-top: clamp(36px, 5vw, 56px);
+}
+.program-block + .program-block { border-top: 1px solid var(--rule-strong); margin-top: clamp(36px, 5vw, 56px); }
+.program-block__head {
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(22px, 2.4vw, 30px);
+  line-height: 1.18;
+  letter-spacing: -.01em;
+  color: var(--ink);
+  margin: 0 0 18px;
+}
+.program-block .portfolio-grid { max-width: none; }
 .section__head {
   max-width: 780px;
   margin-bottom: clamp(40px, 6vw, 70px);
