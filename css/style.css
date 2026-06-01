@@ -160,6 +160,20 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
 .prose-narrow p { margin: 0 0 1.1em; }
 .prose-narrow p:last-child { margin-bottom: 0; }
 .prose-narrow strong { color: var(--ink); }
+.prose-narrow a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-color: var(--accent-soft);
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1.5px;
+  transition: color .2s ease, text-decoration-color .2s ease;
+}
+.prose-narrow a:hover {
+  color: var(--accent-deep);
+  text-decoration-color: var(--accent);
+}
+.prose-narrow em a { color: inherit; }
+.prose-narrow em a { color: var(--accent); }
 
 /* Stacked content blocks within a single program section */
 .program-block {
