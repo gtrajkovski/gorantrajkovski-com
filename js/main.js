@@ -52,12 +52,25 @@
       message.setSelectionRange(len, len);
     }
 
-    // Select "Other" so backend categorization is sane
+    // Try to match the product to a real service option first,
+    // then fall back to "Other" so backend categorization is sane.
     if (service) {
+      const productLower = product.toLowerCase();
+      let matched = false;
       for (const opt of service.options) {
-        if (opt.value === 'Other' || opt.textContent.trim() === 'Other') {
-          service.value = opt.value;
+        const optText = (opt.value || opt.textContent || '').toLowerCase();
+        if (optText && productLower.includes(optText.split(' (')[0])) {
+          service.value = opt.value || opt.textContent;
+          matched = true;
           break;
+        }
+      }
+      if (!matched) {
+        for (const opt of service.options) {
+          if (opt.value === 'Other' || opt.textContent.trim() === 'Other') {
+            service.value = opt.value;
+            break;
+          }
         }
       }
     }
