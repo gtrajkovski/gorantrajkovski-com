@@ -192,6 +192,53 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
   margin: 0 0 18px;
 }
 .program-block .portfolio-grid { max-width: none; }
+.program-block:has(.course-gallery) { max-width: 1100px; }
+
+/* Course gallery — slide thumbs on /ai-and-education/ */
+.course-gallery {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+  max-width: none;
+}
+@media (min-width: 720px)  { .course-gallery { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1080px) { .course-gallery { grid-template-columns: 1fr 1fr 1fr; } }
+.course-gallery__item {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  text-decoration: none;
+  color: inherit;
+}
+.course-gallery__item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 14px 28px rgba(21,22,26,.10), 0 4px 10px rgba(21,22,26,.06);
+  background: var(--paper);
+  transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s cubic-bezier(.2,.7,.2,1);
+}
+.course-gallery__item:hover img,
+.course-gallery__item:focus-visible img {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 44px rgba(21,22,26,.16), 0 8px 18px rgba(21,22,26,.10);
+}
+.course-gallery__caption {
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--ink-2);
+  padding: 0 4px;
+}
+.course-gallery__kind {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-right: 8px;
+}
 .section__head {
   max-width: 780px;
   margin-bottom: clamp(40px, 6vw, 70px);
