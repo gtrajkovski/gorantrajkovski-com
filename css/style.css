@@ -621,54 +621,6 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
   flex-wrap: wrap;
 }
 
-/* Hero "unlock clients" small CTA — sits below the primary hero buttons.
-   Same crypto as the portfolio lock; same .cv-lock modal styling. */
-.hero__unlock-wrap { margin: 20px 0 0; }
-.hero__unlock {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 11px 20px;
-  font-family: var(--font-mono);
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: .06em;
-  color: var(--ink);
-  background: var(--paper);
-  border: 1.5px solid var(--ink);
-  border-radius: 100px;
-  cursor: pointer;
-  transition: color .2s var(--t), border-color .2s var(--t), background .2s var(--t), transform .2s var(--t), box-shadow .2s var(--t);
-}
-.hero__unlock:hover,
-.hero__unlock:focus-visible {
-  color: var(--paper);
-  background: var(--ink);
-  border-color: var(--ink);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-}
-.hero__unlock-icon {
-  display: inline-grid;
-  place-items: center;
-  color: var(--accent);
-  transition: color .2s var(--t);
-}
-.hero__unlock:hover .hero__unlock-icon,
-.hero__unlock:focus-visible .hero__unlock-icon { color: var(--accent-soft); }
-.hero__unlock-arrow { transition: transform .2s var(--t); }
-.hero__unlock:hover .hero__unlock-arrow,
-.hero__unlock:focus-visible .hero__unlock-arrow { transform: translateX(4px); }
-.hero__unlock.is-unlocked {
-  color: var(--accent);
-  border-color: var(--accent);
-}
-.hero__unlock.is-unlocked:hover,
-.hero__unlock.is-unlocked:focus-visible {
-  background: var(--accent);
-  color: var(--paper);
-}
-
 .hero__scroll {
   position: absolute;
   bottom: 30px;
