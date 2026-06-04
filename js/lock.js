@@ -276,10 +276,133 @@
     });
   }
 
+  // ---- Clients reveal: hero button → modal → unhide marquee ----
+  function setupClientsReveal() {
+    const button = document.querySelector('[data-clients-reveal]');
+    const section = document.getElementById('clients-locked');
+    if (!button || !section) return;
+
+    let modal = null;
+    const REVEALED = 'gt-clients-revealed';
+
+    function reveal() {
+      section.removeAttribute('hidden');
+      button.classList.add('is-unlocked');
+      try { sessionStorage.setItem(REVEALED, '1'); } catch (_) {}
+      // Smooth-scroll to the now-visible section
+      setTimeout(() => {
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 60);
+    }
+
+    // If already unlocked this session, reveal immediately on load
+    try {
+      if (sessionStorage.getItem(REVEALED) === '1') {
+        section.removeAttribute('hidden');
+        button.classList.add('is-unlocked');
+      }
+    } catch (_) {}
+
+    function buildModal() {
+      if (modal) return modal;
+      modal = document.createElement('div');
+      modal.className = 'cv-lock';
+      modal.innerHTML = (
+        '<div class="cv-lock__backdrop" data-clients-close></div>' +
+        '<div class="cv-lock__card" role="dialog" aria-modal="true" aria-labelledby="clients-lock-title">' +
+          '<button type="button" class="cv-lock__x" aria-label="Close" data-clients-close>×</button>' +
+          '<p class="cv-lock__eyebrow">Protected · Client list</p>' +
+          '<h2 class="cv-lock__title" id="clients-lock-title">Enter access code</h2>' +
+          '<p class="cv-lock__lede">The same code as the portfolio. Don’t have it? <a href="#contact" data-clients-close>Request access via the contact form.</a></p>' +
+          '<form class="cv-lock__form">' +
+            '<input type="password" class="cv-lock__input" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="passphrase" />' +
+            '<button type="submit" class="cv-lock__submit btn btn--primary">Unlock</button>' +
+          '</form>' +
+          '<p class="cv-lock__error" aria-live="polite"></p>' +
+        '</div>'
+      );
+      document.body.appendChild(modal);
+      modal.addEventListener('click', e => {
+        if (e.target.matches('[data-clients-close]')) closeModal();
+      });
+      const form = modal.querySelector('form');
+      const input = modal.querySelector('.cv-lock__input');
+      const submit = modal.querySelector('.cv-lock__submit');
+      const error = modal.querySelector('.cv-lock__error');
+      form.addEventListener('submit', async e => {
+        e.preventDefault();
+        if (submit) submit.disabled = true;
+        error.textContent = ' ';
+        error.classList.remove('is-visible');
+        const phrase = (input.value || '').trim();
+        if (!phrase) { if (submit) submit.disabled = false; return; }
+        try {
+          const key = await deriveKey(phrase);
+          if (await verifyKey(key)) {
+            try { sessionStorage.setItem(KEY_CACHE, await exportKeyB64(key)); } catch (_) {}
+            closeModal();
+            reveal();
+          } else {
+            error.textContent = 'Wrong access code — try again.';
+            error.classList.add('is-visible');
+            input.value = '';
+            input.focus();
+          }
+        } catch (err) {
+          console.error(err);
+          error.textContent = 'Something went wrong. Reload and try again.';
+          error.classList.add('is-visible');
+        } finally {
+          if (submit) submit.disabled = false;
+        }
+      });
+      return modal;
+    }
+
+    function openModal() {
+      const m = buildModal();
+      m.classList.add('is-open');
+      body.classList.add('is-locked');
+      setTimeout(() => { const i = m.querySelector('.cv-lock__input'); if (i) i.focus(); }, 80);
+    }
+    function closeModal() {
+      if (!modal) return;
+      modal.classList.remove('is-open');
+      body.classList.remove('is-locked');
+    }
+
+    button.addEventListener('click', async () => {
+      // Already revealed this session? Just scroll.
+      try {
+        if (sessionStorage.getItem(REVEALED) === '1') {
+          section.removeAttribute('hidden');
+          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          return;
+        }
+      } catch (_) {}
+      // Try cached key (e.g., if they unlocked the portfolio earlier in this tab)
+      const cached = sessionStorage.getItem(KEY_CACHE);
+      if (cached) {
+        try {
+          const key = await importKeyB64(cached);
+          if (await verifyKey(key)) { reveal(); return; }
+        } catch (_) { sessionStorage.removeItem(KEY_CACHE); }
+      }
+      openModal();
+    });
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && modal && modal.classList.contains('is-open')) {
+        closeModal();
+      }
+    });
+  }
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => { init(); setupCvDownloads(); });
+    document.addEventListener('DOMContentLoaded', () => { init(); setupCvDownloads(); setupClientsReveal(); });
   } else {
     init();
     setupCvDownloads();
+    setupClientsReveal();
   }
 })();
