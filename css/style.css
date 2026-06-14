@@ -2885,6 +2885,69 @@ body.is-locked .portfolio-body { opacity: .55; pointer-events: none; user-select
   letter-spacing: -.01em;
   color: var(--ink);
 }
+.books-theme__intro {
+  margin-top: 10px;
+  max-width: 60ch;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+/* Trilogy row — slightly elevated treatment */
+.books-theme--trilogy .books-theme__head {
+  border-bottom-color: var(--accent);
+}
+.books-theme--trilogy .books-theme__eyebrow {
+  letter-spacing: .24em;
+}
+
+/* Book series badge */
+.book__badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-right: 6px;
+}
+.book__badge--soon { color: var(--muted); }
+
+/* "Coming soon" placeholder cover */
+.book--soon { cursor: default; }
+.book__placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  aspect-ratio: 2 / 3;
+  width: 100%;
+  margin-bottom: 12px;
+  border: 1.5px dashed var(--rule-strong);
+  border-radius: var(--radius-sm);
+  background:
+    radial-gradient(120% 80% at 50% 0%, color-mix(in srgb, var(--accent) 8%, transparent), transparent 70%),
+    var(--paper-2);
+  text-align: center;
+  padding: 16px;
+}
+.book__placeholder-label {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(18px, 2vw, 24px);
+  line-height: 1.1;
+  color: var(--ink);
+  opacity: .55;
+}
+.book__placeholder-soon {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
 
 /* Featured book — Hosted Cognition */
 .book-feature {
