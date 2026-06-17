@@ -3062,3 +3062,22 @@ body.is-locked .portfolio-body { opacity: .55; pointer-events: none; user-select
   .track-role__years { text-align: left; padding-top: 0; }
   .track-roles::before { display: none; }
 }
+
+/* ===== Scroll progress bar ===== */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 150; /* above nav (z=100), below mobile menu overlay (z=200) */
+  background: transparent;
+  pointer-events: none;
+}
+.scroll-progress__bar {
+  height: 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
+  background: var(--accent);
+  will-change: transform;
+}

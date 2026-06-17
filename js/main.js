@@ -296,3 +296,41 @@
   }, { threshold: 0.6 });
   pulses.forEach(el => io.observe(el));
 })();
+
+// ===== Scroll progress bar =====
+(function () {
+  const wrap = document.createElement('div');
+  wrap.className = 'scroll-progress';
+  wrap.setAttribute('aria-hidden', 'true');
+  const bar = document.createElement('div');
+  bar.className = 'scroll-progress__bar';
+  wrap.appendChild(bar);
+
+  let ticking = false;
+  function update() {
+    const doc = document.documentElement;
+    const max = doc.scrollHeight - doc.clientHeight;
+    const ratio = max > 0 ? Math.min(Math.max(window.scrollY / max, 0), 1) : 0;
+    bar.style.transform = 'scaleX(' + ratio + ')';
+    ticking = false;
+  }
+  function onScroll() {
+    if (!ticking) {
+      ticking = true;
+      window.requestAnimationFrame(update);
+    }
+  }
+  function mount() {
+    if (!document.body) return;
+    document.body.appendChild(wrap);
+    update();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', mount);
+  } else {
+    mount();
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+})();
