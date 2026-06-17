@@ -3069,7 +3069,7 @@ body.is-locked .portfolio-body { opacity: .55; pointer-events: none; user-select
   top: 0;
   left: 0;
   right: 0;
-  height: 3px;
+  height: 5px;
   z-index: 150; /* above nav (z=100), below mobile menu overlay (z=200) */
   background: transparent;
   pointer-events: none;
