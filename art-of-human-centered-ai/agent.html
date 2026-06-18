@@ -17,7 +17,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500;1,8..60,600&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="/css/style.css?v=20" />
-  <link rel="stylesheet" href="/css/trilogy.css?v=1" />
+  <link rel="stylesheet" href="/css/trilogy.css?v=2" />
 
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon/favicon-32x32.png" />
@@ -120,15 +120,19 @@
 
     <!-- FRAMEWORK -->
     <section class="tr-section--sm">
-      <div class="tr-narrow">
-        <p class="tr-eyebrow reveal">The framework</p>
-        <h2 class="tr-h2 reveal" style="font-size:clamp(26px,4vw,42px)">LOOP</h2>
-        <p class="tr-lede reveal">Four movements that turn a goal into trustworthy action — and keep a person accountable for what the machine does in between.</p>
-        <div class="tr-fw">
-          <div class="tr-fw__item reveal"><div class="tr-fw__letter">L</div><div><h4>Lay the groundwork — before anything runs</h4><p>Define done, choose the tools, and draw the limits up front. Most agent failures are setup failures.</p></div></div>
-          <div class="tr-fw__item reveal"><div class="tr-fw__letter">O</div><div><h4>Operate — the act half</h4><p>Plan, pick the right action, sequence the steps, and recover gracefully from a bad one.</p></div></div>
-          <div class="tr-fw__item reveal"><div class="tr-fw__letter">O</div><div><h4>Observe — motion vs. progress</h4><p>Watch what actually happened against what was intended — the feedback that turns activity into real progress.</p></div></div>
-          <div class="tr-fw__item reveal"><div class="tr-fw__letter">P</div><div><h4>Preserve oversight — the hand on the wheel</h4><p>Keep a human accountable: the leash, the checkpoints, and the ability to still take over.</p></div></div>
+      <div class="tr-narrow tr-fwd__center">
+        <p class="tr-eyebrow tr-eyebrow--center reveal">The framework</p>
+        <h2 class="tr-h2 tr-center reveal" style="font-size:clamp(26px,4vw,42px)">The LOOP framework</h2>
+        <p class="tr-lede tr-lede--center reveal">Designing reliable AI agents — four movements that turn a goal into trustworthy action, split by the reversibility line.</p>
+        <div class="tr-fwd reveal">
+          <div class="tr-fwd__badge"><span class="ac">LOOP</span><span class="sub">Designing reliable AI agents</span></div>
+          <div class="tr-pillars tr-pillars--four">
+            <div class="tr-pillar"><span class="k">Lay the groundwork</span><h4>Before anything runs</h4><p>Define "done" in observable terms and grant the minimum set of tools needed to finish the job.</p></div>
+            <div class="tr-pillar"><span class="k">Operate · the act half</span><h4>Plan, then act</h4><p>The agent sequences its plan before acting, so motion leads to actual progress.</p></div>
+            <div class="tr-pillar"><span class="k">Observe · the look half</span><h4>Verify outcomes</h4><p>Check real-world results and catch quiet errors rather than trusting a successful "tool call."</p></div>
+            <div class="tr-pillar"><span class="k">Preserve oversight</span><h4>The hand on the wheel</h4><p>Checkpoints at irreversible steps and an off-switch keep the human the ultimate author of conduct.</p></div>
+          </div>
+          <p class="tr-revline reveal"><span>The reversibility line — autonomy for cheap, reversible actions; approval for permanent ones</span></p>
         </div>
       </div>
     </section>
