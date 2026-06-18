@@ -334,3 +334,45 @@
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', onScroll, { passive: true });
 })();
+
+// ===== Nav dropdown groups (2-level menu) =====
+(function () {
+  const groups = document.querySelectorAll('.nav__group');
+  if (!groups.length) return;
+
+  function closeAll(except) {
+    groups.forEach(g => {
+      if (g === except) return;
+      g.classList.remove('is-open');
+      const b = g.querySelector('.nav__group-btn');
+      if (b) b.setAttribute('aria-expanded', 'false');
+    });
+  }
+
+  groups.forEach(group => {
+    const btn = group.querySelector('.nav__group-btn');
+    if (!btn) return;
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const open = group.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', String(open));
+      closeAll(open ? group : null);
+    });
+  });
+
+  // Click anywhere outside an open group closes them
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.nav__group')) closeAll(null);
+  });
+
+  // Esc closes the open group and returns focus to its button
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    groups.forEach(g => {
+      if (!g.classList.contains('is-open')) return;
+      g.classList.remove('is-open');
+      const b = g.querySelector('.nav__group-btn');
+      if (b) { b.setAttribute('aria-expanded', 'false'); b.focus(); }
+    });
+  });
+})();

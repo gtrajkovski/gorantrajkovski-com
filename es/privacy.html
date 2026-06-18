@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500;1,8..60,600&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="/css/style.css?v=19" />
+  <link rel="stylesheet" href="/css/style.css?v=20" />
 
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon/favicon-32x32.png" />
@@ -47,10 +47,31 @@
       </a>
       <ul class="nav__links">
         <li><a href="/es/#services">Servicios</a></li>
-        <li><a href="/es/#work">Proyectos</a></li>
-        <li><a href="/es/portfolio.html">Portafolio</a></li>
-        <li><a href="/es/#about">Sobre mí</a></li>
-        <li><a href="/es/#books">Libros</a></li>
+        <li class="nav__group">
+          <button type="button" class="nav__group-btn" aria-haspopup="true" aria-expanded="false">Trabajo <svg class="nav__caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          <ul class="nav__menu">
+            <li><a href="/es/#work">Proyectos</a></li>
+            <li><a href="/es/portfolio.html">Portafolio</a></li>
+            <li><a href="/es/labs.html">Labs</a></li>
+          </ul>
+        </li>
+        <li class="nav__group">
+          <button type="button" class="nav__group-btn" aria-haspopup="true" aria-expanded="false">Publicaciones <svg class="nav__caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          <ul class="nav__menu">
+            <li><a href="/es/#books">Libros</a></li>
+            <li><a href="/es/#fiction">Ficción</a></li>
+            <li><a href="/hosted-cognition/">Hosted Cognition</a></li>
+            <li><a href="/ai-and-education/">IA y educación</a></li>
+          </ul>
+        </li>
+        <li class="nav__group">
+          <button type="button" class="nav__group-btn" aria-haspopup="true" aria-expanded="false">Sobre mí <svg class="nav__caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          <ul class="nav__menu">
+            <li><a href="/es/#about">Resumen</a></li>
+            <li><a href="/es/#track">CV</a></li>
+            <li><a href="/es/#insights">Recursos</a></li>
+          </ul>
+        </li>
         <li>
           <div class="lang-switch" role="group" aria-label="Idioma">
             <a href="/privacy.html" hreflang="en">EN</a>
@@ -189,6 +210,6 @@
     </div>
   </footer>
 
-  <script src="/js/main.js?v=19"></script>
+  <script src="/js/main.js?v=20"></script>
 </body>
 </html>
