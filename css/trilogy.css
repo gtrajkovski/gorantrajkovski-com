@@ -114,15 +114,6 @@
 .tr-bn__dir { font-family: var(--font-mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin: 0 0 6px; }
 .tr-bn__title { font-family: var(--serif); font-size: 19px; font-weight: 600; color: var(--ink); }
 
-/* Footer sitemap (lives here for the subsite; rolled out site-wide in a follow-up) */
-.footer__grid { display: grid; grid-template-columns: 1.3fr 2fr; gap: clamp(28px, 5vw, 64px); padding: 8px 0 40px; border-bottom: 1px solid var(--bg-invert-border); margin-bottom: 28px; text-align: left; }
-.footer__mark { display: inline-flex; width: 34px; height: 34px; align-items: center; justify-content: center; background: var(--accent); color: #fff; border-radius: 8px; font-family: var(--font-display); font-weight: 700; }
-.footer__tagline { font-family: var(--serif); color: var(--text-invert-muted); margin-top: 14px; max-width: 34ch; }
-.footer__nav { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-.footer__col h3 { font-family: var(--font-mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--text-invert); margin: 0 0 12px; }
-.footer__col a { display: block; font-family: var(--sans); font-size: 14px; color: var(--text-invert-muted); padding: 5px 0; }
-.footer__col a:hover { color: var(--accent-soft); }
-
 @media (max-width: 900px) {
   .tr-hero__inner { grid-template-columns: 1fr; }
   .tr-fan { margin-top: 24px; min-height: 300px; }
@@ -137,8 +128,6 @@
   .tr-about__row { grid-template-columns: 1fr; }
   .tr-booknav { grid-template-columns: 1fr; }
   .tr-booknav .next { text-align: left; }
-  .footer__grid { grid-template-columns: 1fr; }
-  .footer__nav { grid-template-columns: repeat(2, 1fr); }
 }
 
 /* ===== Framework diagrams (HINT / FRAME / LOOP) ===== */
