@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A More Beautiful Prompt — The Art of Human-Centered Prompt Engineering</title>
+  <meta name="description" content="Book One of the Human-Centered AI trilogy. The craft of asking well — and why the magic words stopped mattering once the machines got good." />
+  <link rel="canonical" href="https://gorantrajkovski.com/art-of-human-centered-ai/prompt.html" />
+  <meta property="og:type" content="book" />
+  <meta property="og:title" content="A More Beautiful Prompt — The Art of Human-Centered Prompt Engineering" />
+  <meta property="og:description" content="Book One of the Human-Centered AI trilogy. Prompting as a design discipline, not a bag of tricks." />
+  <meta property="og:url" content="https://gorantrajkovski.com/art-of-human-centered-ai/prompt.html" />
+  <meta property="og:image" content="https://gorantrajkovski.com/assets/img/books/MoreBeautifulPrompt-v2.jpg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500;1,8..60,600&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/css/style.css?v=20" />
+  <link rel="stylesheet" href="/css/trilogy.css?v=1" />
+
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon/favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#0E0E0C" />
+
+  <script>
+    (function(){var t=localStorage.getItem('gt-theme')||(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);})();
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#top">Skip to content</a>
+
+  <nav class="nav" id="nav">
+    <div class="nav__wrap">
+      <a href="/" class="nav__brand">
+        <span class="nav__brand-mark">GT</span>
+        <span class="nav__brand-name">Goran Trajkovski</span>
+      </a>
+      <ul class="nav__links">
+        <li><a href="/#services">Services</a></li>
+        <li class="nav__group">
+          <button type="button" class="nav__group-btn" aria-haspopup="true" aria-expanded="false">Work <svg class="nav__caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          <ul class="nav__menu">
+            <li><a href="/#work">Overview</a></li>
+            <li><a href="/portfolio.html">Portfolio</a></li>
+            <li><a href="/labs.html">Labs</a></li>
+          </ul>
+        </li>
+        <li class="nav__group">
+          <button type="button" class="nav__group-btn" aria-haspopup="true" aria-expanded="false">Writing <svg class="nav__caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          <ul class="nav__menu">
+            <li><a href="/#books">Books</a></li>
+            <li><a href="/#fiction">Fiction</a></li>
+            <li><a href="/hosted-cognition/">Hosted Cognition</a></li>
+            <li><a href="/ai-and-education/">AI &amp; Education</a></li>
+            <li><a href="/art-of-human-centered-ai/" aria-current="page">The Art of Human-Centered AI</a></li>
+          </ul>
+        </li>
+        <li class="nav__group">
+          <button type="button" class="nav__group-btn" aria-haspopup="true" aria-expanded="false">About <svg class="nav__caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          <ul class="nav__menu">
+            <li><a href="/#about">Overview</a></li>
+            <li><a href="/#track">CV</a></li>
+            <li><a href="/#insights">Insights</a></li>
+          </ul>
+        </li>
+        <li>
+          <div class="lang-switch" role="group" aria-label="Language">
+            <a href="/" class="is-active" hreflang="en">EN</a>
+            <a href="/es/" hreflang="es">ES</a>
+            <a href="/mk/" hreflang="mk">MK</a>
+          </div>
+        </li>
+        <li><a href="/#contact" class="nav__cta">Get in touch</a></li>
+      </ul>
+      <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main id="top">
+
+    <!-- BOOK HERO -->
+    <section class="tr-hero">
+      <div class="tr-container tr-bookhero__inner">
+        <div class="tr-bookhero__cover reveal">
+          <img src="/assets/img/books/MoreBeautifulPrompt-v2.jpg" alt="A More Beautiful Prompt" width="667" height="1000" />
+        </div>
+        <div>
+          <span class="tr-eyebrow reveal">Book One · Say · 2023</span>
+          <h1 class="tr-booktitle reveal">A More<br>Beautiful<br><em>Prompt</em></h1>
+          <p class="tr-booksub reveal">The Art of Human-Centered Prompt Engineering</p>
+          <p class="tr-lede reveal">Where the trilogy begins: the craft of asking well. A single exchange between a person and a model — and why the so-called <em>magic words</em> stopped mattering once the machines got good.</p>
+          <div class="tr-cta reveal">
+            <a class="btn btn--primary" href="https://www.amazon.com/s?k=Goran+Trajkovski+A+More+Beautiful+Prompt" target="_blank" rel="noopener">Buy on Amazon</a>
+            <a class="btn btn--ghost" href="index.html">← Back to the trilogy</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT IT'S ABOUT -->
+    <section class="tr-section--sm">
+      <div class="tr-narrow">
+        <p class="tr-eyebrow reveal">What it's about</p>
+        <h2 class="tr-h2 reveal" style="font-size:clamp(26px,4vw,42px)">Asking well.</h2>
+        <div class="tr-prose reveal">
+          <p>In 2023, everyone was hunting for magic words — the perfect incantation that would unlock a model's best answer. This book was written in that moment, and against it. The premise: prompting is not a bag of tricks but a design discipline, closer to writing a good brief or asking a good question than to casting a spell.</p>
+          <p>It introduces a human-centered way to think about a single exchange — how structure, meaning, and form shape what comes back — and why, as models improved, the craft shifted from clever wording toward clarity of intent. It is the foundation the rest of the trilogy builds on: before context, before agency, there was the asking.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FRAMEWORK -->
+    <section class="tr-section--sm">
+      <div class="tr-narrow">
+        <p class="tr-eyebrow reveal">The framework</p>
+        <h2 class="tr-h2 reveal" style="font-size:clamp(26px,4vw,42px)">Structure · Meaning · Form</h2>
+        <p class="tr-lede reveal">Three lenses on a single exchange — the architecture of the ask, the intent beneath the words, and the shape of the answer you want back.</p>
+        <div class="tr-fw">
+          <div class="tr-fw__item reveal"><div class="tr-fw__letter">S</div><div><h4>Structure — the architecture of the ask</h4><p>How you scaffold a request — roles, steps, constraints, and shape — so the model knows what kind of answer you actually want.</p></div></div>
+          <div class="tr-fw__item reveal"><div class="tr-fw__letter">M</div><div><h4>Meaning — what you're really asking</h4><p>The intent beneath the words: the examples, the framing, and the cues that tell the model what "good" looks like here.</p></div></div>
+          <div class="tr-fw__item reveal"><div class="tr-fw__letter">F</div><div><h4>Form — designing the experience</h4><p>How the answer should arrive — its format, tone, and length — so the result is usable, not merely correct.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EPIGRAPH -->
+    <section class="tr-band tr-section--sm">
+      <div class="tr-narrow">
+        <blockquote class="reveal">“The model was never the bottleneck, and neither were the magic words. The bottleneck was always the quality of the asking.”
+          <cite>From the manifesto</cite>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- PREV / NEXT -->
+    <section class="tr-section--sm">
+      <div class="tr-container">
+        <div class="tr-booknav">
+          <a class="prev" href="agent.html"><p class="tr-bn__dir">← Book Three · Do</p><p class="tr-bn__title">A More Beautiful Agent</p></a>
+          <a class="next" href="context.html"><p class="tr-bn__dir">Book Two · See →</p><p class="tr-bn__title">A More Beautiful Context</p></a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="tr-container footer__grid">
+      <div class="footer__brand">
+        <a href="/" class="footer__mark">GT</a>
+        <p class="footer__tagline">AI strategy, course design, and EdTech transformation — keeping the human at the center of the work.</p>
+      </div>
+      <nav class="footer__nav" aria-label="Site">
+        <div class="footer__col">
+          <h3>Work</h3>
+          <a href="/#work">Overview</a>
+          <a href="/portfolio.html">Portfolio</a>
+          <a href="/labs.html">Labs</a>
+        </div>
+        <div class="footer__col">
+          <h3>Writing</h3>
+          <a href="/#books">Books</a>
+          <a href="/#fiction">Fiction</a>
+          <a href="/hosted-cognition/">Hosted Cognition</a>
+          <a href="/ai-and-education/">AI &amp; Education</a>
+          <a href="/art-of-human-centered-ai/">Human-Centered AI</a>
+        </div>
+        <div class="footer__col">
+          <h3>About</h3>
+          <a href="/#about">Overview</a>
+          <a href="/#track">CV</a>
+          <a href="/#insights">Insights</a>
+          <a href="/#contact">Contact</a>
+        </div>
+      </nav>
+    </div>
+    <div class="container footer__inner">
+      <p>© <span id="year">2026</span> The Art of Living Large LLC. All rights reserved. · <a href="/privacy.html" style="color:inherit;">Privacy</a></p>
+      <p class="footer__quote"><em>"The price of light is less than the cost of darkness."</em> — Arthur C. Nielsen</p>
+    </div>
+  </footer>
+
+  <script src="/js/main.js?v=20"></script>
+  <script src="/js/trilogy.js?v=1"></script>
+</body>
+</html>
