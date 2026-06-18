@@ -140,3 +140,57 @@
   .footer__grid { grid-template-columns: 1fr; }
   .footer__nav { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* ===== Framework diagrams (HINT / FRAME / LOOP) ===== */
+.tr-fwd { margin-top: 36px; }
+.tr-fwd__badge {
+  display: inline-flex; flex-direction: column; align-items: center; gap: 3px;
+  padding: 16px 34px; margin: 0 auto 8px; border-radius: 16px;
+  background: var(--accent); color: #fff; text-align: center;
+}
+.tr-fwd__badge .ac { font-family: var(--font-display); font-weight: 700; font-size: 30px; line-height: 1; letter-spacing: .04em; }
+.tr-fwd__badge .sub { font-family: var(--font-mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; opacity: .92; }
+.tr-fwd__center { text-align: center; }
+
+.tr-pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 28px; text-align: left; }
+.tr-pillars--four { grid-template-columns: repeat(2, 1fr); }
+.tr-pillar { padding: 22px 22px; background: var(--paper-2); border: 1px solid var(--line); border-top: 3px solid var(--accent); border-radius: 14px; }
+.tr-pillar .k { display: block; font-family: var(--font-mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+.tr-pillar h4 { font-family: var(--serif); font-size: 18px; font-weight: 600; color: var(--ink); margin: 0 0 8px; }
+.tr-pillar p { font-family: var(--serif); font-size: 15px; line-height: 1.6; color: var(--ink-2); margin: 0; }
+
+.tr-revline { text-align: center; font-family: var(--font-mono); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin: 22px 0 4px; position: relative; }
+.tr-revline span { background: var(--paper); padding: 0 14px; position: relative; z-index: 1; }
+.tr-revline::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--line); }
+
+.tr-goal { margin-top: 22px; padding: 24px 28px; background: var(--bg-invert); color: var(--text-invert); border-radius: 14px; text-align: left; }
+.tr-goal .k { display: block; font-family: var(--font-mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent-soft); margin-bottom: 8px; }
+.tr-goal h4 { font-family: var(--serif); font-size: 19px; font-weight: 600; color: var(--text-invert); margin: 0 0 6px; }
+.tr-goal p { font-family: var(--serif); line-height: 1.6; color: var(--text-invert-muted); margin: 0; }
+
+/* ===== Hub trilogy map ===== */
+.tr-map2 { margin-top: 40px; }
+.tr-map2__crown {
+  display: inline-block; font-family: var(--font-display); font-weight: 600;
+  font-size: clamp(16px, 2vw, 20px); letter-spacing: .02em;
+  color: var(--paper); background: var(--ink);
+  padding: 14px 26px; border-radius: 12px; position: relative;
+}
+.tr-map2__crown::after { content: ""; position: absolute; left: 50%; bottom: -28px; width: 1px; height: 28px; background: var(--line); transform: translateX(-50%); }
+.tr-map2__cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 56px; position: relative; }
+.tr-map2__cols::before { content: ""; position: absolute; top: -28px; left: 16.6%; right: 16.6%; height: 1px; background: var(--line); }
+.tr-map2__book { display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; }
+.tr-map2__book::before { content: ""; position: absolute; top: -28px; width: 1px; height: 28px; background: var(--line); }
+.tr-map2__card { width: 100%; background: var(--paper-2); border: 1px solid var(--line); border-radius: 14px; padding: 18px 16px; }
+.tr-map2__num { font-family: var(--font-mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+.tr-map2__name { font-family: var(--font-display); font-weight: 600; font-size: 22px; color: var(--ink); margin: 4px 0 4px; }
+.tr-map2__tag { font-family: var(--serif); font-style: italic; color: var(--ink-2); font-size: 14px; }
+.tr-map2__pills { list-style: none; margin: 16px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; width: 100%; }
+.tr-map2__pills li { font-family: var(--sans); font-size: 13px; font-weight: 500; color: var(--ink-2); background: var(--paper); border: 1px solid var(--line); border-radius: 100px; padding: 7px 14px; }
+
+@media (max-width: 760px) {
+  .tr-pillars, .tr-pillars--four { grid-template-columns: 1fr; }
+  .tr-map2__cols { grid-template-columns: 1fr; gap: 40px; }
+  .tr-map2__cols::before { display: none; }
+  .tr-map2__book::before { height: 20px; top: -20px; }
+}
