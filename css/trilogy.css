@@ -83,12 +83,6 @@
 .tr-band blockquote { font-family: var(--serif); font-style: italic; font-size: clamp(22px, 3vw, 32px); line-height: 1.4; text-align: center; max-width: 26ch; margin: 0 auto; }
 .tr-band cite { display: block; font-style: normal; font-family: var(--font-mono); font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent-soft); margin-top: 24px; }
 
-/* About the author */
-.tr-about { background: var(--paper-2); }
-.tr-about__row { display: grid; grid-template-columns: 220px 1fr; gap: clamp(28px, 4vw, 56px); align-items: center; }
-.tr-about__row > img { width: 220px; height: auto; border-radius: 14px; }
-.tr-about p { font-family: var(--serif); color: var(--ink-2); line-height: 1.7; margin: 0 0 16px; }
-
 /* Book page hero */
 .tr-bookhero__inner { display: grid; grid-template-columns: 330px 1fr; gap: clamp(32px, 5vw, 64px); align-items: center; }
 .tr-bookhero__cover img { width: 100%; max-width: 330px; height: auto; border-radius: 8px; border: 1px solid var(--line); box-shadow: var(--shadow-md); }
@@ -125,7 +119,6 @@
   .tr-books { grid-template-columns: 1fr; max-width: 380px; margin-left: auto; margin-right: auto; }
   .tr-bookhero__inner { grid-template-columns: 1fr; justify-items: start; }
   .tr-bookhero__cover img { max-width: 240px; }
-  .tr-about__row { grid-template-columns: 1fr; }
   .tr-booknav { grid-template-columns: 1fr; }
   .tr-booknav .next { text-align: left; }
 }
