@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A More Beautiful Agent — The Art of Human-Centered Agent Design</title>
+  <meta name="description" content="Book Three of the Human-Centered AI trilogy. Handing over the keys: autonomy, oversight, and the hand on the wheel when a machine acts." />
+  <link rel="canonical" href="https://gorantrajkovski.com/art-of-human-centered-ai/agent.html" />
+  <meta property="og:type" content="book" />
+  <meta property="og:title" content="A More Beautiful Agent — The Art of Human-Centered Agent Design" />
+  <meta property="og:description" content="Book Three of the Human-Centered AI trilogy. Autonomy, oversight, and who stays accountable when a machine acts." />
+  <meta property="og:url" content="https://gorantrajkovski.com/art-of-human-centered-ai/agent.html" />
+  <meta property="og:image" content="https://gorantrajkovski.com/assets/img/books/more-beautiful-agent.jpg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500;1,8..60,600&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/css/style.css?v=20" />
+  <link rel="stylesheet" href="/css/trilogy.css?v=1" />
+
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon/favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#0E0E0C" />
+
+  <script>
+    (function(){var t=localStorage.getItem('gt-theme')||(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);})();
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#top">Skip to content</a>
+
+  <nav class="nav" id="nav">
+    <div class="nav__wrap">
+      <a href="/" class="nav__brand">
+        <span class="nav__brand-mark">GT</span>
+        <span class="nav__brand-name">Goran Trajkovski</span>
+      </a>
+      <ul class="nav__links">
+        <li><a href="/#services">Services</a></li>
+        <li class="nav__group">
+          <button type="button" class="nav__group-btn" aria-haspopup="true" aria-expanded="false">Work <svg class="nav__caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          <ul class="nav__menu">
+            <li><a href="/#work">Overview</a></li>
+            <li><a href="/portfolio.html">Portfolio</a></li>
+            <li><a href="/labs.html">Labs</a></li>
+          </ul>
+        </li>
+        <li class="nav__group">
+          <button type="button" class="nav__group-btn" aria-haspopup="true" aria-expanded="false">Writing <svg class="nav__caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          <ul class="nav__menu">
+            <li><a href="/#books">Books</a></li>
+            <li><a href="/#fiction">Fiction</a></li>
+            <li><a href="/hosted-cognition/">Hosted Cognition</a></li>
+            <li><a href="/ai-and-education/">AI &amp; Education</a></li>
+            <li><a href="/art-of-human-centered-ai/" aria-current="page">The Art of Human-Centered AI</a></li>
+          </ul>
+        </li>
+        <li class="nav__group">
+          <button type="button" class="nav__group-btn" aria-haspopup="true" aria-expanded="false">About <svg class="nav__caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          <ul class="nav__menu">
+            <li><a href="/#about">Overview</a></li>
+            <li><a href="/#track">CV</a></li>
+            <li><a href="/#insights">Insights</a></li>
+          </ul>
+        </li>
+        <li>
+          <div class="lang-switch" role="group" aria-label="Language">
+            <a href="/" class="is-active" hreflang="en">EN</a>
+            <a href="/es/" hreflang="es">ES</a>
+            <a href="/mk/" hreflang="mk">MK</a>
+          </div>
+        </li>
+        <li><a href="/#contact" class="nav__cta">Get in touch</a></li>
+      </ul>
+      <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main id="top">
+
+    <!-- BOOK HERO -->
+    <section class="tr-hero">
+      <div class="tr-container tr-bookhero__inner">
+        <div class="tr-bookhero__cover reveal">
+          <img src="/assets/img/books/more-beautiful-agent.jpg" alt="A More Beautiful Agent" width="720" height="1151" />
+        </div>
+        <div>
+          <span class="tr-eyebrow reveal">Book Three · Do · 2026</span>
+          <h1 class="tr-booktitle reveal">A More<br>Beautiful<br><em>Agent</em></h1>
+          <p class="tr-booksub reveal">The Art of Human-Centered Agent Design</p>
+          <p class="tr-lede reveal">A tool waits for your hand. An agent doesn't. You hand it a goal instead of a grip — and the whole craft lives in that handoff: <em>what you let move without you, and how close you stay to the wheel.</em></p>
+          <div class="tr-cta reveal">
+            <a class="btn btn--primary" href="https://www.amazon.com/dp/B0H59MZM86" target="_blank" rel="noopener">Buy on Amazon</a>
+            <a class="btn btn--ghost" href="index.html">← Back to the trilogy</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT IT'S ABOUT -->
+    <section class="tr-section--sm">
+      <div class="tr-narrow">
+        <p class="tr-eyebrow reveal">What it's about</p>
+        <h2 class="tr-h2 reveal" style="font-size:clamp(26px,4vw,42px)">Handing over the keys.</h2>
+        <div class="tr-prose reveal">
+          <p>The first two books were about what you say and what the model sees. This one is about what it <em>does</em>. An agent doesn't wait for your hand on every step — you hand it a goal, and it works out the sequence, the tools, and the moment to stop.</p>
+          <p>That handoff is the whole subject: how much to let move without you, how to keep a hand near the wheel, and who stays accountable when a machine acts on your behalf. It is the difference between motion and progress — wider than it looks — and the human judgment that keeps autonomy honest.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FRAMEWORK -->
+    <section class="tr-section--sm">
+      <div class="tr-narrow">
+        <p class="tr-eyebrow reveal">The framework</p>
+        <h2 class="tr-h2 reveal" style="font-size:clamp(26px,4vw,42px)">LOOP</h2>
+        <p class="tr-lede reveal">Four movements that turn a goal into trustworthy action — and keep a person accountable for what the machine does in between.</p>
+        <div class="tr-fw">
+          <div class="tr-fw__item reveal"><div class="tr-fw__letter">L</div><div><h4>Lay the groundwork — before anything runs</h4><p>Define done, choose the tools, and draw the limits up front. Most agent failures are setup failures.</p></div></div>
+          <div class="tr-fw__item reveal"><div class="tr-fw__letter">O</div><div><h4>Operate — the act half</h4><p>Plan, pick the right action, sequence the steps, and recover gracefully from a bad one.</p></div></div>
+          <div class="tr-fw__item reveal"><div class="tr-fw__letter">O</div><div><h4>Observe — motion vs. progress</h4><p>Watch what actually happened against what was intended — the feedback that turns activity into real progress.</p></div></div>
+          <div class="tr-fw__item reveal"><div class="tr-fw__letter">P</div><div><h4>Preserve oversight — the hand on the wheel</h4><p>Keep a human accountable: the leash, the checkpoints, and the ability to still take over.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EPIGRAPH -->
+    <section class="tr-band tr-section--sm">
+      <div class="tr-narrow">
+        <blockquote class="reveal">“Trusting someone to act is its own kind of work — and letting go well is harder than holding on.”
+          <cite>From the dedication</cite>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- PREV / NEXT -->
+    <section class="tr-section--sm">
+      <div class="tr-container">
+        <div class="tr-booknav">
+          <a class="prev" href="context.html"><p class="tr-bn__dir">← Book Two · See</p><p class="tr-bn__title">A More Beautiful Context</p></a>
+          <a class="next" href="prompt.html"><p class="tr-bn__dir">Book One · Say →</p><p class="tr-bn__title">A More Beautiful Prompt</p></a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="tr-container footer__grid">
+      <div class="footer__brand">
+        <a href="/" class="footer__mark">GT</a>
+        <p class="footer__tagline">AI strategy, course design, and EdTech transformation — keeping the human at the center of the work.</p>
+      </div>
+      <nav class="footer__nav" aria-label="Site">
+        <div class="footer__col">
+          <h3>Work</h3>
+          <a href="/#work">Overview</a>
+          <a href="/portfolio.html">Portfolio</a>
+          <a href="/labs.html">Labs</a>
+        </div>
+        <div class="footer__col">
+          <h3>Writing</h3>
+          <a href="/#books">Books</a>
+          <a href="/#fiction">Fiction</a>
+          <a href="/hosted-cognition/">Hosted Cognition</a>
+          <a href="/ai-and-education/">AI &amp; Education</a>
+          <a href="/art-of-human-centered-ai/">Human-Centered AI</a>
+        </div>
+        <div class="footer__col">
+          <h3>About</h3>
+          <a href="/#about">Overview</a>
+          <a href="/#track">CV</a>
+          <a href="/#insights">Insights</a>
+          <a href="/#contact">Contact</a>
+        </div>
+      </nav>
+    </div>
+    <div class="container footer__inner">
+      <p>© <span id="year">2026</span> The Art of Living Large LLC. All rights reserved. · <a href="/privacy.html" style="color:inherit;">Privacy</a></p>
+      <p class="footer__quote"><em>"The price of light is less than the cost of darkness."</em> — Arthur C. Nielsen</p>
+    </div>
+  </footer>
+
+  <script src="/js/main.js?v=20"></script>
+  <script src="/js/trilogy.js?v=1"></script>
+</body>
+</html>

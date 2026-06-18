@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A More Beautiful Context — The Art of Human-Centered Context Engineering</title>
+  <meta name="description" content="Book Two of the Human-Centered AI trilogy. The quiet, unglamorous craft of briefing a capable mind: source, select, and sustain what the model sees." />
+  <link rel="canonical" href="https://gorantrajkovski.com/art-of-human-centered-ai/context.html" />
+  <meta property="og:type" content="book" />
+  <meta property="og:title" content="A More Beautiful Context — The Art of Human-Centered Context Engineering" />
+  <meta property="og:description" content="Book Two of the Human-Centered AI trilogy. Source, select, and sustain what a capable mind sees." />
+  <meta property="og:url" content="https://gorantrajkovski.com/art-of-human-centered-ai/context.html" />
+  <meta property="og:image" content="https://gorantrajkovski.com/assets/img/books/more-beautiful-context.jpg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500;1,8..60,600&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/css/style.css?v=20" />
+  <link rel="stylesheet" href="/css/trilogy.css?v=1" />
+
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon/favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#0E0E0C" />
+
+  <script>
+    (function(){var t=localStorage.getItem('gt-theme')||(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);})();
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#top">Skip to content</a>
+
+  <nav class="nav" id="nav">
+    <div class="nav__wrap">
+      <a href="/" class="nav__brand">
+        <span class="nav__brand-mark">GT</span>
+        <span class="nav__brand-name">Goran Trajkovski</span>
+      </a>
+      <ul class="nav__links">
+        <li><a href="/#services">Services</a></li>
+        <li class="nav__group">
+          <button type="button" class="nav__group-btn" aria-haspopup="true" aria-expanded="false">Work <svg class="nav__caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          <ul class="nav__menu">
+            <li><a href="/#work">Overview</a></li>
+            <li><a href="/portfolio.html">Portfolio</a></li>
+            <li><a href="/labs.html">Labs</a></li>
+          </ul>
+        </li>
+        <li class="nav__group">
+          <button type="button" class="nav__group-btn" aria-haspopup="true" aria-expanded="false">Writing <svg class="nav__caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          <ul class="nav__menu">
+            <li><a href="/#books">Books</a></li>
+            <li><a href="/#fiction">Fiction</a></li>
+            <li><a href="/hosted-cognition/">Hosted Cognition</a></li>
+            <li><a href="/ai-and-education/">AI &amp; Education</a></li>
+            <li><a href="/art-of-human-centered-ai/" aria-current="page">The Art of Human-Centered AI</a></li>
+          </ul>
+        </li>
+        <li class="nav__group">
+          <button type="button" class="nav__group-btn" aria-haspopup="true" aria-expanded="false">About <svg class="nav__caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          <ul class="nav__menu">
+            <li><a href="/#about">Overview</a></li>
+            <li><a href="/#track">CV</a></li>
+            <li><a href="/#insights">Insights</a></li>
+          </ul>
+        </li>
+        <li>
+          <div class="lang-switch" role="group" aria-label="Language">
+            <a href="/" class="is-active" hreflang="en">EN</a>
+            <a href="/es/" hreflang="es">ES</a>
+            <a href="/mk/" hreflang="mk">MK</a>
+          </div>
+        </li>
+        <li><a href="/#contact" class="nav__cta">Get in touch</a></li>
+      </ul>
+      <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main id="top">
+
+    <!-- BOOK HERO -->
+    <section class="tr-hero">
+      <div class="tr-container tr-bookhero__inner">
+        <div class="tr-bookhero__cover reveal">
+          <img src="/assets/img/books/more-beautiful-context.jpg" alt="A More Beautiful Context" width="720" height="1079" />
+        </div>
+        <div>
+          <span class="tr-eyebrow reveal">Book Two · See · 2026</span>
+          <h1 class="tr-booktitle reveal">A More<br>Beautiful<br><em>Context</em></h1>
+          <p class="tr-booksub reveal">The Art of Human-Centered Context Engineering</p>
+          <p class="tr-lede reveal">The prompt was never the point. What matters is what the model can <em>see</em> when it answers — your actual documents, the memory of what you said, the five facts it needs instead of the five hundred it doesn't.</p>
+          <div class="tr-cta reveal">
+            <a class="btn btn--primary" href="https://www.amazon.com/dp/B0H59CSDQW" target="_blank" rel="noopener">Buy on Amazon</a>
+            <a class="btn btn--ghost" href="index.html">← Back to the trilogy</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT IT'S ABOUT -->
+    <section class="tr-section--sm">
+      <div class="tr-narrow">
+        <p class="tr-eyebrow reveal">What it's about</p>
+        <h2 class="tr-h2 reveal" style="font-size:clamp(26px,4vw,42px)">Briefing a colleague.</h2>
+        <div class="tr-prose reveal">
+          <p>Picture the best handoff you've ever received at work. Instead of dumping two hundred files on your desk, someone sat down for twenty minutes and told you what actually mattered. You walked away able to do the job — not because you were brilliant, but because someone had done the work of deciding what you needed to know.</p>
+          <p>A model, like a new colleague, is only as good as the brief it gets. The first book treated that brief as a single message — the prompt. This one is about everything the message sits inside: the documents you make available, the history of what's been said, the facts you pull in and the ones you hold back. That whole surrounding situation is the <em>context</em>, and engineering it well is the difference between a colleague set up to succeed and one handed a folder and a shrug.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FRAMEWORK -->
+    <section class="tr-section--sm">
+      <div class="tr-narrow">
+        <p class="tr-eyebrow reveal">The framework</p>
+        <h2 class="tr-h2 reveal" style="font-size:clamp(26px,4vw,42px)">FRAME</h2>
+        <p class="tr-lede reveal">Three jobs that make up the work of context engineering — running at once, pulling against each other. The judgment to balance them is the whole craft.</p>
+        <div class="tr-fw">
+          <div class="tr-fw__item reveal"><div class="tr-fw__letter">S</div><div><h4>Source — what you bring in</h4><p>Putting the right real material in front of the model at the moment it answers — and trusting where it came from, so answers are grounded instead of guessed.</p></div></div>
+          <div class="tr-fw__item reveal"><div class="tr-fw__letter">S</div><div><h4>Select — what you leave out</h4><p>The discipline of omission. A bad inclusion is visible; a bad omission leaves no trace. Less, ordered well, beats more.</p></div></div>
+          <div class="tr-fw__item reveal"><div class="tr-fw__letter">S</div><div><h4>Sustain — what persists over time</h4><p>Memory, state, and the relational thread — what carries from one exchange to the next, done humanely, with the right to inspect and forget.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EPIGRAPH -->
+    <section class="tr-band tr-section--sm">
+      <div class="tr-narrow">
+        <blockquote class="reveal">“Every context is an act of editing, and editing is never neutral. What I put in front of a model shapes what it can conclude.”
+          <cite>From the manifesto</cite>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- PREV / NEXT -->
+    <section class="tr-section--sm">
+      <div class="tr-container">
+        <div class="tr-booknav">
+          <a class="prev" href="prompt.html"><p class="tr-bn__dir">← Book One · Say</p><p class="tr-bn__title">A More Beautiful Prompt</p></a>
+          <a class="next" href="agent.html"><p class="tr-bn__dir">Book Three · Do →</p><p class="tr-bn__title">A More Beautiful Agent</p></a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="tr-container footer__grid">
+      <div class="footer__brand">
+        <a href="/" class="footer__mark">GT</a>
+        <p class="footer__tagline">AI strategy, course design, and EdTech transformation — keeping the human at the center of the work.</p>
+      </div>
+      <nav class="footer__nav" aria-label="Site">
+        <div class="footer__col">
+          <h3>Work</h3>
+          <a href="/#work">Overview</a>
+          <a href="/portfolio.html">Portfolio</a>
+          <a href="/labs.html">Labs</a>
+        </div>
+        <div class="footer__col">
+          <h3>Writing</h3>
+          <a href="/#books">Books</a>
+          <a href="/#fiction">Fiction</a>
+          <a href="/hosted-cognition/">Hosted Cognition</a>
+          <a href="/ai-and-education/">AI &amp; Education</a>
+          <a href="/art-of-human-centered-ai/">Human-Centered AI</a>
+        </div>
+        <div class="footer__col">
+          <h3>About</h3>
+          <a href="/#about">Overview</a>
+          <a href="/#track">CV</a>
+          <a href="/#insights">Insights</a>
+          <a href="/#contact">Contact</a>
+        </div>
+      </nav>
+    </div>
+    <div class="container footer__inner">
+      <p>© <span id="year">2026</span> The Art of Living Large LLC. All rights reserved. · <a href="/privacy.html" style="color:inherit;">Privacy</a></p>
+      <p class="footer__quote"><em>"The price of light is less than the cost of darkness."</em> — Arthur C. Nielsen</p>
+    </div>
+  </footer>
+
+  <script src="/js/main.js?v=20"></script>
+  <script src="/js/trilogy.js?v=1"></script>
+</body>
+</html>

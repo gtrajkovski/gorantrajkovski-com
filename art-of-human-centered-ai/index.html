@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Art of Human-Centered AI — a trilogy by Goran Trajkovski, Ph.D.</title>
+  <meta name="description" content="Three books on the craft of working alongside intelligent machines — what you say, what they see, and what they do. A More Beautiful Prompt, Context, and Agent." />
+  <link rel="canonical" href="https://gorantrajkovski.com/art-of-human-centered-ai/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="The Art of Human-Centered AI — a trilogy by Goran Trajkovski, Ph.D." />
+  <meta property="og:description" content="Word → Context → Action. Three short books on keeping the human at the center of the work as machines learn to say, see, and do." />
+  <meta property="og:url" content="https://gorantrajkovski.com/art-of-human-centered-ai/" />
+  <meta property="og:image" content="https://gorantrajkovski.com/assets/img/books/more-beautiful-context.jpg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500;1,8..60,600&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/css/style.css?v=20" />
+  <link rel="stylesheet" href="/css/trilogy.css?v=1" />
+
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon/favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#0E0E0C" />
+
+  <script>
+    (function(){var t=localStorage.getItem('gt-theme')||(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);})();
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#top">Skip to content</a>
+
+  <nav class="nav" id="nav">
+    <div class="nav__wrap">
+      <a href="/" class="nav__brand">
+        <span class="nav__brand-mark">GT</span>
+        <span class="nav__brand-name">Goran Trajkovski</span>
+      </a>
+      <ul class="nav__links">
+        <li><a href="/#services">Services</a></li>
+        <li class="nav__group">
+          <button type="button" class="nav__group-btn" aria-haspopup="true" aria-expanded="false">Work <svg class="nav__caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          <ul class="nav__menu">
+            <li><a href="/#work">Overview</a></li>
+            <li><a href="/portfolio.html">Portfolio</a></li>
+            <li><a href="/labs.html">Labs</a></li>
+          </ul>
+        </li>
+        <li class="nav__group">
+          <button type="button" class="nav__group-btn" aria-haspopup="true" aria-expanded="false">Writing <svg class="nav__caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          <ul class="nav__menu">
+            <li><a href="/#books">Books</a></li>
+            <li><a href="/#fiction">Fiction</a></li>
+            <li><a href="/hosted-cognition/">Hosted Cognition</a></li>
+            <li><a href="/ai-and-education/">AI &amp; Education</a></li>
+            <li><a href="/art-of-human-centered-ai/" aria-current="page">The Art of Human-Centered AI</a></li>
+          </ul>
+        </li>
+        <li class="nav__group">
+          <button type="button" class="nav__group-btn" aria-haspopup="true" aria-expanded="false">About <svg class="nav__caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+          <ul class="nav__menu">
+            <li><a href="/#about">Overview</a></li>
+            <li><a href="/#track">CV</a></li>
+            <li><a href="/#insights">Insights</a></li>
+          </ul>
+        </li>
+        <li>
+          <div class="lang-switch" role="group" aria-label="Language">
+            <a href="/" class="is-active" hreflang="en">EN</a>
+            <a href="/es/" hreflang="es">ES</a>
+            <a href="/mk/" hreflang="mk">MK</a>
+          </div>
+        </li>
+        <li><a href="/#contact" class="nav__cta">Get in touch</a></li>
+      </ul>
+      <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="nav__toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main id="top">
+
+    <!-- HERO -->
+    <section class="tr-hero">
+      <div class="tr-container tr-hero__inner">
+        <div>
+          <span class="tr-eyebrow reveal">A trilogy by Goran Trajkovski, Ph.D.</span>
+          <h1 class="tr-h1 reveal">The Art of<br><em>Human-Centered AI</em></h1>
+          <p class="tr-lede reveal">Three books on the craft of working alongside intelligent machines — <em>what you say, what they see, and what they do</em> — without losing what makes the work worth doing.</p>
+          <div class="tr-cta reveal">
+            <a class="btn btn--primary" href="https://www.amazon.com/dp/B0H57TXYTZ" target="_blank" rel="noopener">Get the books</a>
+            <a class="btn btn--ghost" href="#books">Meet the trilogy →</a>
+          </div>
+        </div>
+        <div class="tr-fan reveal">
+          <a href="prompt.html" title="A More Beautiful Prompt"><img src="/assets/img/books/MoreBeautifulPrompt-v2.jpg" alt="A More Beautiful Prompt" width="667" height="1000" /></a>
+          <a href="context.html" title="A More Beautiful Context"><img src="/assets/img/books/more-beautiful-context.jpg" alt="A More Beautiful Context" width="720" height="1079" /></a>
+          <a href="agent.html" title="A More Beautiful Agent"><img src="/assets/img/books/more-beautiful-agent.jpg" alt="A More Beautiful Agent" width="720" height="1151" /></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE ARC -->
+    <section class="tr-section--sm">
+      <div class="tr-container">
+        <p class="tr-eyebrow tr-eyebrow--center reveal">One argument, in three movements</p>
+        <h2 class="tr-h2 tr-center reveal">Word → Context → Action</h2>
+        <p class="tr-lede tr-lede--center reveal">Each book hands a little more of the work to the machine — and asks a different thing of you.</p>
+        <div class="tr-arc">
+          <div class="tr-arc__step reveal">
+            <p class="tr-verb">Say</p>
+            <h3>A More Beautiful Prompt</h3>
+            <p>The words you choose. Asking well, in a single exchange — and why clever wording stopped being the point.</p>
+          </div>
+          <div class="tr-arc__step reveal">
+            <p class="tr-verb">See</p>
+            <h3>A More Beautiful Context</h3>
+            <p>The material they reason over. The brief, the memory, the noise stripped out, so a capable mind can do good work.</p>
+          </div>
+          <div class="tr-arc__step reveal">
+            <p class="tr-verb">Do</p>
+            <h3>A More Beautiful Agent</h3>
+            <p>The actions you permit. The loop, the leash, the hand on the wheel — and who stays accountable when a machine acts.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE TRILOGY -->
+    <section class="tr-section--sm" id="books">
+      <div class="tr-container">
+        <p class="tr-eyebrow reveal">The Trilogy</p>
+        <h2 class="tr-h2 reveal" style="max-width:18ch">Three angles on a single stubborn question.</h2>
+        <div class="tr-books">
+          <a class="tr-card reveal" href="prompt.html">
+            <img src="/assets/img/books/MoreBeautifulPrompt-v2.jpg" alt="A More Beautiful Prompt" width="667" height="1000" />
+            <p class="tr-card__kicker">Book One · Say · 2023</p>
+            <p class="tr-card__title">A More Beautiful Prompt</p>
+            <p class="tr-card__sub">The art of asking well — and why the magic words stopped mattering.</p>
+            <span class="tr-card__more">Explore the book →</span>
+          </a>
+          <a class="tr-card reveal" href="context.html">
+            <img src="/assets/img/books/more-beautiful-context.jpg" alt="A More Beautiful Context" width="720" height="1079" />
+            <p class="tr-card__kicker">Book Two · See · 2026</p>
+            <p class="tr-card__title">A More Beautiful Context</p>
+            <p class="tr-card__sub">Briefing a capable mind: source, select, and sustain what it sees.</p>
+            <span class="tr-card__more">Explore the book →</span>
+          </a>
+          <a class="tr-card reveal" href="agent.html">
+            <img src="/assets/img/books/more-beautiful-agent.jpg" alt="A More Beautiful Agent" width="720" height="1151" />
+            <p class="tr-card__kicker">Book Three · Do · 2026</p>
+            <p class="tr-card__title">A More Beautiful Agent</p>
+            <p class="tr-card__sub">Handing over the keys: autonomy, oversight, and the hand on the wheel.</p>
+            <span class="tr-card__more">Explore the book →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- EPIGRAPH -->
+    <section class="tr-band tr-section--sm">
+      <div class="tr-narrow">
+        <blockquote class="reveal">“Give a brilliant mind the wrong file and it will hand you a brilliant wrong answer. The intelligence was never the bottleneck. The briefing was.”
+          <cite>From A More Beautiful Context</cite>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="tr-about tr-section--sm" id="about">
+      <div class="tr-container tr-about__row">
+        <img src="/assets/img/portrait/headshot.jpg" alt="Goran P. Trajkovski, Ph.D." width="220" height="293" />
+        <div class="reveal">
+          <p class="tr-eyebrow">About the author</p>
+          <h2 class="tr-h2" style="font-size:clamp(26px,4vw,40px)">Goran P. Trajkovski, Ph.D.</h2>
+          <p>Goran is a longtime higher-education and technology academic with more than three hundred scholarly works on data-driven decision-making, learning, and cognitive systems. Across the <em>Human-Centered AI</em> trilogy he turns that lens on the everyday craft of working with intelligent machines — the prompt, the context, and the agent — always returning to the same conviction: the hard part was never the machine.</p>
+          <a class="btn btn--ghost btn--small" href="/">Visit gorantrajkovski.com →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- BUY CTA -->
+    <section class="tr-section--sm tr-center">
+      <div class="tr-narrow">
+        <span class="tr-eyebrow tr-eyebrow--center reveal">Read the whole argument</span>
+        <h2 class="tr-h2 tr-center reveal" style="font-size:clamp(30px,5vw,56px)">Start anywhere.<br><em>The arc is the point.</em></h2>
+        <p class="tr-lede tr-lede--center reveal">Three short books, meant to fit together — word to context to action, three places where a person meets a machine and decides how much of the work to keep.</p>
+        <a class="btn btn--primary reveal" href="https://www.amazon.com/dp/B0H57TXYTZ" target="_blank" rel="noopener">Get the trilogy on Amazon</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="tr-container footer__grid">
+      <div class="footer__brand">
+        <a href="/" class="footer__mark">GT</a>
+        <p class="footer__tagline">AI strategy, course design, and EdTech transformation — keeping the human at the center of the work.</p>
+      </div>
+      <nav class="footer__nav" aria-label="Site">
+        <div class="footer__col">
+          <h3>Work</h3>
+          <a href="/#work">Overview</a>
+          <a href="/portfolio.html">Portfolio</a>
+          <a href="/labs.html">Labs</a>
+        </div>
+        <div class="footer__col">
+          <h3>Writing</h3>
+          <a href="/#books">Books</a>
+          <a href="/#fiction">Fiction</a>
+          <a href="/hosted-cognition/">Hosted Cognition</a>
+          <a href="/ai-and-education/">AI &amp; Education</a>
+          <a href="/art-of-human-centered-ai/">Human-Centered AI</a>
+        </div>
+        <div class="footer__col">
+          <h3>About</h3>
+          <a href="/#about">Overview</a>
+          <a href="/#track">CV</a>
+          <a href="/#insights">Insights</a>
+          <a href="/#contact">Contact</a>
+        </div>
+      </nav>
+    </div>
+    <div class="container footer__inner">
+      <p>© <span id="year">2026</span> The Art of Living Large LLC. All rights reserved. · <a href="/privacy.html" style="color:inherit;">Privacy</a></p>
+      <p class="footer__quote"><em>"The price of light is less than the cost of darkness."</em> — Arthur C. Nielsen</p>
+    </div>
+  </footer>
+
+  <script src="/js/main.js?v=20"></script>
+  <script src="/js/trilogy.js?v=1"></script>
+</body>
+</html>
