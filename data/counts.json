@@ -1,0 +1,15 @@
+{
+  "scholarly_works": 133,
+  "published_reviews": 110,
+  "self_published": 171,
+  "presentations_and_service": 43,
+  "total_records": 457,
+  "published_to_date": 397,
+  "scheduled_or_draft": 17,
+  "decisions": {
+    "living_large": "series",
+    "book_twin_keep": "trade"
+  },
+  "current_as_of": "July 2026",
+  "built": "2026-07-20"
+}
