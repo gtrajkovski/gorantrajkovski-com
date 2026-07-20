@@ -476,11 +476,11 @@ mList.onclick=()=>setView(false);mField.onclick=()=>setView(true);
 function setView(f){fieldOn=f;mList.setAttribute("aria-pressed",!f);mField.setAttribute("aria-pressed",f);document.getElementById("list").style.display=f?"none":"";const fw=document.getElementById("fieldwrap");fw.style.display=f?"block":"none";fw.classList.toggle("on",f);if(f){sizeField();drawField(ITEMS.filter(pass));}}
 const fcv=document.getElementById("field");const fx=fcv.getContext("2d");let FW=0,FH=0;
 function sizeField(){const r=fcv.getBoundingClientRect();FW=r.width;FH=r.height;const dpr=Math.min(devicePixelRatio||1,2);fcv.width=FW*dpr;fcv.height=FH*dpr;fx.setTransform(dpr,0,0,dpr,0,0);}
-const NODES=ITEMS.map((it,i)=>({it,i,x:Math.random()*900,y:Math.random()*400,r:2+(it.year?1:0)}));
+const NODES=ITEMS.filter(it=>it.year).map((it,i)=>({it,i,x:Math.random()*900,y:Math.random()*400,r:3}));
 function getVar(v){return (getComputedStyle(document.body).getPropertyValue(v)||"#888").trim();}
 function drawField(shown){
  if(!fieldOn)return;const on=new Set(shown);
- NODES.forEach(n=>{const y=n.it.year||1996;n.tx=40+((y-YMIN)/(YMAX-YMIN))*(FW-80)+Math.sin(n.i*7.1)*10;n.ty=FH/2+Math.cos(n.i*3.3)*(FH*0.36)+Math.sin(n.i)*8;});
+ NODES.forEach(n=>{const y=n.it.year;n.tx=40+((y-YMIN)/(YMAX-YMIN))*(FW-80)+Math.sin(n.i*7.1)*10;n.ty=FH/2+Math.cos(n.i*3.3)*(FH*0.36)+Math.sin(n.i)*8;});
  cancelAnimationFrame(fieldRAF);const t0=performance.now();
  (function step(t){fx.clearRect(0,0,FW,FH);
   for(let y=2000;y<=2025;y+=5){const px=40+((y-YMIN)/(YMAX-YMIN))*(FW-80);fx.fillStyle=getVar('--line');fx.fillRect(px,20,1,FH-40);fx.font='10px monospace';fx.fillStyle=getVar('--mute');fx.fillText(y,px-8,FH-8);}
@@ -586,8 +586,8 @@ document.getElementById("colophon").innerHTML=
   </tbody></table>
   <p style="margin-top:14px"><b>Known gaps, disclosed:</b></p>
   <ul>${GAPS.map(g=>`<li>${esc(g)}</li>`).join("")}</ul>
-  <p style="margin-top:12px;color:var(--mute)">Record current as of <b>${esc(CNT.current_as_of)}</b>. The interactive layer above uses a provisional working set pending the <code>record.py</code> wiring; the tiered counts here are the locked figures.</p></div></details>`;
-document.getElementById("foot").textContent=CNT.total_records+" records · compiled "+CNT.current_as_of+" · prototype";
+  <p style="margin-top:12px;color:var(--mute)">Record current as of <b>${esc(CNT.current_as_of)}</b>. Every count and mark on this page is generated at build time by <code>record.py</code> over a single deduplicated set of ${CNT.total_records} records — no figure is hand-entered. The streamgraph and field plot works that carry a date; a handful of undated, ongoing roles are listed but not placed on the timeline.</p></div></details>`;
+document.getElementById("foot").textContent=CNT.total_records+" records · compiled "+CNT.current_as_of;
 addEventListener("resize",()=>{window.__drawStream&&window.__drawStream();if(fieldOn){sizeField();drawField(ITEMS.filter(pass));}});
 apply();
 if(innerWidth>700)setView(true);   /* Field open by default on desktop; List opens on click */
