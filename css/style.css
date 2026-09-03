@@ -321,6 +321,13 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
   flex-shrink: 0;
   transition: background .25s var(--t), color .25s var(--t), transform .25s var(--t);
 }
+.nav__brand-mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: inherit;
+}
 .nav__brand:hover .nav__brand-mark {
   background: var(--accent);
   color: var(--paper);
