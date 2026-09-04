@@ -22,8 +22,9 @@
   <meta name="theme-color" content="#0E0E0C" />
   <script>(function(){var t=localStorage.getItem('gt-theme')||(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);})();</script>
   <style>
-body.record{--paper2:var(--paper-2);--paper3:var(--paper-3);--ink2:var(--ink-2);--mute:color-mix(in srgb,var(--ink) 46%,transparent);--accent2:#1F8A80;--disp:var(--font-display);--mono:var(--font-mono);--recnav:64px}
-#readbar{scroll-margin-top:calc(var(--recnav,64px) + 14px)}
+body.record{--paper2:var(--paper-2);--paper3:var(--paper-3);--ink2:var(--ink-2);--mute:color-mix(in srgb,var(--ink) 46%,transparent);--accent2:#1F8A80;--disp:var(--font-display);--mono:var(--font-mono);--recnav:0px}
+body.record .nav{position:static}
+#readbar{scroll-margin-top:calc(var(--recnav,0px) + 14px)}
 
 
 
@@ -45,7 +46,7 @@ h1 em{font-style:italic;color:var(--accent)}
 .stats{display:flex;flex-wrap:wrap;gap:22px;margin:20px 0 4px;font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--mute);text-transform:uppercase}
 .stats b{display:block;font-family:var(--disp);font-size:1.7rem;color:var(--ink);letter-spacing:-.02em;text-transform:none;font-variant-numeric:tabular-nums}
 .stats .A b{color:var(--accent)}
-#stagewrap{position:sticky;top:var(--recnav,64px);z-index:20;background:var(--paper);padding-top:8px;transition:box-shadow .2s}
+#stagewrap{position:static;z-index:20;background:var(--paper);padding-top:8px;transition:box-shadow .2s}
 #stagewrap.docked{box-shadow:0 12px 24px -18px rgba(0,0,0,.5);border-bottom:1px solid var(--line)}
 .streamhead{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .streamhead h2{font-family:var(--disp);font-weight:600;font-size:1.15rem;margin:6px 0}
@@ -60,7 +61,7 @@ h1 em{font-style:italic;color:var(--accent)}
 .stream-txt{fill:var(--mute);font:10px var(--mono,monospace)}
 .dipnote{fill:var(--ink2);font:italic 12px var(--disp,serif)}
 .dipline{stroke:var(--mute);stroke-width:1;stroke-dasharray:2 3}
-.readbar{position:sticky;top:var(--recnav,64px);z-index:19;display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:9px 0;font-family:var(--mono);font-size:12px;color:var(--ink2);border-bottom:1px solid var(--line);background:var(--paper)}
+.readbar{position:sticky;top:0;z-index:19;display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:9px 0;font-family:var(--mono);font-size:12px;color:var(--ink2);border-bottom:1px solid var(--line);background:var(--paper)}
 .readbar b{color:var(--accent);font-weight:500}
 .readbar .clr{margin-left:auto;background:none;border:1px solid var(--line);border-radius:6px;color:var(--ink2);cursor:pointer;padding:4px 9px;font:inherit}
 .readbar .clr:hover{border-color:var(--accent);color:var(--accent)}
@@ -246,7 +247,6 @@ footer{padding:22px 0 70px;color:var(--mute);font-family:var(--mono);font-size:1
    <div class="chart"><canvas id="globe" aria-label="Globe of venue cities."></canvas></div></div>
  </section>
 
- <section class="colophon" id="colophon"></section>
  <footer id="foot"></footer>
 </div>
 
@@ -347,7 +347,7 @@ function syncChips(){
  document.querySelectorAll('.fchip[data-fmt]').forEach(b=>b.classList.toggle("on",S.formats.has(b.dataset.fmt)));
 }
 let docked=false;
-function dock(){ if(docked||!anyFilter())return; docked=true; document.getElementById("stagewrap").classList.add("docked"); }
+function dock(){ /* stage now scrolls with the page — no compact docking */ }
 function apply(){
  const shown=ITEMS.filter(pass);
  const parts=[`<b>${shown.length}</b> records`];
@@ -572,26 +572,13 @@ fcv.addEventListener("mouseleave",hideTip);
  addEventListener("resize",()=>{size();draw();});size();draw();requestAnimationFrame(spin);
 })();
 
-/* ---------- stats + colophon + theme ---------- */
+/* ---------- stats + theme ---------- */
 document.getElementById("stats").innerHTML=[["A",CNT.scholarly_works,"peer-reviewed works"],["",CNT.published_reviews,"ACM reviews"],["",CNT.self_published,"self-published"],["",CNT.total_records,"distinct records"],["","1996–26","span"]].map(s=>`<div class="${s[0]}"><b>${s[1]}</b>${s[2]}</div>`).join("");
-document.getElementById("colophon").innerHTML=
- `<details class="colo"><summary><span class="chev">▸</span> Colophon — how this was measured <small>${CNT.total_records} records · ${esc(CNT.current_as_of)}</small></summary><div class="colobody">
-  <p>One distinct published or scheduled output counts once. Duplicates are removed in five classes: authored/trade twins · series-summary rows · chapters of a counted container · one multi-volume series as one work · rows authored by someone else. The number is emitted by <code>record.py</code> and guarded by a count lock — it cannot change without landing in a diff.</p>
-  <table class="ctable"><thead><tr><th>Tier</th><th>What it is</th><th class="n">Count</th></tr></thead><tbody>
-   <tr><td>A</td><td>Peer-reviewed &amp; published scholarly works</td><td class="n">${CNT.scholarly_works}</td></tr>
-   <tr><td>B</td><td>Published reviews (ACM Computing Reviews)</td><td class="n">${CNT.published_reviews}</td></tr>
-   <tr><td>C</td><td>Self-published &amp; trade writing</td><td class="n">${CNT.self_published}</td></tr>
-   <tr><td>D</td><td>Presentations &amp; service (roles, not works)</td><td class="n">${CNT.presentations_and_service}</td></tr>
-   <tr><td><b>—</b></td><td><b>Distinct records</b> (${CNT.published_to_date} published, ${CNT.scheduled_or_draft} scheduled/draft)</td><td class="n"><b>${CNT.total_records}</b></td></tr>
-  </tbody></table>
-  <p style="margin-top:14px"><b>Known gaps, disclosed:</b></p>
-  <ul>${GAPS.map(g=>`<li>${esc(g)}</li>`).join("")}</ul>
-  <p style="margin-top:12px;color:var(--mute)">Record current as of <b>${esc(CNT.current_as_of)}</b>. Every count and mark on this page is generated at build time by <code>record.py</code> over a single deduplicated set of ${CNT.total_records} records — no figure is hand-entered. The streamgraph and field plot works that carry a date; a handful of undated, ongoing roles are listed but not placed on the timeline.</p></div></details>`;
 document.getElementById("foot").textContent=CNT.total_records+" records · compiled "+CNT.current_as_of;
 addEventListener("resize",()=>{window.__drawStream&&window.__drawStream();if(fieldOn){sizeField();drawField(ITEMS.filter(pass));}});
 apply();
 if(innerWidth>700)setView(true);   /* Field open by default on desktop; List opens on click */
-(function(){var nav=document.getElementById('nav');function sn(){document.body.style.setProperty('--recnav',(nav?nav.offsetHeight:64)+'px');}sn();addEventListener('resize',sn);addEventListener('scroll',sn,{passive:true});new MutationObserver(function(){window.__drawStream&&window.__drawStream();}).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});})();
+(function(){new MutationObserver(function(){window.__drawStream&&window.__drawStream();}).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});})();
 
 </script>
 </body>
