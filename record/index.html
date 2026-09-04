@@ -247,7 +247,6 @@ footer{padding:22px 0 70px;color:var(--mute);font-family:var(--mono);font-size:1
    <div class="chart"><canvas id="globe" aria-label="Globe of venue cities."></canvas></div></div>
  </section>
 
- <section class="colophon" id="colophon"></section>
  <footer id="foot"></footer>
 </div>
 
@@ -573,21 +572,8 @@ fcv.addEventListener("mouseleave",hideTip);
  addEventListener("resize",()=>{size();draw();});size();draw();requestAnimationFrame(spin);
 })();
 
-/* ---------- stats + colophon + theme ---------- */
+/* ---------- stats + theme ---------- */
 document.getElementById("stats").innerHTML=[["A",CNT.scholarly_works,"peer-reviewed works"],["",CNT.published_reviews,"ACM reviews"],["",CNT.self_published,"self-published"],["",CNT.total_records,"distinct records"],["","1996–26","span"]].map(s=>`<div class="${s[0]}"><b>${s[1]}</b>${s[2]}</div>`).join("");
-document.getElementById("colophon").innerHTML=
- `<details class="colo"><summary><span class="chev">▸</span> Colophon — how this was measured <small>${CNT.total_records} records · ${esc(CNT.current_as_of)}</small></summary><div class="colobody">
-  <p>One distinct published or scheduled output counts once. Duplicates are removed in five classes: authored/trade twins · series-summary rows · chapters of a counted container · one multi-volume series as one work · rows authored by someone else. The number is emitted by <code>record.py</code> and guarded by a count lock — it cannot change without landing in a diff.</p>
-  <table class="ctable"><thead><tr><th>Tier</th><th>What it is</th><th class="n">Count</th></tr></thead><tbody>
-   <tr><td>A</td><td>Peer-reviewed &amp; published scholarly works</td><td class="n">${CNT.scholarly_works}</td></tr>
-   <tr><td>B</td><td>Published reviews (ACM Computing Reviews)</td><td class="n">${CNT.published_reviews}</td></tr>
-   <tr><td>C</td><td>Self-published &amp; trade writing</td><td class="n">${CNT.self_published}</td></tr>
-   <tr><td>D</td><td>Presentations &amp; service (roles, not works)</td><td class="n">${CNT.presentations_and_service}</td></tr>
-   <tr><td><b>—</b></td><td><b>Distinct records</b> (${CNT.published_to_date} published, ${CNT.scheduled_or_draft} scheduled/draft)</td><td class="n"><b>${CNT.total_records}</b></td></tr>
-  </tbody></table>
-  <p style="margin-top:14px"><b>Known gaps, disclosed:</b></p>
-  <ul>${GAPS.map(g=>`<li>${esc(g)}</li>`).join("")}</ul>
-  <p style="margin-top:12px;color:var(--mute)">Record current as of <b>${esc(CNT.current_as_of)}</b>. Every count and mark on this page is generated at build time by <code>record.py</code> over a single deduplicated set of ${CNT.total_records} records — no figure is hand-entered. The streamgraph and field plot works that carry a date; a handful of undated, ongoing roles are listed but not placed on the timeline.</p></div></details>`;
 document.getElementById("foot").textContent=CNT.total_records+" records · compiled "+CNT.current_as_of;
 addEventListener("resize",()=>{window.__drawStream&&window.__drawStream();if(fieldOn){sizeField();drawField(ITEMS.filter(pass));}});
 apply();
