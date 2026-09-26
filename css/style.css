@@ -43,7 +43,7 @@ em { font-style: italic; }
   --paper-3: #E2D9C5;
   --ink: #15161A;
   --ink-2: #36383F;
-  --muted: #6B6E78;
+  --muted: #5A5C64;
   --line: rgba(21,22,26,.14);
   --rule-strong: rgba(21,22,26,.30);
   --accent: #C8331E;
@@ -3191,3 +3191,17 @@ body.is-locked .portfolio-body { opacity: .55; pointer-events: none; user-select
   background: var(--accent);
   will-change: transform;
 }
+
+/* ── Contrast tuning (WCAG AA) ─────────────────────────────────────────
+   The "How I work" band is dark in both themes; in LIGHT theme its accent
+   text used the dark-red --accent-deep, too dark on the dark band. Use the
+   brighter soft terracotta there (light theme only). */
+:root:not([data-theme="dark"]) .process__eyebrow,
+:root:not([data-theme="dark"]) .process__title em,
+:root:not([data-theme="dark"]) .process-step__num { color: var(--accent-soft); }
+
+/* In DARK theme, small accent labels on dark cards used --accent-soft
+   (#C8331E) at ~3.2:1; use the brighter --accent (#E27A65). */
+:root[data-theme="dark"] .section--contact .section__eyebrow,
+:root[data-theme="dark"] .channel-card--feature .channel-card__platform,
+:root[data-theme="dark"] .channel-card--feature .channel-card__cta { color: var(--accent); }
