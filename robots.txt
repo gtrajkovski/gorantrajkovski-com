@@ -1,5 +1,5 @@
 User-agent: *
-Disallow: /cokegen/
+Disallow: /m7k2p/
 Allow: /
 
 Sitemap: https://gorantrajkovski.com/sitemap.xml
