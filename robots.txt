@@ -1,4 +1,5 @@
 User-agent: *
+Disallow: /tourosmarter/
 Disallow: /touro/
 Disallow: /m7k2p/
 Allow: /
