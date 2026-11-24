@@ -423,7 +423,7 @@ if(document.fonts)document.fonts.ready.then(redraw);
 
 /* guided walk-through: on by default, switch it off with the Guide toggle */
 {const isBook=typeof bookG==='function',gt=$('guideT');let gi=-1,ring=null,tip=null;
- const off=()=>{try{return localStorage.getItem('guideOff')==='1'}catch(e){return false}},remember=v=>{try{v?localStorage.setItem('guideOff','1'):localStorage.removeItem('guideOff')}catch(e){}};
+ const off=()=>{try{return localStorage.getItem('guideOff:how-machines-learn')==='1'}catch(e){return false}},remember=v=>{try{v?localStorage.setItem('guideOff:how-machines-learn','1'):localStorage.removeItem('guideOff:how-machines-learn')}catch(e){}};
  const steps=[
   ['#c3','The coil',isBook?'Each tile on the coil is a dated milestone. Drag to turn the coil, scroll or use + and − to zoom, and select a tile to open it. The arrow keys step from one record to the next.':'Each tile is one record, placed by date and colored by topic. Drag to turn the coil, scroll or use + and − to zoom, and select a tile to open it. The arrow keys step from one record to the next.'],
   ...(isBook?[[()=>{const g=bookG(),b=cv.getBoundingClientRect();return{left:b.left+g.x0-8,top:b.top+g.y0-30,width:15*g.cw+16,height:10*g.ch+48}},'The book','This grid is the book: one column per chapter, ten passages in each. Passages are not placed in time. Select one to read a sentence from the book and to see dashed lines to milestones that mention the same name.']]:[]),
@@ -445,7 +445,7 @@ if(document.fonts)document.fonts.ready.then(redraw);
   tip.innerHTML=`<p class="gk">Guide · ${vis.indexOf(gi)+1} of ${vis.length}</p><h3>${t}</h3><p>${x}</p><div class="gb"><button type="button" id="gBack" ${gi?'':'disabled'}>Back</button><button type="button" id="gNext" class="pri">${last?'Done':'Next'}</button><button type="button" id="gOff">Turn the guide off</button></div>`;
   $('gBack').onclick=()=>show(gi-1,-1);$('gNext').onclick=()=>gi<steps.length-1?show(gi+1,1):stop(false);$('gOff').onclick=()=>stop(true);place();requestAnimationFrame(place);setTimeout(place,300);setTimeout(place,700);$('gNext').focus({preventScroll:true})}
  function start(){if(!ring){ring=document.createElement('div');ring.className='gring';tip=document.createElement('div');tip.className='gtip';tip.setAttribute('role','dialog');tip.setAttribute('aria-label','Guide');document.body.append(ring,tip)}ring.hidden=tip.hidden=false;scrollTo({top:0,behavior:'instant'});show(0,1)}
- function stop(){gi=-1;if(ring)ring.hidden=tip.hidden=true;gt.checked=false;remember(true)}
+ function stop(persist){gi=-1;if(ring)ring.hidden=tip.hidden=true;gt.checked=false;if(persist)remember(true)}
  gt.checked=!off();gt.onchange=()=>{remember(!gt.checked);gt.checked?start():stop()};
  addEventListener('resize',place);document.addEventListener('scroll',place,{passive:true,capture:true});
  document.addEventListener('keydown',e=>{if(gi>=0&&e.key==='Escape'){e.stopPropagation();stop(false)}},true);

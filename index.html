@@ -23,7 +23,7 @@
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500;1,8..60,600&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500;1,8..60,600&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" /></noscript>
 
-  <link rel="stylesheet" href="/css/style.css?v=23" />
+  <link rel="stylesheet" href="/css/style.css?v=24" />
 
   <!-- Favicons (derived from headshot) -->
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -939,39 +939,87 @@
           <span class="portfolio-card__more">View deck →</span>
         </a>
 
-        <a class="portfolio-card portfolio-card--tone tone-humans" href="/explainers/how-humans-learn" target="_blank" rel="noopener">
+        <a class="portfolio-card portfolio-card--tone portfolio-card--rich tone-humans" href="/explainers/how-humans-learn" target="_blank" rel="noopener">
           <p class="portfolio-card__num">Explorer</p>
           <h3 class="portfolio-card__title">How <em>Humans</em> Learn</h3>
-          <p class="portfolio-card__count">114 records · schooling, training, assessment</p>
-          <ul class="portfolio-card__list">
-            <li>A coil of sourced records through time</li>
-            <li>Guided stories through connected records</li>
-            <li>Each record marked by its review status</li>
-          </ul>
+          <div class="portfolio-card__stack">
+            <div class="portfolio-card__face">
+              <p class="portfolio-card__summary">An interactive history of learning, teaching and testing: how people have shared knowledge, practiced skills, built schools and decided who is qualified, from early toolmakers to today.</p>
+              <ul class="portfolio-card__stats">
+                <li><b>114</b> subjects</li>
+                <li><b>7</b> guided stories</li>
+                <li><b>8</b> themes</li>
+              </ul>
+              <p class="portfolio-card__hint" aria-hidden="true">Hover for details</p>
+            </div>
+            <div class="portfolio-card__detail">
+              <p class="portfolio-card__detail-head">What you can do</p>
+              <ul class="portfolio-card__list">
+                <li>Turn a 3D coil of records through time, or switch to a flat timeline or a plain list</li>
+                <li>Take one of 7 guided stories, such as “Who gets to learn?” or “Prove you know it”</li>
+                <li>Filter by place, period and 8 themes, from apprenticeship to access and power</li>
+                <li>Compare past predictions about learning with what actually happened</li>
+                <li>Search people, places and ideas; open any record to see its sources</li>
+                <li>Copy any filtered set as CSV for your own analysis</li>
+              </ul>
+            </div>
+          </div>
           <span class="portfolio-card__more">Open the explorer <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></span>
         </a>
 
-        <a class="portfolio-card portfolio-card--tone tone-machines" href="/explainers/how-machines-learn" target="_blank" rel="noopener">
+        <a class="portfolio-card portfolio-card--tone portfolio-card--rich tone-machines" href="/explainers/how-machines-learn" target="_blank" rel="noopener">
           <p class="portfolio-card__num">Explorer</p>
           <h3 class="portfolio-card__title">How <em>Machines</em> Learn</h3>
-          <p class="portfolio-card__count">250 records · from Uruk clay tablets to today</p>
-          <ul class="portfolio-card__list">
-            <li>Data, inference, computing, evaluation &amp; power</li>
-            <li>Guided stories through connected records</li>
-            <li>Every record graded by its source evidence</li>
-          </ul>
+          <div class="portfolio-card__stack">
+            <div class="portfolio-card__face">
+              <p class="portfolio-card__summary">An interactive history of data, statistics, computing and AI, from Uruk clay tablets to ChatGPT and the EU AI Act. It asks at every turn: when we say a machine has learned, what do we mean, and how do we know?</p>
+              <ul class="portfolio-card__stats">
+                <li><b>250</b> records</li>
+                <li><b>6</b> guided stories</li>
+                <li><b>5,000+</b> years</li>
+              </ul>
+              <p class="portfolio-card__hint" aria-hidden="true">Hover for details</p>
+            </div>
+            <div class="portfolio-card__detail">
+              <p class="portfolio-card__detail-head">What you can do</p>
+              <ul class="portfolio-card__list">
+                <li>Turn a 3D coil of 5,000 years of records, or switch to a flat timeline or a plain list</li>
+                <li>Take one of 6 guided stories, such as “How does a machine recognize a pattern?”</li>
+                <li>Filter by place, period and 8 themes, from “Making the world countable” to “Deciding what counts”</li>
+                <li>See how well each record is sourced: primary source, secondary source or research lead</li>
+                <li>Search people, places and ideas, take a five-minute journey, or let it surprise you</li>
+                <li>Copy any filtered set as CSV for your own analysis</li>
+              </ul>
+            </div>
+          </div>
           <span class="portfolio-card__more">Open the explorer <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></span>
         </a>
 
-        <a class="portfolio-card portfolio-card--tone tone-mind" href="/explainers/mind-meets-machine" target="_blank" rel="noopener">
+        <a class="portfolio-card portfolio-card--tone portfolio-card--rich tone-mind" href="/explainers/mind-meets-machine" target="_blank" rel="noopener">
           <p class="portfolio-card__num">Explorer</p>
           <h3 class="portfolio-card__title">Mind <em>Meets</em> Machine</h3>
-          <p class="portfolio-card__count">Companion to the 2025 book · 23 open questions</p>
-          <ul class="portfolio-card__list">
-            <li>Dated milestones on a coil of time</li>
-            <li>Every chapter passage tagged by type and evidence</li>
-            <li>Filter, follow a thread, copy the data as CSV</li>
-          </ul>
+          <div class="portfolio-card__stack">
+            <div class="portfolio-card__face">
+              <p class="portfolio-card__summary">Where the history of teaching meets the history of learning machines: 150 sourced milestones beside 150 passages from the 2025 book, so you can always tell evidence from interpretation.</p>
+              <ul class="portfolio-card__stats">
+                <li><b>150</b> milestones</li>
+                <li><b>15</b> chapters</li>
+                <li><b>23</b> open questions</li>
+              </ul>
+              <p class="portfolio-card__hint" aria-hidden="true">Hover for details</p>
+            </div>
+            <div class="portfolio-card__detail">
+              <p class="portfolio-card__detail-head">What you can do</p>
+              <ul class="portfolio-card__list">
+                <li>Read the book’s 15 chapters, from Socrates’ Questions to The Classroom of Tomorrow</li>
+                <li>Follow 7 threads: Montessori, Dewey, Freire, Logo to Scratch, Bloom, Gardner, Vygotsky</li>
+                <li>Filter passages by kind: anecdote, interpretation, historical claim, forecast</li>
+                <li>Check each milestone’s evidence, from primary source to secondary</li>
+                <li>Browse the 23 open questions the research still has to settle</li>
+                <li>Copy any filtered set as CSV, or get the book</li>
+              </ul>
+            </div>
+          </div>
           <span class="portfolio-card__more">Open the explorer <span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></span>
         </a>
 
