@@ -1721,6 +1721,33 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
   font-weight: 600;
 }
 
+/* Explorer cards: each piece gets its own accent (top rule, label, link).
+   Light and dark values all clear 4.5:1 on the card background. */
+.portfolio-card--tone { border-top: 4px solid var(--tone); }
+.portfolio-card--tone .portfolio-card__num,
+.portfolio-card--tone .portfolio-card__more { color: var(--tone); }
+.portfolio-card--tone:hover { border-color: var(--tone); }
+.portfolio-card__lang {
+  display: inline-block;
+  margin-left: 6px;
+  font-style: normal;
+  font-family: var(--sans);
+  font-size: 11px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.tone-humans   { --tone: #9A5A08; }
+.tone-machines { --tone: #2E58B0; }
+.tone-mind     { --tone: #7A3E9D; }
+:root[data-theme="dark"] .tone-humans   { --tone: #F0B65E; }
+:root[data-theme="dark"] .tone-machines { --tone: #8FB0F5; }
+:root[data-theme="dark"] .tone-mind     { --tone: #C9A2EA; }
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
 .portfolio-cta {
   text-align: center;
   margin-top: 50px;
