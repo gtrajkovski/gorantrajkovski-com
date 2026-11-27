@@ -1743,6 +1743,8 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
 :root[data-theme="dark"] .tone-humans   { --tone: #F0B65E; }
 :root[data-theme="dark"] .tone-machines { --tone: #8FB0F5; }
 :root[data-theme="dark"] .tone-mind     { --tone: #C9A2EA; }
+.tone-roads    { --tone: #17695C; }
+:root[data-theme="dark"] .tone-roads    { --tone: #6FD3C4; }
 .sr-only {
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
   overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
