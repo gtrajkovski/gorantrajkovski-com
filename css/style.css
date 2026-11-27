@@ -1775,6 +1775,13 @@ body, .nav, .service, .case, .portfolio-card, .contact-card, .artifact, .speakin
   margin-bottom: 6px;
 }
 .portfolio-card--rich .portfolio-card__list { margin-bottom: 0; }
+.portfolio-card__note {
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+.portfolio-card__note b { color: var(--ink-2); font-weight: 600; }
 .portfolio-card--rich .portfolio-card__stack { flex: 1; }
 .portfolio-card__stats {
   display: flex;
